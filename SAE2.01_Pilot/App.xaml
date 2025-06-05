@@ -4,6 +4,42 @@
              xmlns:local="clr-namespace:SAE2._01_Pilot"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="MenuItem" x:Key="MenuItemStyle">
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="61"/>
+            <Setter Property="Width" Value="219"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="border" Background="{TemplateBinding Background}">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD5D5D5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="MenuItem" x:Key="MenuItemSelectStyle">
+            <Setter Property="Background" Value="#FF005EA5"/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="61"/>
+            <Setter Property="Width" Value="219"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

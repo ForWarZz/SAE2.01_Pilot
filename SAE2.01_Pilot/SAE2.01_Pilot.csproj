@@ -10,17 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\pilot.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\pilot.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Remove="Fonts\Roboto-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Images\pilot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

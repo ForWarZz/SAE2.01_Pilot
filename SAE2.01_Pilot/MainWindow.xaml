@@ -5,29 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
-    Width="1200"
-    Height="850"
+    Title="Pilot"
+    Width="1194"
+    Height="834"
     mc:Ignorable="d">
-    <StackPanel>
-        <StackPanel
-            Height="80"
-            Background="#FF005EA5"
-            Orientation="Horizontal">
-            <Image
-                Width="200"
-                Height="49"
-                RenderTransformOrigin="0.5,0.5"
-                Source="/Images/pilot.png">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="1" />
-                        <SkewTransform />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
+    <StackPanel x:Name="spMainWindow">
+        <StackPanel x:Name="spTop" Height="74" Background="#FF005EA5" Orientation="Horizontal">
+            <Image Height="44" Width="165" Source="/Images/pilot.png" Margin="20,0,0,0"/>
+        </StackPanel>
+        <StackPanel x:Name="spMenu" Height="61" Background="#FFEAEAEA" >
+            <Menu x:Name="MenuTop" Background="#FFEAEAEA" >
+                <MenuItem x:Name="miCommandes" Header="Les Commandes" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
+                <MenuItem x:Name="miRevendeurs" Header="Les Revendeurs" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
+                <MenuItem x:Name="miProduits" Header="Les Produits" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
+            </Menu>
+        </StackPanel>
+        <StackPanel x:Name="spContent">
+            
         </StackPanel>
     </StackPanel>
 </Window>
