@@ -29,6 +29,20 @@
                 FontSize="16"
                 Foreground="White"
                 Text="Connecté au système central" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White">
+                <Run Text="Connecté en tant que " />
+                <Run Text="{Binding Prenom}" />
+                <Run Text=" " />
+                <Run Text="{Binding Nom}" />
+                <Run Text=" - " />
+                <Run Text="{Binding Role.Libelle}" />
+            </TextBlock>
         </DockPanel>
         <StackPanel
             x:Name="spMenu"

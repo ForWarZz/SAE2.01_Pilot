@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Connexion"
-    Width="1194"
+    Width="811"
     Height="834"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -41,7 +41,7 @@
             Orientation="Vertical">
 
             <Border
-                Margin="150,0,150,0"
+                Margin="100,0,100,0"
                 Padding="0"
                 Background="#FFF2F2F2"
                 CornerRadius="15">

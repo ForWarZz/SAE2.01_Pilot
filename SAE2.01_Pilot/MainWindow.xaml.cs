@@ -36,7 +36,13 @@ namespace SAE2._01_Pilot
 
             if (connexionWindow.DialogResult == true)
             {
+                Employe = connexionWindow.EmployeResult;
+                spTop.DataContext = Employe;
+
                 this.Show();
+            } else
+            {
+                Application.Current.Shutdown();
             }
         }
 

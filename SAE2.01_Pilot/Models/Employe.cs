@@ -33,7 +33,7 @@ namespace SAE2._01_Pilot.Models
         {
             string sql = "SELECT * FROM Employe e " +
                         "JOIN Role r ON r.NumRole = e.NumRole " +
-                        "WHERE @login = e.login AND @password = e.password;";
+                        "WHERE e.login = @login AND e.password = @password;";
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
             {

@@ -20,6 +20,8 @@ namespace SAE2._01_Pilot.Windows
     /// </summary>
     public partial class Connexion : Window
     {
+        public Employe EmployeResult {  get; set; }
+
         public Connexion()
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace SAE2._01_Pilot.Windows
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string identifiant = inputLogin.Text;
-            string password = inputPassword.ToString();
+            string password = inputPassword.Password.ToString();
 
             if (String.IsNullOrEmpty(identifiant))
             {
@@ -51,9 +53,7 @@ namespace SAE2._01_Pilot.Windows
                 return;
             }
 
-            MainWindow window = (MainWindow)this.Parent;
-            window.Employe = employe;
-
+            EmployeResult = employe;
             DialogResult = true;
         }
     }
