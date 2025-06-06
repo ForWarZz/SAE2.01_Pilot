@@ -1,4 +1,5 @@
-﻿using SAE2._01_Pilot.Windows;
+﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Windows;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,7 @@ namespace SAE2._01_Pilot
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool EstConnecte { get; set; }
+        public Employe Employe { get; set; }
 
         public MainWindow()
         {
@@ -35,7 +36,6 @@ namespace SAE2._01_Pilot
 
             if (connexionWindow.DialogResult == true)
             {
-                EstConnecte = true;
                 this.Show();
             }
         }

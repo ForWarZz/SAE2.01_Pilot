@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Pilot.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,17 @@ namespace SAE2._01_Pilot.Windows
                 inputPassword.Clear();
                 return;
             }
+
+            Employe? employe = Employe.FindByCredentials(identifiant, password);
+            if (employe == null)
+            {
+                MessageBox.Show("Les identifiants entrés sont incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                inputPassword.Clear();
+                return;
+            }
+
+            MainWindow window = (MainWindow)this.Parent;
+            window.Employe = employe;
 
             DialogResult = true;
         }
