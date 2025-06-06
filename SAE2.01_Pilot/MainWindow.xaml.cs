@@ -32,6 +32,7 @@ namespace SAE2._01_Pilot
                     ResetMenuItemStyle(item);
             }
         }
+
         private void ResetMenuItemStyle(MenuItem mi)
         {
             mi.Style = (Style)FindResource("MenuItemStyle");

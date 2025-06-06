@@ -10,18 +10,39 @@
     Height="834"
     mc:Ignorable="d">
     <StackPanel x:Name="spMainWindow">
-        <StackPanel x:Name="spTop" Height="74" Background="#FF005EA5" Orientation="Horizontal">
-            <Image Height="44" Width="165" Source="/Images/pilot.png" Margin="20,0,0,0"/>
+        <StackPanel
+            x:Name="spTop"
+            Height="74"
+            Background="#FF005EA5"
+            Orientation="Horizontal">
+            <Image
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                Source="/Images/pilot.png" />
         </StackPanel>
-        <StackPanel x:Name="spMenu" Height="61" Background="#FFEAEAEA" >
-            <Menu x:Name="MenuTop" Background="#FFEAEAEA" >
-                <MenuItem x:Name="miCommandes" Header="Les Commandes" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
-                <MenuItem x:Name="miRevendeurs" Header="Les Revendeurs" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
-                <MenuItem x:Name="miProduits" Header="Les Produits" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
+        <StackPanel
+            x:Name="spMenu"
+            Height="61"
+            Background="#FFEAEAEA">
+            <Menu x:Name="MenuTop" Background="#FFEAEAEA">
+                <MenuItem
+                    x:Name="miCommandes"
+                    Click="mi_Click"
+                    Header="Les Commandes"
+                    Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="miRevendeurs"
+                    Click="mi_Click"
+                    Header="Les Revendeurs"
+                    Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="miProduits"
+                    Click="mi_Click"
+                    Header="Les Produits"
+                    Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
-        <StackPanel x:Name="spContent">
-            
-        </StackPanel>
+        <StackPanel x:Name="spContent" />
     </StackPanel>
 </Window>
