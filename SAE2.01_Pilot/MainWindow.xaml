@@ -39,7 +39,7 @@
                     x:Name="miCommandes"
                     Click="mi_Click"
                     Header="Les Commandes"
-                    Style="{StaticResource MenuItemStyle}" />
+                    Style="{StaticResource MenuItemSelectStyle}" />
                 <MenuItem
                     x:Name="miRevendeurs"
                     Click="mi_Click"
@@ -52,6 +52,8 @@
                     Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
-        <StackPanel x:Name="spContent" />
+        <StackPanel x:Name="spContent" Height="685">
+            
+        </StackPanel>
     </StackPanel>
 </Window>
