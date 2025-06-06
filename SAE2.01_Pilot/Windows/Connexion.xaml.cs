@@ -23,5 +23,26 @@ namespace SAE2._01_Pilot.Windows
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            string identifiant = inputLogin.Text;
+            string password = inputPassword.ToString();
+
+            if (String.IsNullOrEmpty(identifiant))
+            {
+                MessageBox.Show("Veuillez entrez un identifiant pour vous connecter.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (String.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Veuillez entrez un mot de passe pour vous connecter.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                inputPassword.Clear();
+                return;
+            }
+
+            DialogResult = true;
+        }
     }
 }

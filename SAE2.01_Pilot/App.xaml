@@ -1,45 +1,112 @@
-﻿<Application x:Class="SAE2._01_Pilot.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SAE2._01_Pilot"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="SAE2._01_Pilot.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SAE2._01_Pilot"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="MenuItem" x:Key="MenuItemStyle">
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Height" Value="61"/>
-            <Setter Property="Width" Value="219"/>
+        <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Height" Value="61" />
+            <Setter Property="Width" Value="219" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
                         <Border x:Name="border" Background="{TemplateBinding Background}">
-                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Header"
+                                RecognizesAccessKey="True" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFD5D5D5"/>
+                                <Setter TargetName="border" Property="Background" Value="#FFD5D5D5" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="MenuItem" x:Key="MenuItemSelectStyle">
-            <Setter Property="Background" Value="#FF005EA5"/>
-            <Setter Property="Foreground" Value="#FFFFFFFF"/>
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Height" Value="61"/>
-            <Setter Property="Width" Value="219"/>
+        <Style x:Key="MenuItemSelectStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="#FF005EA5" />
+            <Setter Property="Foreground" Value="#FFFFFFFF" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Height" Value="61" />
+            <Setter Property="Width" Value="219" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
                         <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Header"
+                                RecognizesAccessKey="True" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF005EA5" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF0077CC" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF004B8A" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+
+
     </Application.Resources>
 </Application>
