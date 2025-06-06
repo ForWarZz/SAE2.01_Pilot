@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using SAE2._01_Pilot.Windows;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,27 @@ namespace SAE2._01_Pilot
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool EstConnecte { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            CheckLogin();
+        }
+
+        private void CheckLogin()
+        {
+            this.Hide();
+
+            Connexion connexionWindow = new Connexion();
+            connexionWindow.ShowDialog();
+
+            if (connexionWindow.DialogResult == true)
+            {
+                EstConnecte = true;
+                this.Show();
+            }
         }
 
         private void mi_Click(object sender, RoutedEventArgs e)

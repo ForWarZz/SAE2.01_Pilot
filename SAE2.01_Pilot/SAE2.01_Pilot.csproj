@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Fonts\Roboto.ttf" />
+    <None Remove="Images\pilot.png" />
   </ItemGroup>
 
   <ItemGroup>

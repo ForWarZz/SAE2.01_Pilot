@@ -89,7 +89,18 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="Padding" Value="20,10" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="2" />
