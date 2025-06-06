@@ -14,19 +14,22 @@ namespace SAE2._01_Pilot.Models
         public int Id { get; set; }
         public string Nom {  get; set; }
         public string Prenom { get; set; }
-        public Role Role { get; set; }
+        public LibelleRole Role { get; set; }
 
-        public Employe()
-        {
-            
-        }
-
-        public Employe(int id, string nom, string prenom, Role role)
+        public Employe(int id, string nom, string prenom, LibelleRole role)
         {
             Id = id;
             Nom = nom;
             Prenom = prenom;
             Role = role;
+        }
+
+        public Employe(int id, string nom, string prenom, string role)
+        {
+            Id = id;
+            Nom = nom;
+            Prenom = prenom;
+            Role = RoleHelper.LibelleRoleParNom(role);
         }
 
         public static Employe? FindByCredentials(string login, string password)
@@ -45,15 +48,12 @@ namespace SAE2._01_Pilot.Models
                     return null;
 
                 DataRow dataRow = dt.Rows[0];
-                Role role = new Role((int)dataRow["NumRole"], Enum.Parse<LibelleRole>(dataRow["LibelleRole"].ToString()));
 
-                return new Employe
-                {
-                    Id = (int)dataRow["NumEmploye"],
-                    Prenom = dataRow["Prenom"].ToString(),
-                    Nom = dataRow["Nom"].ToString(),
-                    Role = role
-                };
+                return new Employe(
+                    (int)dataRow["NumEmploye"], 
+                    dataRow["Prenom"].ToString(), 
+                    dataRow["Nom"].ToString(), 
+                    dataRow["LibelleRole"].ToString());
             }
         }
     }

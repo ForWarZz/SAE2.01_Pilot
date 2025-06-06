@@ -18,7 +18,7 @@ namespace SAE2._01_Pilot
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Employe Employe { get; set; }
+        public Employe EmployeConnecte { get; set; }
 
         public MainWindow()
         {
@@ -36,8 +36,8 @@ namespace SAE2._01_Pilot
 
             if (connexionWindow.DialogResult == true)
             {
-                Employe = connexionWindow.EmployeResult;
-                spTop.DataContext = Employe;
+                EmployeConnecte = connexionWindow.EmployeResult;
+                spTop.DataContext = EmployeConnecte;
 
                 this.Show();
             } else

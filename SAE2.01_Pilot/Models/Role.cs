@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Role
+    public class RoleHelper
     {
-        public int Id { get; set; }
-        public LibelleRole Libelle { get; set; }
-
-        public Role(int id, LibelleRole libelle)
+        public static LibelleRole LibelleRoleParNom(string nom)
         {
-            Id = id;
-            Libelle = libelle;
+            switch (nom)
+            {
+                case "Commercial":
+                    return LibelleRole.Commercial;
+                case "Responsable de production":
+                    return LibelleRole.ResponsableProduction;
+                default:
+                    throw new ArgumentException("Nom de rôle inconnu : " + nom);
+            }
         }
     }
 

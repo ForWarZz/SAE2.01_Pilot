@@ -13,6 +13,13 @@ namespace SAE2._01_Pilot.Models
 
         private string codePostal;
 
+        public Adresse(string rue, string codePostal, string ville)
+        {
+            Rue = rue;
+            CodePostal = codePostal;
+            Ville = ville;
+        }
+
         public string CodePostal { 
             get => codePostal;
 
