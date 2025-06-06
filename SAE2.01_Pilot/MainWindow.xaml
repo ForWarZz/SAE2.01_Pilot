@@ -15,7 +15,7 @@
         </StackPanel>
         <StackPanel x:Name="spMenu" Height="61" Background="#FFEAEAEA" >
             <Menu x:Name="MenuTop" Background="#FFEAEAEA" >
-                <MenuItem x:Name="miCommandes" Header="Les Commandes" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
+                <MenuItem x:Name="miCommandes" Header="Les Commandes" Style="{StaticResource MenuItemSelectStyle}" Click="mi_Click"/>
                 <MenuItem x:Name="miRevendeurs" Header="Les Revendeurs" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
                 <MenuItem x:Name="miProduits" Header="Les Produits" Style="{StaticResource MenuItemStyle}" Click="mi_Click"/>
             </Menu>
