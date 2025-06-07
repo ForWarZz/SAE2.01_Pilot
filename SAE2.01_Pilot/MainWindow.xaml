@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:SAE2._01_Pilot.UserControls"
     Title="Pilot"
     Width="1194"
     Height="834"
@@ -51,23 +52,23 @@
             <Menu x:Name="MenuTop" Background="#FFEAEAEA">
                 <MenuItem
                     x:Name="miCommandes"
-                    Click="mi_Click"
+                    Click="miCommandes_Click"
                     Header="Les Commandes"
                     Style="{StaticResource MenuItemSelectStyle}" />
                 <MenuItem
                     x:Name="miRevendeurs"
-                    Click="mi_Click"
+                    Click="miRevendeurs_Click"
                     Header="Les Revendeurs"
                     Style="{StaticResource MenuItemStyle}" />
                 <MenuItem
                     x:Name="miProduits"
-                    Click="mi_Click"
+                    Click="miProduits_Click"
                     Header="Les Produits"
                     Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
-        <StackPanel x:Name="spContent" Height="685">
-            
-        </StackPanel>
+        <ContentControl x:Name="ccMain" Height="685">
+            <uc:UCCommandes/>
+        </ContentControl>
     </StackPanel>
 </Window>

@@ -33,7 +33,7 @@ namespace SAE2._01_Pilot
         {
             InitializeComponent();
 
-            CheckLogin();
+            /*CheckLogin();*/
         }
 
         private void CheckLogin()
@@ -76,7 +76,23 @@ namespace SAE2._01_Pilot
             }
         }
 
-        private void mi_Click(object sender, RoutedEventArgs e)
+        private void miCommandes_Click(object sender, RoutedEventArgs e)
+        {
+            ChangerStyleMenu(sender);
+            ccMain.Content = new UserControls.UCCommandes();
+        }
+        private void miRevendeurs_Click(object sender, RoutedEventArgs e)
+        {
+            ChangerStyleMenu(sender);
+            ccMain.Content = new UserControls.UCRevendeurs();
+        }
+        private void miProduits_Click(object sender, RoutedEventArgs e)
+        {
+            ChangerStyleMenu(sender);
+            ccMain.Content = new UserControls.UCProduits();
+        }
+
+        private void ChangerStyleMenu(object sender)
         {
             // Détecte le MenuItem (mi) cliqué - change le style - remet le style de base aux autres mi
             MenuItem itemClique = sender as MenuItem;
