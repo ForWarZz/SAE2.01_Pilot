@@ -42,6 +42,11 @@ namespace SAE2._01_Pilot.Models
             Adresse = adresse;
         }
 
+        public Revendeur()
+        {
+            Adresse = new Adresse();
+        }
+
         public static List<Revendeur> GetAll()
         {
             List<Revendeur> revendeurs = new List<Revendeur>();

@@ -19,6 +19,11 @@ namespace SAE2._01_Pilot.Models
             Ville = ville;
         }
 
+        public Adresse()
+        {
+            
+        }
+
         public string CodePostal { 
             get => codePostal;
 
