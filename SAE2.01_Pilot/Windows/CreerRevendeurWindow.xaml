@@ -9,7 +9,12 @@
     Width="690"
     Height="835"
     mc:Ignorable="d">
-    <StackPanel x:Name="spMainWindow">
+    <Grid x:Name="spMainWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="74" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
         <DockPanel
             x:Name="spTop"
             Height="72"
@@ -30,22 +35,33 @@
                 Foreground="White"
                 Text="Connecté au système central" />
         </DockPanel>
-        <StackPanel Height="747">
-            <TextBlock
+        <StackPanel VerticalAlignment="Center" x:Name="spFormulaire" Margin="100,0,100,0" Grid.Row="1">
+            <TextBlock x:Name="txtTitre"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="32"
+                Margin="0,0,0,50"
                 FontWeight="Medium"
                 Text="Créer un revendeur" />
 
             <StackPanel Orientation="Vertical">
-                <Label Content="Raison sociale" FontSize="20" />
-                <TextBox x:Name="inputRaisonSociale" Style="{StaticResource TextBoxStyle}" />
+                <Label Content="R_aison sociale" FontSize="20" Target="{Binding inputRaisonSociale}" />
+                <TextBox x:Name="inputRaisonSociale" Style="{StaticResource TextBoxStyle}" Text="{Binding RaisonSociale, ValidatesOnExceptions=True}" />
             </StackPanel>
-            <StackPanel Margin="" Orientation="Vertical">
-                <Label Content="Rue" FontSize="20" />
-                <TextBox x:Name="inputRue" Style="{StaticResource TextBoxStyle}" />
+            <StackPanel Orientation="Vertical" Margin="0, 20, 0, 0">
+                <Label Content="_Rue" FontSize="20" Target="{Binding inputRue}" />
+                <TextBox x:Name="inputRue" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.Rue, ValidatesOnExceptions=True}" />
             </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0, 20, 0, 0">
+                <Label Content="_Code postal" FontSize="20" Target="{Binding inputCP}" />
+                <TextBox x:Name="inputCP" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.CodePostal, ValidatesOnExceptions=True}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0, 20, 0, 0">
+                <Label Content="_Ville" FontSize="20" Target="{Binding inputVille}" />
+                <TextBox x:Name="inputVille" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.Ville, ValidatesOnExceptions=True}" />
+            </StackPanel>
+
+            <Button IsDefault="True" x:Name="btnCreer" Margin="0,50, 0, 0" HorizontalAlignment="Center" Content="Créer un revendeur" Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

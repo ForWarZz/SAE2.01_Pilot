@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SAE2._01_Pilot.Models;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SAE2._01_Pilot.Windows
 {
@@ -19,9 +9,33 @@ namespace SAE2._01_Pilot.Windows
     /// </summary>
     public partial class CreerRevendeurWindow : Window
     {
-        public CreerRevendeurWindow()
+        public CreerRevendeurWindow(Revendeur nouveauRevendeur, Utils.Action action)
         {
+            DataContext = nouveauRevendeur;
+
             InitializeComponent();
+
+            btnCreer.Content = action == Utils.Action.Ajouter ? "Créer un revendeur" : "Modifier le revendeur";
+            txtTitre.Text = btnCreer.Content.ToString();
+        }
+
+        private void btnCreer_Click(object sender, RoutedEventArgs e)
+        {
+            bool ok = true;
+            foreach (UIElement uie in spFormulaire.Children)
+            {
+                if (uie is TextBox)
+                {
+                    TextBox txt = (TextBox)uie;
+                    txt.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+                }
+
+                if (Validation.GetHasError(uie))
+                    ok = false;
+            }
+
+            if (ok)
+                DialogResult = true;
         }
     }
 }
