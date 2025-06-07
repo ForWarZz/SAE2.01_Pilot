@@ -13,8 +13,8 @@ namespace SAE2._01_Pilot.Models
     public class Produit : ICrud<Produit>
     {
         public int Id { get; set; }
-        public LibelleTypePointe TypePointe { get; set; }
-        public LibelleTypeProduit TypeProduit { get; set; }
+        public TypePointe TypePointe { get; set; }
+        public TypeProduit TypeProduit { get; set; }
         public string CodeProduit
         {
             get => codeProduit;
@@ -75,7 +75,7 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public List<LibelleCouleurProduit> Couleurs
+        public List<CouleurProduit> Couleurs
         {
             get => couleurs;
             set => couleurs = value;
@@ -89,19 +89,24 @@ namespace SAE2._01_Pilot.Models
         private double prixVente;
         private int quantiteStock;
 
-        private List<LibelleCouleurProduit> couleurs;
+        private List<CouleurProduit> couleurs;
 
-        public Produit(int id, string typePointe, string typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, bool disponible)
+        public Produit(TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible)
         {
-            Id = id;
-            TypePointe = TypePointeHelper.LibellePointeParNom(typePointe);
-            TypeProduit = TypeProduitHelper.LibelleTypeProduitParNom(typeProduit);
+            TypePointe = typePointe;
+            TypeProduit = typeProduit;
             CodeProduit = codeProduit;
             NomProduit = nomProduit;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
-            Couleurs = new List<LibelleCouleurProduit>();
+            Couleurs = couleurs;
             Disponible = disponible;
+        }
+
+        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
+            : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, couleurs, disponible)
+        {
+            Id = id;
         }
 
         public static List<Produit> GetAll()
@@ -116,9 +121,9 @@ namespace SAE2._01_Pilot.Models
                     p.PrixVente, 
                     p.QuantiteStock, 
                     p.Disponible, 
-                    tp.LibelleTypePointe, 
-                    t.LibelleType,
-                    c.LibelleCouleur
+                    tp.NumTypePointe, 
+                    t.NumType,
+                    c.NumCouleur
                 FROM Produit p
                 JOIN TypePointe tp ON tp.NumTypePointe = p.NumTypePointe
                 JOIN Type t ON t.NumType = p.NumType
@@ -136,21 +141,26 @@ namespace SAE2._01_Pilot.Models
 
                     if (!produitsParId.ContainsKey(numProduit))
                     {
+                        TypePointe typePointe = new TypePointe((int)row["NumTypePointe"]);
+                        TypeProduit typeProduit = new TypeProduit((int)row["NumType"]);
+
                         Produit produit = new Produit(
-                            numProduit,
-                            row["LibelleTypePointe"].ToString(),
-                            row["LibelleType"].ToString(),
-                            row["CodeProduit"].ToString(),
-                            row["NomProduit"].ToString(),
-                            (double)row["PrixVente"],
-                            (int)row["QuantiteStock"],
-                            (bool)row["Disponible"]
+                            id: numProduit,
+                            typePointe: typePointe,
+                            typeProduit: typeProduit,
+                            codeProduit: row["CodeProduit"].ToString(),
+                            nomProduit: row["NomProduit"].ToString(),
+                            prixVente: (double)row["PrixVente"],
+                            quantiteStock: (int)row["QuantiteStock"],
+                            couleurs: new List<CouleurProduit>(),
+                            disponible: (bool)row["Disponible"]
                         );
 
                         produitsParId[numProduit] = produit;
                     }
 
-                    produitsParId[numProduit].Couleurs.Add(CouleurProduitHelper.LibelleCouleurParNom(row["LibelleCouleur"].ToString()));
+                    CouleurProduit couleur = new CouleurProduit((int)row["NumCouleur"], row["LibelleCouleur"].ToString());
+                    produitsParId[numProduit].Couleurs.Add(couleur);
                 }
             }
 

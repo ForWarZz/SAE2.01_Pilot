@@ -69,7 +69,7 @@
                                 FontFamily="Roboto"
                                 FontSize="24"
                                 Target="{Binding inputLogin}" />
-                            <TextBox x:Name="inputLogin" Style="{StaticResource TextBoxStyle}" />
+                            <TextBox x:Name="inputLogin" Text="smartin" Style="{StaticResource TextBoxStyle}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,50,0,0">
@@ -79,7 +79,7 @@
                                 FontFamily="Roboto"
                                 FontSize="24"
                                 Target="{Binding inputPassword}" />
-                            <PasswordBox x:Name="inputPassword" Style="{StaticResource PasswordBoxStyle}" />
+                            <PasswordBox x:Name="inputPassword" Password="martin2025" Style="{StaticResource PasswordBoxStyle}" />
                         </StackPanel>
 
                         <Button

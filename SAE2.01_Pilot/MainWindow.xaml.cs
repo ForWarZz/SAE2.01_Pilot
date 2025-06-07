@@ -19,6 +19,15 @@ namespace SAE2._01_Pilot
     public partial class MainWindow : Window
     {
         public Employe EmployeConnecte { get; set; }
+        public List<TypePointe> TypePointes { get => typePointes; set => typePointes = value; }
+        public List<TypeProduit> TypeProduits { get => typeProduits; set => typeProduits = value; }
+        public List<CategorieProduit> CategorieProduits { get => categorieProduits; set => categorieProduits = value; }
+        public List<CouleurProduit> CouleurProduits { get => couleurProduits; set => couleurProduits = value; }
+
+        private List<TypePointe> typePointes;
+        private List<TypeProduit> typeProduits;
+        private List<CategorieProduit> categorieProduits;
+        private List<CouleurProduit> couleurProduits;
 
         public MainWindow()
         {
@@ -39,10 +48,31 @@ namespace SAE2._01_Pilot
                 EmployeConnecte = connexionWindow.EmployeResult;
                 spTop.DataContext = EmployeConnecte;
 
+                Charger();
                 this.Show();
             } else
             {
                 Application.Current.Shutdown();
+            }
+        }
+
+        private void Charger()
+        {
+            TypePointes = TypePointe.GetAll();
+            CouleurProduits = CouleurProduit.GetAll();
+            CategorieProduits = CategorieProduit.GetAll();
+            TypeProduits = TypeProduit.GetAll();
+
+            foreach (TypeProduit typeProduit in TypeProduits)
+            {
+                CategorieProduit? categorie = CategorieProduits.FirstOrDefault(c => c.Id == typeProduit.Categorie.Id);
+                if (categorie == null)
+                {
+                    MessageBox.Show($"La catégorie du type de produit {typeProduit.Libelle} n'a pas été trouvée.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                typeProduit.Categorie = categorie;
             }
         }
 

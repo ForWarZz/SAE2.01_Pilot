@@ -1,53 +1,67 @@
-﻿using System;
+﻿using SAE2._01_Pilot.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class CategorieProduitHelper
+    public class CategorieProduit : ICrud<CategorieProduit>
     {
-        public static LibelleCategorieProduit LibelleCategorieParNom(string nom)
+        public int Id { get; set; }
+        public string Libelle { get; set; }
+
+        public CategorieProduit(int id, string libelle)
         {
-            switch (nom)
-            {
-                case "Bureau":
-                    return LibelleCategorieProduit.Bureau;
-                case "École":
-                    return LibelleCategorieProduit.Ecole;
-                case "Loisir":
-                    return LibelleCategorieProduit.Loisir;
-                case "Haute écriture":
-                    return LibelleCategorieProduit.HauteEcriture;
-                default:
-                    throw new Exception("Catégorie de produit inconnue : " + nom);
-            }
+            Id = id;
+            Libelle = libelle;
         }
 
-        public static string NomParLibelle(LibelleCategorieProduit libelle)
+        public CategorieProduit(int id)
         {
-            switch (libelle)
-            {
-                case LibelleCategorieProduit.Bureau:
-                    return "Bureau";
-                case LibelleCategorieProduit.Ecole:
-                    return "École";
-                case LibelleCategorieProduit.Loisir:
-                    return "Loisir";
-                case LibelleCategorieProduit.HauteEcriture:
-                    return "Haute écriture";
-                default:
-                    throw new Exception("Libellé de catégorie inconnu : " + libelle);
-            }
+            Id = id;
         }
-    }
 
-    public enum LibelleCategorieProduit
-    {
-        Bureau,
-        Ecole,
-        Loisir,
-        HauteEcriture
+        public override string ToString()
+        {
+            return Libelle;
+        }
+
+        public static List<CategorieProduit> GetAll()
+        {
+            List<CategorieProduit> categories = new List<CategorieProduit>();
+
+            string sql = "SELECT NumCategorie, LibelleCategorie FROM Categorie";
+            using (var cmd = new Npgsql.NpgsqlCommand(sql))
+            {
+                var dt = DataAccess.Instance.ExecuteSelect(cmd);
+                foreach (System.Data.DataRow row in dt.Rows)
+                {
+                    int id = (int)row["NumCategorie"];
+                    string libelle = row["LibelleCategorie"].ToString();
+
+                    categories.Add(new CategorieProduit(id, libelle));
+                }
+            }
+
+            return categories;
+        }
+
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

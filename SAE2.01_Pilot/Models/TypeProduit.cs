@@ -1,59 +1,74 @@
-﻿using System;
+﻿using Npgsql;
+using SAE2._01_Pilot.Database;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class TypeProduitHelper
+    public class TypeProduit : ICrud<TypeProduit>
     {
-        public static LibelleTypeProduit LibelleTypeProduitParNom(string nom)
+        public int Id { get; set; }
+        public string Libelle { get; set; }
+        public CategorieProduit Categorie { get; set; }
+
+        public TypeProduit(int id, string libelle, CategorieProduit categorie)
         {
-            switch (nom)
+            Id = id;
+            Libelle = libelle;
+            Categorie = categorie;
+        }
+
+        public TypeProduit(int id)
+        {
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return Libelle;
+        }
+
+        public static List<TypeProduit> GetAll()
+        {
+            List<TypeProduit> typeProduits = new List<TypeProduit>();
+
+            string sql = @"
+                    SELECT * FROM TypeProduit tp
+                    JOIN Type t
+                    ON tp.NumType = t.NumType
+                ";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
             {
-                case "Roller gel":
-                    return LibelleTypeProduit.RollerGel;
-                case "Billes":
-                    return LibelleTypeProduit.Bille;
-                case "Roller liquide":
-                    return LibelleTypeProduit.RollerLiquide;
-                case "Plume feutre":
-                    return LibelleTypeProduit.PlumeFeutre;
-                case "Couleur fun":
-                    return LibelleTypeProduit.CouleurFun;
-                default:
-                    throw new Exception("Type de produit inconnu : " + nom);
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CategorieProduit categorie = new CategorieProduit((int)dr["NumCategorie"]);
+                    typeProduits.Add(new TypeProduit((int)dr["NumType"], dr["LibelleType"].ToString(), categorie));
+                }
+
+                return typeProduits;
             }
         }
 
-        public static string NomParLibelle(LibelleTypeProduit libelle)
+        public void Create()
         {
-            switch (libelle)
-            {
-                case LibelleTypeProduit.RollerGel:
-                    return "Roller gel";
-                case LibelleTypeProduit.Bille:
-                    return "Billes";
-                case LibelleTypeProduit.RollerLiquide:
-                    return "Roller liquide";
-                case LibelleTypeProduit.PlumeFeutre:
-                    return "Plume feutre";
-                case LibelleTypeProduit.CouleurFun:
-                    return "Couleur fun";
-                default:
-                    throw new Exception("Libellé de type de produit inconnu : " + libelle);
-            }
+            throw new NotImplementedException();
         }
-    }
 
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
 
-    public enum LibelleTypeProduit
-    {
-        RollerGel,
-        Bille,
-        RollerLiquide,
-        PlumeFeutre,
-        CouleurFun
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
