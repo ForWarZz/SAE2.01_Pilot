@@ -112,7 +112,7 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="FontFamily" Value="Roboto"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Padding" Value="20,10"/>
             <Setter Property="Tag" Value="Rechercher"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -124,7 +124,7 @@
                                 <ScrollViewer x:Name="PART_ContentHost"/>
                                 <TextBlock Text="{TemplateBinding Tag}"
                                        Foreground="LightGray"
-                                       Margin="5,0,0,0"
+                                       Margin="20,0,0,0"
                                        VerticalAlignment="Center"
                                        IsHitTestVisible="False"
                                        Visibility="Collapsed"
