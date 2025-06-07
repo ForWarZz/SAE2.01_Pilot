@@ -8,9 +8,8 @@ namespace SAE2._01_Pilot.Models
 {
     public class Adresse
     {
-        public string Rue { get; set; }
-        public string Ville { get; set; }
-
+        private string rue;
+        private string ville;
         private string codePostal;
 
         public Adresse(string rue, string codePostal, string ville)
@@ -31,6 +30,31 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 codePostal = value;
+            }
+        }
+
+        public string Rue { 
+            get => rue; 
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("La rue ne peut pas être vide.");
+                }
+
+                rue = value;
+            }
+        }
+        public string Ville { 
+            get => ville;
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("La ville ne peut pas être vide.");
+                }
+
+                ville = value;
             }
         }
     }

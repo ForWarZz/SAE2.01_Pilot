@@ -12,9 +12,22 @@ namespace SAE2._01_Pilot.Models
 {
     public class Revendeur : ICrud<Revendeur>
     {
+        private string raisonSociale;
+
         public int Id { get; set; }
-        public string RaisonSociale { get; set; }
         public Adresse Adresse { get; set; }
+        public string RaisonSociale { 
+            get => raisonSociale;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("La raison sociale ne peut pas être vide.");
+                }
+
+                raisonSociale = value;
+            }
+        }
 
         public Revendeur(int id, string raisonSociale, Adresse adresse)
         {
