@@ -35,9 +35,6 @@ namespace SAE2._01_Pilot
         {
             /*CheckLogin();*/
             InitializeComponent();
-
-            CreerCommandeWindow creerCommandeWindow = new CreerCommandeWindow(new List<ModeTransport>(), new Commande(), EmployeConnecte);
-            creerCommandeWindow.ShowDialog();
         }
 
         private void CheckLogin()
