@@ -1,0 +1,36 @@
+﻿<Window
+    x:Class="SAE2._01_Pilot.Windows.ListeRevendeurWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:SAE2._01_Pilot.UserControls"
+    Title="Pilot"
+    Width="1194"
+    Height="834"
+    mc:Ignorable="d">
+    <StackPanel x:Name="spMainWindow">
+        <DockPanel
+            x:Name="spTop"
+            Height="72"
+            Background="#FF005EA5">
+            <Image
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
+            <TextBlock
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
+        </DockPanel>
+        <uc:UCRevendeurs x:Name="ucRevendeurs" />
+    </StackPanel>
+</Window>
