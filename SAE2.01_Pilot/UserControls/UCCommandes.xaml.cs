@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,19 +23,11 @@ namespace SAE2._01_Pilot.UserControls
     /// </summary>
     public partial class UCCommandes : UserControl
     {
-        public ObservableCollection<Commande> Commandes { get; set; }
-
         public UCCommandes()
         {
-            // ChargerCommandes();
             InitializeComponent();
 
-            // dgCommandes.DataContext = Commandes;
-        }
-
-        private void ChargerCommandes()
-        {
-            Commandes = new ObservableCollection<Commande>(Commande.GetAll());
+            // dgCommandes.DataContext = Core.Instance.Commandes;
         }
     }
 }

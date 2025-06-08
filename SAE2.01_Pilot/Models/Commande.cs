@@ -25,13 +25,13 @@ namespace SAE2._01_Pilot.Models
         public DateTime DateCommande { get => dateCommande; set => dateCommande = value; }
         public DateTime DateLivraison { get => dateLivraison; set => dateLivraison = value; }
 
-        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, ObservableCollection<LigneCommande> ligneCommandes, DateTime dateCommande, DateTime dateLivraison)
+        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime dateLivraison)
         {
             Id = id;
             ModeTransport = modeTransport;
             Revendeur = revendeur;
             EmployeId = employeId;
-            LigneCommandes = ligneCommandes;
+            LigneCommandes = new ObservableCollection<LigneCommande>();
             DateCommande = dateCommande;
             DateLivraison = dateLivraison;
         }
@@ -49,7 +49,7 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public static List<Commande> GetAll()
+        public static ObservableCollection<Commande> GetAll(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits)
         {
             Dictionary<int, Commande> commandesParId = new Dictionary<int, Commande>();
 
@@ -62,9 +62,9 @@ namespace SAE2._01_Pilot.Models
                     c.DateCommande,
                     c.DateLivraison,
                     lc.NumProduit,
-                    lc.QuantiteCommande
+                    lc.QuantiteCommande,
                 FROM Commande c
-                LEFT JOIN LigneCommande lc ON lc.IdCommande = c.Id
+                JOIN LigneCommande lc ON lc.IdCommande = c.Id
                 ORDER BY c.Id
             ";
 
@@ -78,9 +78,11 @@ namespace SAE2._01_Pilot.Models
 
                     if (!commandesParId.ContainsKey(commandeId))
                     {
-                        ModeTransport modeTransport = new ModeTransport((int)row["NumTransport"]);
-                        Revendeur revendeur = new Revendeur((int)row["NumRevendeur"]);
+                        ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
+                        Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
+                        
                         int employeId = (int)row["NumEmploye"];
+
                         DateTime dateCommande = (DateTime)row["DateCommande"];
                         DateTime dateLivraison = (DateTime)row["DateLivraison"];
 
@@ -89,23 +91,21 @@ namespace SAE2._01_Pilot.Models
                             modeTransport: modeTransport,
                             revendeur: revendeur,
                             employeId: employeId,
-                            ligneCommandes: new ObservableCollection<LigneCommande>(),
                             dateCommande: dateCommande,
                             dateLivraison: dateLivraison
                         );
                     }
 
-                    int idProduit = (int)row["NumProduit"];
                     int quantite = (int)row["QuantiteCommande"];
 
-                    Produit produit = new Produit(idProduit);
+                    Produit? produit = produits.FirstOrDefault(p => p.Id == (int)row["NumProduit"]);
                     LigneCommande ligne = new LigneCommande(produit, quantite);
 
                     commandesParId[commandeId].LigneCommandes.Add(ligne);
                 }
             }
 
-            return commandesParId.Values.ToList();
+            return new ObservableCollection<Commande>(commandesParId.Values.ToList());
         }
 
         public void Create()

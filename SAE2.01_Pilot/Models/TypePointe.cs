@@ -10,7 +10,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class TypePointe : ICrud<TypePointe>
+    public class TypePointe
     {
         public int Id { get; set; }
         public string Libelle { get; set; }

@@ -10,7 +10,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class TypeProduit : ICrud<TypeProduit>
+    public class TypeProduit
     {
         public int Id { get; set; }
         public string Libelle { get; set; }
@@ -33,7 +33,7 @@ namespace SAE2._01_Pilot.Models
             return Libelle;
         }
 
-        public static List<TypeProduit> GetAll()
+        public static List<TypeProduit> GetAll(List<CategorieProduit> categorieProduits)
         {
             List<TypeProduit> typeProduits = new List<TypeProduit>();
 
@@ -48,7 +48,7 @@ namespace SAE2._01_Pilot.Models
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
                 foreach (DataRow dr in dt.Rows)
                 {
-                    CategorieProduit categorie = new CategorieProduit((int)dr["NumCategorie"]);
+                    CategorieProduit? categorie = categorieProduits.FirstOrDefault(c => c.Id == (int)dr["NumCategorie"]);
                     typeProduits.Add(new TypeProduit((int)dr["NumType"], dr["LibelleType"].ToString(), categorie));
                 }
 

@@ -11,7 +11,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class CouleurProduit : ICrud<CouleurProduit>
+    public class CouleurProduit
     {
         public int Id { get; set; }
         public string Libelle { get; set; }
@@ -40,7 +40,7 @@ namespace SAE2._01_Pilot.Models
                 {
                     couleurProduits.Add(new CouleurProduit(
                         (int)dr["NumCouleur"],
-                        dr["libelle"].ToString()
+                        dr["LibelleCouleur"].ToString()
                     ));
                 }
 

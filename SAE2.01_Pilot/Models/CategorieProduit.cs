@@ -8,7 +8,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class CategorieProduit : ICrud<CategorieProduit>
+    public class CategorieProduit
     {
         public int Id { get; set; }
         public string Libelle { get; set; }

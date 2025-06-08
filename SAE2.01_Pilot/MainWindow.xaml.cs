@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
 using SAE2._01_Pilot.Windows;
 using System.Text;
 using System.Windows;
@@ -59,22 +60,13 @@ namespace SAE2._01_Pilot
 
         private void Charger()
         {
-            TypePointes = TypePointe.GetAll();
-            CouleurProduits = CouleurProduit.GetAll();
-            CategorieProduits = CategorieProduit.GetAll();
-            TypeProduits = TypeProduit.GetAll();
-            ModeTransports = ModeTransport.GetAll();
-
-            foreach (TypeProduit typeProduit in TypeProduits)
+            try
             {
-                CategorieProduit? categorie = CategorieProduits.FirstOrDefault(c => c.Id == typeProduit.Categorie.Id);
-                if (categorie == null)
-                {
-                    MessageBox.Show($"La catégorie du type de produit {typeProduit.Libelle} n'a pas été trouvée.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                typeProduit.Categorie = categorie;
+                new Core(EmployeConnecte).ChargerDonnees();
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors du chargement des données : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
             }
         }
 

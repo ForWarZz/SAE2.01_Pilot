@@ -2,6 +2,7 @@
 using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Revendeur : ICrud<Revendeur>
+    public class Revendeur
     {
         private string raisonSociale;
 
@@ -48,9 +49,9 @@ namespace SAE2._01_Pilot.Models
             Adresse = new Adresse();
         }
 
-        public static List<Revendeur> GetAll()
+        public static ObservableCollection<Revendeur> GetAll()
         {
-            List<Revendeur> revendeurs = new List<Revendeur>();
+            ObservableCollection<Revendeur> revendeurs = new ObservableCollection<Revendeur>();
             string sql = "SELECT * FROM Revendeur";
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))

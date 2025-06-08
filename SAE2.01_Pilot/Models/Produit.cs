@@ -2,6 +2,7 @@
 using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -119,7 +120,7 @@ namespace SAE2._01_Pilot.Models
             Id = id;
         }
 
-        public static List<Produit> GetAll()
+        public static ObservableCollection<Produit> GetAll(List<TypePointe> typePointes, List<TypeProduit> typeProduits, List<CouleurProduit> couleurs)
         {
             Dictionary<int, Produit> produitsParId = new Dictionary<int, Produit>();
 
@@ -174,7 +175,7 @@ namespace SAE2._01_Pilot.Models
                 }
             }
 
-            return produitsParId.Values.ToList();
+            return new ObservableCollection<Produit>(produitsParId.Values.ToList());
         }
 
         public void Create()

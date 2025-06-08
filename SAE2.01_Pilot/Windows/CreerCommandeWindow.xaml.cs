@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,20 +23,18 @@ namespace SAE2._01_Pilot.Windows
     public partial class CreerCommandeWindow : Window
     {
         private Commande nouvelleCommande;
-        private Employe EmployeConnecte;
 
-        public CreerCommandeWindow(List<ModeTransport> modeTransports, Commande nouvelleCommande, Employe employeConnecte)
+        public CreerCommandeWindow(Commande nouvelleCommande)
         {
             this.nouvelleCommande = nouvelleCommande;
 
             InitializeComponent();
 
-            cbTransport.ItemsSource = modeTransports;
+            cbTransport.ItemsSource = Core.Instance.ModeTransports;
             cbTransport.DisplayMemberPath = "Libelle";
             cbTransport.SelectedValuePath = "Id";
 
             dgLignesCommande.DataContext = nouvelleCommande.LigneCommandes;
-            EmployeConnecte = employeConnecte;
         }
 
         private void btnAjouterLigne_Click(object sender, RoutedEventArgs e)
@@ -83,7 +82,7 @@ namespace SAE2._01_Pilot.Windows
 
             nouvelleCommande.ModeTransport = transport;
             nouvelleCommande.Revendeur = revendeurSelect;
-            nouvelleCommande.EmployeId = EmployeConnecte.Id;
+            nouvelleCommande.EmployeId = Core.Instance.EmployeConnecte.Id;
 
             nouvelleCommande.Create();
 
