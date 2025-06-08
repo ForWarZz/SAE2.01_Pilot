@@ -88,5 +88,21 @@ namespace SAE2._01_Pilot.Windows
 
             DialogResult = true;
         }
+
+        private void btnSelectRevendeur_Click(object sender, RoutedEventArgs e)
+        {
+            ListeRevendeurWindow listeRevendeurWindow = new ListeRevendeurWindow();
+            bool dialogResult = listeRevendeurWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+                return;
+
+            // @TODO : Get le revendeur selectionné dans le data grid de l'uc
+        }
+
+        private void btnSelectProduit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

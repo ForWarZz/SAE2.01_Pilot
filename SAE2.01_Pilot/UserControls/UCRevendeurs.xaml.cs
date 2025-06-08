@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Pilot.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace SAE2._01_Pilot.UserControls
     {
         public UCRevendeurs()
         {
+            // Core.Instance.RefreshRevendeurs();
             InitializeComponent();
         }
     }
