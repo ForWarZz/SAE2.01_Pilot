@@ -11,9 +11,12 @@
     <StackPanel>
         <DockPanel x:Name="dpRecherche" Height="47" Margin="0,38,0,0">
             <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" />
-            <ComboBox Width="160" />
+            <ComboBox Width="160" Margin="0,0,39,0"/>
             <ComboBox Width="225" HorizontalAlignment="Left" />
         </DockPanel>
         <StackPanel />
+        <StackPanel x:Name="spMain" Height="600">
+            <DataGrid x:Name="dgCommandes" Height="248" Width="318" Margin="0,176,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>
