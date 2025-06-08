@@ -30,6 +30,7 @@ namespace SAE2._01_Pilot.Utils
         public List<TypeProduit> TypeProduits { get => typeProduits; set => typeProduits = value; }
         public List<CategorieProduit> CategorieProduits { get => categorieProduits; set => categorieProduits = value; }
         public List<CouleurProduit> CouleurProduits { get => couleurProduits; set => couleurProduits = value; }
+
         public ObservableCollection<Produit> Produits { get => produits; set => produits = value; }
         public ObservableCollection<Commande> Commandes { get => commandes; set => commandes = value; }
         public ObservableCollection<Revendeur> Revendeurs { get => revendeurs; set => revendeurs = value; }

@@ -90,7 +90,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Code produit" Binding="{Binding Produit.Code}" Width="*" />
                         <DataGridTextColumn Header="Nom produit" Binding="{Binding Produit.Nom}" Width="*" />
-                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="*" />
+                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="auto" />
+                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="auto" />
                         <DataGridTemplateColumn Header="Supprimer" Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
