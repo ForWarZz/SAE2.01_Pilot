@@ -23,17 +23,21 @@ namespace SAE2._01_Pilot
         public List<TypeProduit> TypeProduits { get => typeProduits; set => typeProduits = value; }
         public List<CategorieProduit> CategorieProduits { get => categorieProduits; set => categorieProduits = value; }
         public List<CouleurProduit> CouleurProduits { get => couleurProduits; set => couleurProduits = value; }
+        public List<ModeTransport> ModeTransports { get => modeTransports; set => modeTransports = value; }
 
         private List<TypePointe> typePointes;
         private List<TypeProduit> typeProduits;
         private List<CategorieProduit> categorieProduits;
         private List<CouleurProduit> couleurProduits;
+        private List<ModeTransport> modeTransports;
 
         public MainWindow()
         {
+            /*CheckLogin();*/
             InitializeComponent();
 
-            /*CheckLogin();*/
+            CreerCommandeWindow creerCommandeWindow = new CreerCommandeWindow(new List<ModeTransport>(), new Commande(), EmployeConnecte);
+            creerCommandeWindow.ShowDialog();
         }
 
         private void CheckLogin()
@@ -62,6 +66,7 @@ namespace SAE2._01_Pilot
             CouleurProduits = CouleurProduit.GetAll();
             CategorieProduits = CategorieProduit.GetAll();
             TypeProduits = TypeProduit.GetAll();
+            ModeTransports = ModeTransport.GetAll();
 
             foreach (TypeProduit typeProduit in TypeProduits)
             {

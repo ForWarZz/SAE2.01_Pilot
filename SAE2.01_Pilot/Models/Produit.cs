@@ -71,6 +71,7 @@ namespace SAE2._01_Pilot.Models
                 {
                     throw new ArgumentOutOfRangeException("La quantité en stock ne peut pas être négative.");
                 }
+
                 quantiteStock = value;
             }
         }
@@ -80,7 +81,6 @@ namespace SAE2._01_Pilot.Models
             get => couleurs;
             set => couleurs = value;
         }
-
 
         public bool Disponible { get; set; }
 
@@ -105,6 +105,16 @@ namespace SAE2._01_Pilot.Models
 
         public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
             : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, couleurs, disponible)
+        {
+            Id = id;
+        }
+
+        public Produit()
+        {
+            
+        }
+
+        public Produit(int id)
         {
             Id = id;
         }

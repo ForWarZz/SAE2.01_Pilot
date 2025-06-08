@@ -42,8 +42,9 @@ namespace SAE2._01_Pilot.Models
             Adresse = adresse;
         }
 
-        public Revendeur()
+        public Revendeur(int id)
         {
+            Id = id;
             Adresse = new Adresse();
         }
 
