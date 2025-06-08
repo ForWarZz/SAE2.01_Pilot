@@ -41,19 +41,59 @@ namespace SAE2._01_Pilot.Utils
             EmployeConnecte = employeConnecte;
         }
 
-        public void ChargerDonnees()
+        public void ChargerDonneesStatiques()
         {
+            try
+            {
+                ModeTransports = ModeTransport.GetAll();
+                TypePointes = TypePointe.GetAll();
+                CategorieProduits = CategorieProduit.GetAll();
+                TypeProduits = TypeProduit.GetAll(CategorieProduits);
+                CouleurProduits = CouleurProduit.GetAll();
+            } catch (Exception ex)
+            {
+                MessageBoxErreur($"Erreur lors du chargement des données statiques : {ex.Message}");
+            }
+        }
 
-            ModeTransports = ModeTransport.GetAll();
-            TypePointes = TypePointe.GetAll();
-            CategorieProduits = CategorieProduit.GetAll();
-            TypeProduits = TypeProduit.GetAll(CategorieProduits);
-            CouleurProduits = CouleurProduit.GetAll();
+        public void RefreshRevendeurs()
+        {
+            try
+            {
+                Revendeurs = Revendeur.GetAll();    
+            } catch (Exception ex)
+            {
+                MessageBoxErreur($"Erreur lors du chargement des revendeurs : {ex.Message}");
+            }
+        }
 
-            Revendeurs = Revendeur.GetAll();
+        public void RefreshProduits()
+        {
+            try
+            {
+                Produits = Produit.GetAll(TypePointes, TypeProduits, CouleurProduits);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxErreur($"Erreur lors du chargement des produits : {ex.Message}");
+            }
+        }
 
-            Produits = Produit.GetAll(TypePointes, TypeProduits, CouleurProduits);
-            Commandes = Commande.GetAll(ModeTransports, Revendeurs, Produits);
+        public void RefreshCommandes()
+        {
+            try
+            {
+                Commandes = Commande.GetAll(ModeTransports, Revendeurs, Produits);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxErreur($"Erreur lors du chargement des commandes : {ex.Message}");
+            }
+        }
+
+        private void MessageBoxErreur(string message)
+        {
+            System.Windows.MessageBox.Show(message, "Erreur", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
     }
 }

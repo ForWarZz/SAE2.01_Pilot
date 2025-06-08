@@ -25,6 +25,7 @@ namespace SAE2._01_Pilot.UserControls
     {
         public UCCommandes()
         {
+            // Core.Instance.RefreshCommandes();
             InitializeComponent();
 
             // dgCommandes.DataContext = Core.Instance.Commandes;

@@ -17,7 +17,7 @@ namespace SAE2._01_Pilot.Models
         public int IdCommande { get; set; }
 
 
-        public Produit Produit { 
+        public Produit Produit {
             get => produit;
             set
             {

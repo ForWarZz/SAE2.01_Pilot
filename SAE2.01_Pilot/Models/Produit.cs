@@ -170,7 +170,7 @@ namespace SAE2._01_Pilot.Models
                         produitsParId[numProduit] = produit;
                     }
 
-                    CouleurProduit couleur = new CouleurProduit((int)row["NumCouleur"], row["LibelleCouleur"].ToString());
+                    CouleurProduit? couleur = couleurs.FirstOrDefault(c => c.Id == (int)row["NumCouleur"]);
                     produitsParId[numProduit].Couleurs.Add(couleur);
                 }
             }

@@ -60,14 +60,7 @@ namespace SAE2._01_Pilot
 
         private void Charger()
         {
-            try
-            {
-                new Core(EmployeConnecte).ChargerDonnees();
-            } catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors du chargement des données : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown();
-            }
+            new Core(EmployeConnecte).ChargerDonneesStatiques();
         }
 
         private void miCommandes_Click(object sender, RoutedEventArgs e)
