@@ -144,5 +144,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Name="CBStyle" TargetType="ComboBox">
+            
+        </Style>
     </Application.Resources>
 </Application>
