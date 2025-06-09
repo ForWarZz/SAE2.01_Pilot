@@ -15,10 +15,10 @@ namespace SAE2._01_Pilot.Models
     {
         public int Id { get; set; }
         public TypePointe TypePointe { get; set; }
-        public TypeProduit TypeProduit { get; set; }
-        public string CodeProduit
+        public TypeProduit Type { get; set; }
+        public string Code
         {
-            get => codeProduit;
+            get => code;
             set
             { 
                 if (string.IsNullOrWhiteSpace(value))
@@ -31,13 +31,13 @@ namespace SAE2._01_Pilot.Models
                     throw new ArgumentOutOfRangeException("Le code produit doit comporter au moins 5 caractères.");
                 }
 
-                codeProduit = value;
+                code = value;
             }
         }
 
-        public string NomProduit
+        public string Nom
         {
-            get => nomProduit;
+            get => nom;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -45,7 +45,7 @@ namespace SAE2._01_Pilot.Models
                     throw new ArgumentException("Le nom du produit ne peut pas être vide.");
                 }
 
-                nomProduit = value;
+                nom = value;
             }
         }
 
@@ -85,8 +85,8 @@ namespace SAE2._01_Pilot.Models
 
         public bool Disponible { get; set; }
 
-        private string codeProduit;
-        private string nomProduit;
+        private string code;
+        private string nom;
         private double prixVente;
         private int quantiteStock;
 
@@ -95,9 +95,9 @@ namespace SAE2._01_Pilot.Models
         public Produit(TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible)
         {
             TypePointe = typePointe;
-            TypeProduit = typeProduit;
-            CodeProduit = codeProduit;
-            NomProduit = nomProduit;
+            Type = typeProduit;
+            Code = codeProduit;
+            Nom = nomProduit;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
             Couleurs = couleurs;
@@ -106,16 +106,6 @@ namespace SAE2._01_Pilot.Models
 
         public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
             : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, couleurs, disponible)
-        {
-            Id = id;
-        }
-
-        public Produit()
-        {
-            
-        }
-
-        public Produit(int id)
         {
             Id = id;
         }
@@ -152,8 +142,8 @@ namespace SAE2._01_Pilot.Models
 
                     if (!produitsParId.ContainsKey(numProduit))
                     {
-                        TypePointe typePointe = new TypePointe((int)row["NumTypePointe"]);
-                        TypeProduit typeProduit = new TypeProduit((int)row["NumType"]);
+                        TypePointe? typePointe = typePointes.FirstOrDefault(tp => tp.Id == (int)row["NumTypePointe"]);
+                        TypeProduit? typeProduit = typeProduits.FirstOrDefault(tp => tp.Id == (int)row["NumTypeProduit"]);
 
                         Produit produit = new Produit(
                             id: numProduit,
