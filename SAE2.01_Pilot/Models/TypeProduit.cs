@@ -23,9 +23,10 @@ namespace SAE2._01_Pilot.Models
             Categorie = categorie;
         }
 
-        public TypeProduit(int id)
+        public TypeProduit(int id, string libelle)
         {
             Id = id;
+            Libelle = libelle;
         }
 
         public override string ToString()

@@ -32,6 +32,9 @@ namespace SAE2._01_Pilot.Models
             Role = RoleHelper.LibelleRoleParNom(role);
         }
 
+        public bool EstCommercial => Role == LibelleRole.Commercial;
+        public bool EstResponsableProduction => Role == LibelleRole.ResponsableProduction;
+
         public static Employe? FindByCredentials(string login, string password)
         {
             string sql = "SELECT * FROM Employe e " +

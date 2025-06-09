@@ -28,7 +28,7 @@ namespace SAE2._01_Pilot.UserControls
             // Core.Instance.RefreshCommandes();
             InitializeComponent();
 
-            // dgCommandes.DataContext = Core.Instance.Commandes;
+            // dgCommandes.ItemSources = Core.Instance.Commandes;
         }
     }
 }

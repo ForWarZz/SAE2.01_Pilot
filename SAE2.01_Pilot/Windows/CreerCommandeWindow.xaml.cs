@@ -34,7 +34,7 @@ namespace SAE2._01_Pilot.Windows
             cbTransport.DisplayMemberPath = "Libelle";
             cbTransport.SelectedValuePath = "Id";
 
-            dgLignesCommande.DataContext = nouvelleCommande.LigneCommandes;
+            dgLignesCommande.ItemsSource = nouvelleCommande.LigneCommandes;
         }
 
         private void btnAjouterLigne_Click(object sender, RoutedEventArgs e)

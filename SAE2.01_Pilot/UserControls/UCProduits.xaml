@@ -12,29 +12,29 @@
             <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" Height="47" />
             <StackPanel x:Name="spCategorie" Width="224" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
                 <Label x:Name="labCategorie" Content="Catégorie :" FontFamily="Roboto" FontSize="20" Target="{Binding cbCategorie}" FontWeight="Bold"/>
-                <ComboBox x:Name="cbCategorie" Height="46" />
+                <ComboBox x:Name="cbCategorie" Height="40" />
             </StackPanel>
             <StackPanel x:Name="spType" Width="141" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
                 <Label x:Name="labType" Content="Type :" FontFamily="Roboto" FontSize="20" Target="{Binding cbType}" FontWeight="Bold"/>
-                <ComboBox x:Name="cbType" Height="46" />
+                <ComboBox x:Name="cbType" Height="40" />
             </StackPanel>
             <StackPanel x:Name="spTypePointe" Width="185" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
                 <Label x:Name="labTypePointe" Content="Type Pointe :" FontFamily="Roboto" FontSize="20" Target="{Binding cbTypePointe}" FontWeight="Bold"/>
-                <ComboBox x:Name="cbTypePointe" Height="46" />
+                <ComboBox x:Name="cbTypePointe" Height="40" />
             </StackPanel>
             <StackPanel x:Name="spCouleur" Width="135" Height="80" HorizontalAlignment="Left" >
                 <Label x:Name="labCouleur" Content="Couleur :" FontFamily="Roboto" FontSize="20" Target="{Binding cbCouleur}" FontWeight="Bold"/>
-                <ComboBox x:Name="cbCouleur" Height="46" />
+                <ComboBox x:Name="cbCouleur" Height="40" />
             </StackPanel>
         </DockPanel>
         <StackPanel />
         <StackPanel x:Name="spContent" Height="432">
-            <DataGrid x:Name="dgCommandes"
+            <DataGrid x:Name="dgProduits"
                     AutoGenerateColumns="False"
                     Height="298"
                     Width="1016"
                     Margin="0,100,0,0"
-                    ColumnHeaderHeight="35">
+                    ColumnHeaderHeight="35" Selected="dgCommandes_Selected">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Code produit" Binding="{Binding Code}" Width="125" />
@@ -48,8 +48,8 @@
             </DataGrid>
         </StackPanel>
         <DockPanel x:Name="spActions" Height="135">
-            <Button x:Name="butModifierProduit" Content="Modifier" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
-            <Button x:Name="butRendreIndisponibleProduit" Content="Indisponible" Style="{StaticResource SupprButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
+            <Button x:Name="butModifierProduit" Content="Modifier" Visibility="Hidden" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
+            <Button x:Name="butRendreIndisponibleProduit" Content="Indisponible" Visibility="Hidden"  Style="{StaticResource SupprButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
             <Button x:Name="butAddProduit" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,50,40" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         </DockPanel>
     </StackPanel>
