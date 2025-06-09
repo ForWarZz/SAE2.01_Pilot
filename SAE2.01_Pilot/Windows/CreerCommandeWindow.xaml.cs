@@ -42,18 +42,17 @@ namespace SAE2._01_Pilot.Windows
             bool quantiteOk = int.TryParse(inputQuantite.Text, out int quantite);
             if (String.IsNullOrEmpty(inputQuantite.Text) || !quantiteOk)
             {
-                MessageBox.Show("Veuillez entrer une quantité.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Core.MessageBoxErreur("Veuillez entrer une quantité valide.");
                 return;
             }
 
-            if (btnSelectProduit.DataContext is not Produit)
+            if (btnSelectProduit.DataContext is not Produit produit)
             {
-                MessageBox.Show("Veuillez sélectionner un produit.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Core.MessageBoxErreur("Veuillez sélectionner un produit.");
                 return;
             }
 
-            Produit produitSelect = (btnSelectProduit.DataContext as Produit)!;
-            LigneCommande nouvelleLigne = new LigneCommande(produitSelect, quantite);
+            LigneCommande nouvelleLigne = new LigneCommande(produit, quantite);
 
             nouvelleCommande.LigneCommandes.Add(nouvelleLigne);
         }
@@ -62,26 +61,24 @@ namespace SAE2._01_Pilot.Windows
         {
             if (nouvelleCommande.LigneCommandes.Count == 0)
             {
-                MessageBox.Show("Veuillez ajouter au moins une ligne de commande.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Core.MessageBoxErreur("Veuillez ajouter au moins une ligne de commande.");
                 return;
             }
 
             if (cbTransport.SelectedItem is not ModeTransport transport)
             {
-                MessageBox.Show("Veuillez sélectionner un mode de transport.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Core.MessageBoxErreur("Veuillez sélectionner un mode de transport.");
                 return;
             }
 
             if (btnSelectRevendeur.DataContext is not Revendeur revendeur)
             {
-                MessageBox.Show("Veuillez sélectionner un revendeur.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                Core.MessageBoxErreur("Veuillez sélectionner un revendeur.");
                 return;
             }
 
-            Revendeur revendeurSelect = (btnSelectRevendeur.DataContext as Revendeur)!;
-
             nouvelleCommande.ModeTransport = transport;
-            nouvelleCommande.Revendeur = revendeurSelect;
+            nouvelleCommande.Revendeur = revendeur;
             nouvelleCommande.EmployeId = Core.Instance.EmployeConnecte.Id;
 
             nouvelleCommande.Create();

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SAE2._01_Pilot.Utils
 {
@@ -92,9 +93,9 @@ namespace SAE2._01_Pilot.Utils
             }
         }
 
-        private void MessageBoxErreur(string message)
+        public static void MessageBoxErreur(string message)
         {
-            System.Windows.MessageBox.Show(message, "Erreur", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
