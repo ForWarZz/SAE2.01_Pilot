@@ -110,6 +110,8 @@ namespace SAE2._01_Pilot.Models
             Id = id;
         }
 
+        public string CouleursString => string.Join(", ", Couleurs.Select(c => c.Libelle));
+
         public static ObservableCollection<Produit> GetAll(List<TypePointe> typePointes, List<TypeProduit> typeProduits, List<CouleurProduit> couleurs)
         {
             Dictionary<int, Produit> produitsParId = new Dictionary<int, Produit>();
