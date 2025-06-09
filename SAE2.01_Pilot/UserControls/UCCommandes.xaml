@@ -8,15 +8,26 @@
     d:DesignHeight="685"
     d:DesignWidth="1194"
     mc:Ignorable="d">
-    <StackPanel>
-        <DockPanel x:Name="dpRecherche" Height="47" Margin="0,38,0,0">
-            <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" />
-            <ComboBox Width="160"  Margin="0,0,39,0" />
-            <ComboBox Width="225" HorizontalAlignment="Left" />
+    <StackPanel x:Name="spMain">
+        <DockPanel x:Name="dpRecherche" Height="80" Margin="0,38,0,0">
+            <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" Height="47" />
+            <StackPanel x:Name="spDate" Width="266" Height="80" HorizontalAlignment="Left" Margin="0,0,39,0" >
+                <Label x:Name="labDate" Content="Date :" FontFamily="Roboto" FontSize="20" Target="{Binding cbDate}" FontWeight="Bold"/>
+                <ComboBox x:Name="cbDate" Height="46" />
+            </StackPanel>
+            <StackPanel x:Name="spRevendeur" Width="187" Height="80" HorizontalAlignment="Left" >
+                <Label x:Name="labRevendeur" Content="Revendeur :" FontFamily="Roboto" FontSize="20" Target="{Binding cbRevendeur}" FontWeight="Bold"/>
+                <ComboBox x:Name="cbRevendeur" Height="46" />
+            </StackPanel>
         </DockPanel>
         <StackPanel />
-        <StackPanel x:Name="spMain" Height="600">
-            <DataGrid x:Name="dgCommandes" Height="248" Width="318" Margin="0,176,0,0" VerticalAlignment="Center"/>
+        <StackPanel x:Name="spContent" Height="432">
+            <DataGrid x:Name="dgCommandes" Height="298" Width="844" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
         </StackPanel>
+        <DockPanel x:Name="spActions" Height="135">
+            <Button x:Name="butVisualiserCommande" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" Width="100" Height="38" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butSupprCommande" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" Width="104" Height="38" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butAddCommande" Content="Créer une commande" Style="{StaticResource PrimaryButtonStyle}" Width="184" Height="38" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
+        </DockPanel>
     </StackPanel>
 </UserControl>

@@ -121,6 +121,41 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="SupprButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E74C3C" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E76563" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#D33D2D" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
