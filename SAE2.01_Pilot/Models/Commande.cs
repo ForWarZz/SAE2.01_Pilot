@@ -49,7 +49,7 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public static ObservableCollection<Commande> GetAll(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits)
+        public static ObservableCollection<Commande> GetFromEmploye(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits, Employe employeConnecte)
         {
             Dictionary<int, Commande> commandesParId = new Dictionary<int, Commande>();
 
@@ -65,11 +65,13 @@ namespace SAE2._01_Pilot.Models
                     lc.QuantiteCommande,
                 FROM Commande c
                 JOIN LigneCommande lc ON lc.IdCommande = c.Id
-                ORDER BY c.Id
+                WHERE c.NumEmploye = @NumEmploye
             ";
 
             using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
             {
+                cmd.Parameters.AddWithValue("@NumEmploye", employeConnecte.Id);
+
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
 
                 foreach (DataRow row in dt.Rows)

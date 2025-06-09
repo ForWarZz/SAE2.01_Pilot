@@ -8,10 +8,6 @@ namespace SAE2._01_Pilot.Database
 {
     public interface ICrud<T>
     {
-        public static List<T> GetAll()
-        {
-            throw new NotImplementedException("Methode non implémentée");
-        }
         public void Create();
         public void Update();
         public void Delete();

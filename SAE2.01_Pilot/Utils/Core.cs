@@ -84,11 +84,11 @@ namespace SAE2._01_Pilot.Utils
         {
             try
             {
-                Commandes = Commande.GetAll(ModeTransports, Revendeurs, Produits);
+                Commandes = Commande.GetFromEmploye(ModeTransports, Revendeurs, Produits, EmployeConnecte);
             }
             catch (Exception ex)
             {
-                MessageBoxErreur($"Erreur lors du chargement des commandes : {ex.Message}");
+                MessageBoxErreur($"Erreur lors du chargement des commandes du commercial : {ex.Message}");
             }
         }
 
