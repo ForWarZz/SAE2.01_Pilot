@@ -12,11 +12,18 @@
         </DockPanel>
         <StackPanel />
         <StackPanel x:Name="spContent" Height="432">
-            <DataGrid x:Name="dgRevendeur" Height="298" Width="844" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
+            <DataGrid x:Name="dgRevendeur" Height="298" Margin="0,100,0,0" HorizontalAlignment="Center" Width="594">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Raison sociale" Binding="{Binding RaisonSociale}" />
+                    <DataGridTextColumn Header="Rue" Binding="{Binding Rue}" />
+                    <DataGridTextColumn Header="Code postal" Binding="{Binding CodePostal}" />
+                    <DataGridTextColumn Header="Ville" Binding="{Binding Ville}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         <DockPanel x:Name="spActions" Height="135">
-            <Button x:Name="butMofifierRevendeur" Content="Modifier" Style="{StaticResource SecondaryButtonStyle}" Width="89" Height="38" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
-            <Button x:Name="butAddRevendeur" Content="Créer un revendeur" Style="{StaticResource PrimaryButtonStyle}" Width="184" Height="38" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
+            <Button x:Name="butMofifierRevendeur" Content="Modifier" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom" />
+            <Button x:Name="butAddRevendeur" Content="Créer un revendeur" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
         </DockPanel>
     </StackPanel>
 </UserControl>
