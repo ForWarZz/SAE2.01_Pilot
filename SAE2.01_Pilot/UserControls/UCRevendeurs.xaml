@@ -14,10 +14,10 @@
         <StackPanel x:Name="spContent" Height="432">
             <DataGrid x:Name="dgRevendeur" Height="298" Margin="0,100,0,0" HorizontalAlignment="Center" Width="594">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Raison sociale" Binding="{Binding RaisonSociale}" />
-                    <DataGridTextColumn Header="Rue" Binding="{Binding Rue}" />
-                    <DataGridTextColumn Header="Code postal" Binding="{Binding CodePostal}" />
-                    <DataGridTextColumn Header="Ville" Binding="{Binding Ville}" />
+                    <DataGridTextColumn Header="Raison sociale" Binding="{Binding RaisonSociale}" Width="*" />
+                    <DataGridTextColumn Header="Rue" Binding="{Binding Rue}" Width="*" />
+                    <DataGridTextColumn Header="Code postal" Binding="{Binding CodePostal}" Width="*" />
+                    <DataGridTextColumn Header="Ville" Binding="{Binding Ville}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

@@ -21,13 +21,19 @@
             </StackPanel>
         </DockPanel>
         <StackPanel />
-        <StackPanel x:Name="spContent" Height="432">
-            <DataGrid x:Name="dgCommandes" Height="298" Width="844" VerticalAlignment="Bottom" Margin="0,100,0,0"/>
-        </StackPanel>
-        <DockPanel x:Name="spActions" Height="135">
-            <Button x:Name="butVisualiserCommande" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" Width="100" Height="38" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
-            <Button x:Name="butSupprCommande" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" Width="104" Height="38" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
-            <Button x:Name="butAddCommande" Content="Créer une commande" Style="{StaticResource PrimaryButtonStyle}" Width="184" Height="38" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
+        <DataGrid x:Name="dgCommandes" Height="300" VerticalAlignment="Bottom" Margin="200,100,200,0" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numéro commande" Binding="{Binding Id}" Width="125"/>
+                <DataGridTextColumn Header="Mode de transport" Binding="{Binding ModeTransport.Libelle}" Width="120"/>
+                <DataGridTextColumn Header="Date commande" Binding="{Binding DateCreation, StringFormat={}{0:dd/MM/yyyy}}" Width="110"/>
+                <DataGridTextColumn Header="Date livraison" Binding="{Binding DateLivraison, StringFormat={}{0:dd/MM/yyyy}}" Width="110"/>
+                <DataGridTextColumn Header="Prix total" Binding="{Binding PrixTotal, StringFormat={}{0:F2} €}" Width="*" />
+            </DataGrid.Columns>
+            </DataGrid>
+            <DockPanel x:Name="spActions" Height="135">
+            <Button x:Name="butVisualiserCommande" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butSupprCommande" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butAddCommande" Content="Créer une commande" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
         </DockPanel>
     </StackPanel>
 </UserControl>
