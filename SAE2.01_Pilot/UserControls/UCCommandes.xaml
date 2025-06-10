@@ -47,7 +47,7 @@
             </DataGrid>
         </Border>
 
-        <Border Grid.Row="2" Padding="20,10" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+        <Border Grid.Row="2" Padding="20,25" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button x:Name="butVisualiserCommande" Width="150" Margin="0,0,15,0" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" Visibility="Hidden" />
                 <Button x:Name="butSupprCommande" Width="150" Margin="0,0,15,0" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" Visibility="Hidden" />

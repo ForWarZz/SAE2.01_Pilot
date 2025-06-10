@@ -64,7 +64,7 @@
 
         <Border
             Grid.Row="2"
-            Padding="20,50"
+            Padding="20,25"
             BorderBrush="#E0E0E0"
             BorderThickness="0,1,0,0">
             <StackPanel
