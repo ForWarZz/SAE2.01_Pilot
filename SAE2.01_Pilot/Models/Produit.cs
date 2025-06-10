@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -150,6 +151,19 @@ namespace SAE2._01_Pilot.Models
             Disponible = disponible;
         }
 
+        public Produit(int id, TypePointe typePointe, TypeProduit type, string code, string nom, decimal prixVente, int quantiteStock, ObservableCollection<CouleurProduit> couleurs, bool disponible)
+        {
+            Id = id;
+            TypePointe = typePointe;
+            Type = type;
+            Code = code;
+            Nom = nom;
+            PrixVente = prixVente;
+            QuantiteStock = quantiteStock;
+            Couleurs = couleurs;
+            Disponible = disponible;
+        }
+
         public string CouleursString => string.Join(", ", Couleurs.Select(c => c.Libelle));
 
         public static ObservableCollection<Produit> GetAll(List<TypePointe> typePointes, List<TypeProduit> typeProduits, List<CouleurProduit> couleurs)
@@ -211,48 +225,6 @@ namespace SAE2._01_Pilot.Models
 
         public void Create()
         {
-            /* Console.WriteLine("Création du produit : " + Nom);
-
-
-             Console.WriteLine("Vérification de l'existence du produit avec le code : " + Code);
-
-             using (NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists))
-             {
-                 cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
-                 int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
-
-                 if (count > 0)
-                 {
-                     throw new InvalidOperationException("Un produit avec ce code existe déjà.");
-                 }
-             }
-
-             Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
-
-             string sqlInsertProduit = @"
-                 INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
-                 VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
-                 RETURNING NumProduit;";
-
-             using (NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsertProduit))
-             {
-                 cmdInsert.Parameters.AddWithValue("CodeProduit", Code);
-                 cmdInsert.Parameters.AddWithValue("NomProduit", Nom);
-                 cmdInsert.Parameters.AddWithValue("PrixVente", PrixVente);
-                 cmdInsert.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
-                 cmdInsert.Parameters.AddWithValue("Disponible", Disponible);
-                 cmdInsert.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
-                 cmdInsert.Parameters.AddWithValue("NumType", Type.Id);
-
-                 Console.WriteLine("Exécution de l'insertion du produit...");
-
-                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
-             }
-
-             string sqlInsertCouleurs = @"
-                 INSERT INTO CouleurProduit (NumProduit, NumCouleur)
-                 VALUES";*/
-
             NpgsqlConnection conn = DataAccess.Instance.GetConnection();
             using (NpgsqlTransaction transaction = conn.BeginTransaction())
             {
@@ -318,7 +290,87 @@ namespace SAE2._01_Pilot.Models
 
         public void Update()
         {
-            throw new NotImplementedException();
+            NpgsqlConnection conn = DataAccess.Instance.GetConnection();
+            using (NpgsqlTransaction transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    string sqlCheckCodeExists = "SELECT COUNT(*) FROM Produit WHERE CodeProduit = @CodeProduit AND NumProduit != @Id";
+                    using (NpgsqlCommand cmdCheckCode = new NpgsqlCommand(sqlCheckCodeExists, conn, transaction))
+                    {
+                        cmdCheckCode.Parameters.AddWithValue("CodeProduit", Code);
+                        cmdCheckCode.Parameters.AddWithValue("Id", Id);
+                        int count = (int)(long)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckCode);
+                        if (count > 0)
+                        {
+                            throw new InvalidOperationException("Un autre produit utilise déjà ce code. Veuillez choisir un code unique.");
+                        }
+                    }
+
+                    UpdateBase();
+
+                    string sqlDeleteCouleurs = @"
+                        DELETE FROM CouleurProduit
+                        WHERE NumProduit = @NumProduit;";
+
+                    using (NpgsqlCommand cmdDeleteCouleurs = new NpgsqlCommand(sqlDeleteCouleurs, conn, transaction))
+                    {
+                        cmdDeleteCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                        cmdDeleteCouleurs.ExecuteNonQuery();
+                    }
+
+                    List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
+
+                    string sqlInsertCouleurs = @"
+                            INSERT INTO CouleurProduit (NumProduit, NumCouleur)
+                            SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
+                        ";
+
+                    using (NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction))
+                    {
+                        cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                        cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
+
+                        cmdInsertCouleurs.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        public void UpdateBase()
+        {
+            string sqlUpdateProduit = @"
+                        UPDATE Produit
+                        SET
+                            CodeProduit = @CodeProduit,
+                            NomProduit = @NomProduit,
+                            PrixVente = @PrixVente,
+                            QuantiteStock = @QuantiteStock,
+                            Disponible = @Disponible,
+                            NumTypePointe = @NumTypePointe,
+                            NumType = @NumType
+                        WHERE NumProduit = @NumProduit";
+
+            using (NpgsqlCommand cmdUpdateProduit = new NpgsqlCommand(sqlUpdateProduit))
+            {
+                cmdUpdateProduit.Parameters.AddWithValue("CodeProduit", Code);
+                cmdUpdateProduit.Parameters.AddWithValue("NomProduit", Nom);
+                cmdUpdateProduit.Parameters.AddWithValue("PrixVente", PrixVente);
+                cmdUpdateProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
+                cmdUpdateProduit.Parameters.AddWithValue("Disponible", Disponible);
+                cmdUpdateProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
+                cmdUpdateProduit.Parameters.AddWithValue("NumType", Type.Id);
+                cmdUpdateProduit.Parameters.AddWithValue("NumProduit", Id);
+
+                DataAccess.Instance.ExecuteSet(cmdUpdateProduit);
+            }
         }
 
         public void Delete()

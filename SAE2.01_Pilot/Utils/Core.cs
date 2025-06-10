@@ -113,6 +113,11 @@ namespace SAE2._01_Pilot.Utils
             MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        public static bool MessageBoxConfirmation(string message)
+        {
+            return MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+        }
+
         public static bool ValiderFormulaire(DependencyObject container)
         {
             bool ok = true;

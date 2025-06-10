@@ -44,7 +44,7 @@
                 </StackPanel>
                 <StackPanel x:Name="spPrixProduit" Orientation="Horizontal">
                     <Label Content="Prix : " FontSize="22"/>
-                    <TextBlock x:Name="labPrixProduit" Text="{Binding PrixVente, StringFormat={}{0:F2} €}}" FontSize="22"/>
+                    <TextBlock x:Name="labPrixProduit" Text="{Binding PrixVente, StringFormat={}{0:F2} €}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spQuantiteProduit" Orientation="Horizontal">
                     <Label Content="Quantité en stock : " FontSize="22"/>

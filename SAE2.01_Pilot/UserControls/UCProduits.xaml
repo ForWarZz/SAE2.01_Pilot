@@ -163,14 +163,13 @@
                         Width="120"
                         Margin="0,0,15,0"
                         Content="Modifier"
-                        Style="{StaticResource SecondaryButtonStyle}" />
+                        Style="{StaticResource SecondaryButtonStyle}" Click="butModifierProduit_Click" />
                     <Button
                         x:Name="butRendreIndisponibleProduit"
                         Width="120"
                         Margin="0,0,15,0"
                         Content="Indisponible"
-                        IsEnabled="False"
-                        Style="{StaticResource SupprButtonStyle}" />
+                        Style="{StaticResource SupprButtonStyle}" Click="butRendreIndisponibleProduit_Click" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

@@ -90,12 +90,13 @@ namespace SAE2._01_Pilot.UserControls
 
         private void dgProduits_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object selectedItem = dgProduits.SelectedItem;
+            Produit? produitSelected = dgProduits.SelectedItem as Produit;
             bool estResponsable = Core.Instance.EmployeConnecte.EstResponsableProduction;
 
-            if (selectedItem == null)
+            if (produitSelected == null)
             {
                 butRendreIndisponibleProduit.Visibility = Visibility.Hidden;
+
                 butModifierProduit.Visibility = Visibility.Hidden;
                 butVisualiserProduit.Visibility = Visibility.Hidden;
 
@@ -107,7 +108,7 @@ namespace SAE2._01_Pilot.UserControls
             if (estResponsable)
             {
                 butModifierProduit.Visibility = Visibility.Visible;
-                butRendreIndisponibleProduit.Visibility = Visibility.Visible;
+                butRendreIndisponibleProduit.Visibility = produitSelected.Disponible ? Visibility.Visible : Visibility.Hidden;
             }
         }
 
@@ -142,6 +143,64 @@ namespace SAE2._01_Pilot.UserControls
 
             MainWindow mainWindow = ((MainWindow)App.Current.MainWindow);
             mainWindow.ccMain.Content = new UCVisualiserProduit(produitSelected, this);
+        }
+
+        private void butModifierProduit_Click(object sender, RoutedEventArgs e)
+        {
+            Produit? produitSelected = dgProduits.SelectedItem as Produit;
+
+            if (produitSelected == null)
+                return;
+
+            Produit produitModifie = new Produit(produitSelected.Id, produitSelected.TypePointe, produitSelected.Type, produitSelected.Code, produitSelected.Nom, produitSelected.PrixVente, produitSelected.QuantiteStock, produitSelected.Disponible);
+            CreerProduitWindow creerProduitWindow = new CreerProduitWindow(produitModifie, Utils.Action.Modifier);
+
+            bool dialogResult = creerProduitWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+                return;
+
+            try
+            {
+                produitSelected.Code = produitModifie.Code;
+                produitSelected.Nom = produitModifie.Nom;
+                produitSelected.PrixVente = produitModifie.PrixVente;
+                produitSelected.QuantiteStock = produitModifie.QuantiteStock;
+                produitSelected.TypePointe = produitModifie.TypePointe;
+                produitSelected.Type = produitModifie.Type;
+                produitSelected.Disponible = produitModifie.Disponible;
+                produitSelected.Couleurs = produitModifie.Couleurs;
+
+                produitSelected.Update();
+
+                Core.MessageBoxSucces("Le produit a été modifié avec succès.");
+            } catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la modification du produit : {ex.Message}");
+            }
+        }
+
+        private void butRendreIndisponibleProduit_Click(object sender, RoutedEventArgs e)
+        {
+            Produit? produitSelected = dgProduits.SelectedItem as Produit;
+
+            if (produitSelected == null)
+                return;
+
+            if (!Core.MessageBoxConfirmation("Êtes-vous sûr de vouloir rendre ce produit indisponible ?"))
+                return;
+
+            try
+            {
+                produitSelected.Disponible = false;
+                produitSelected.UpdateBase();
+
+                Core.MessageBoxSucces("Le produit a été rendu indisponible avec succès.");
+            }
+            catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la mise à jour du produit : {ex.Message}");
+            }
         }
     }
 }
