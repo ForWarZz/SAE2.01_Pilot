@@ -42,7 +42,7 @@ namespace SAE2._01_Pilot.Models
             get => rue; 
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (!String.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("La rue ne peut pas être vide.");
                 }

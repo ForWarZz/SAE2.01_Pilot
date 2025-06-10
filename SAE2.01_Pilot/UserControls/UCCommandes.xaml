@@ -9,96 +9,31 @@
     d:DesignWidth="1194"
     mc:Ignorable="d">
     <StackPanel x:Name="spMain">
-        <DockPanel x:Name="dpRecherche" Margin="0,38,0,0">
-            <TextBox
-                Width="316"
-                Height="47"
-                Margin="20,0,37,0"
-                Style="{StaticResource RechercherTBStyle}" />
-            <StackPanel
-                x:Name="spDate"
-                Width="266"
-                Height="80"
-                Margin="0,0,39,0"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labDate"
-                    Content="Date :"
-                    FontFamily="Roboto"
-                    FontSize="18"
-                    FontWeight="Medium"
-                    Target="{Binding cbDate}" />
-                <ComboBox x:Name="cbDate" Height="40" />
+        <DockPanel x:Name="dpRecherche" Height="80" Margin="0,38,0,0">
+            <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" Height="47" />
+            <StackPanel x:Name="spDate" Width="266" Height="80" HorizontalAlignment="Left" Margin="0,0,39,0" >
+                <Label x:Name="labDate" Content="Date :" FontFamily="Roboto" FontSize="20" Target="{Binding cbDate}" FontWeight="Bold"/>
+                <ComboBox x:Name="cbDate" Height="46" />
             </StackPanel>
-            <StackPanel
-                x:Name="spRevendeur"
-                Width="187"
-                Height="80"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labRevendeur"
-                    Content="Revendeur :"
-                    FontFamily="Roboto"
-                    FontSize="18"
-                    FontWeight="Medium"
-                    Target="{Binding cbRevendeur}" />
-                <ComboBox x:Name="cbRevendeur" Height="40" />
+            <StackPanel x:Name="spRevendeur" Width="187" Height="80" HorizontalAlignment="Left" >
+                <Label x:Name="labRevendeur" Content="Revendeur :" FontFamily="Roboto" FontSize="20" Target="{Binding cbRevendeur}" FontWeight="Bold"/>
+                <ComboBox x:Name="cbRevendeur" Height="46" />
             </StackPanel>
         </DockPanel>
         <StackPanel />
-        <DataGrid
-            x:Name="dgCommandes"
-            Height="300"
-            Margin="200,100,200,0"
-            VerticalAlignment="Bottom"
-            AutoGenerateColumns="False"
-            IsEnabled="False"
-            IsReadOnly="True">
+        <DataGrid x:Name="dgCommandes" Height="300" VerticalAlignment="Bottom" Margin="200,100,200,0" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Width="125"
-                    Binding="{Binding Id}"
-                    Header="Numéro commande" />
-                <DataGridTextColumn
-                    Width="120"
-                    Binding="{Binding ModeTransport.Libelle}"
-                    Header="Mode de transport" />
-                <DataGridTextColumn
-                    Width="110"
-                    Binding="{Binding DateCreation, StringFormat={}{0:dd/MM/yyyy}}"
-                    Header="Date commande" />
-                <DataGridTextColumn
-                    Width="110"
-                    Binding="{Binding DateLivraison, StringFormat={}{0:dd/MM/yyyy}}"
-                    Header="Date livraison" />
-                <DataGridTextColumn
-                    Width="*"
-                    Binding="{Binding PrixTotal, StringFormat={}{0:F2} €}"
-                    Header="Prix total" />
+                <DataGridTextColumn Header="Numéro commande" Binding="{Binding Id}" Width="125"/>
+                <DataGridTextColumn Header="Mode de transport" Binding="{Binding ModeTransport.Libelle}" Width="120"/>
+                <DataGridTextColumn Header="Date commande" Binding="{Binding DateCreation, StringFormat={}{0:dd/MM/yyyy}}" Width="110"/>
+                <DataGridTextColumn Header="Date livraison" Binding="{Binding DateLivraison, StringFormat={}{0:dd/MM/yyyy}}" Width="110"/>
+                <DataGridTextColumn Header="Prix total" Binding="{Binding PrixTotal, StringFormat={}{0:F2} €}" Width="*" />
             </DataGrid.Columns>
-        </DataGrid>
-        <DockPanel x:Name="spActions" Height="135">
-            <Button
-                x:Name="butVisualiserCommande"
-                Margin="50,0,0,40"
-                VerticalAlignment="Bottom"
-                Content="Visualiser"
-                Style="{StaticResource SecondaryButtonStyle}"
-                Visibility="Hidden" />
-            <Button
-                x:Name="butSupprCommande"
-                Margin="50,0,0,40"
-                VerticalAlignment="Bottom"
-                Content="Supprimer"
-                Style="{StaticResource SupprButtonStyle}"
-                Visibility="Hidden" />
-            <Button
-                x:Name="butAddCommande"
-                Margin="0,0,50,40"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Content="Créer une commande"
-                Style="{StaticResource PrimaryButtonStyle}" />
+            </DataGrid>
+            <DockPanel x:Name="spActions" Height="135">
+            <Button x:Name="butVisualiserCommande" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butSupprCommande" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" Margin="50,0,0,40" VerticalAlignment="Bottom" IsEnabled="False"/>
+            <Button x:Name="butAddCommande" Content="Créer une commande" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="0,0,50,40" VerticalAlignment="Bottom"/>
         </DockPanel>
     </StackPanel>
 </UserControl>

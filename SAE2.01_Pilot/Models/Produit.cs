@@ -49,7 +49,7 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public decimal PrixVente
+        public double PrixVente
         {
             get => prixVente;
             set
@@ -87,12 +87,12 @@ namespace SAE2._01_Pilot.Models
 
         private string code;
         private string nom;
-        private decimal prixVente;
+        private double prixVente;
         private int quantiteStock;
 
         private List<CouleurProduit> couleurs;
 
-        public Produit(TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible)
+        public Produit(TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible)
         {
             TypePointe = typePointe;
             Type = typeProduit;
@@ -104,7 +104,7 @@ namespace SAE2._01_Pilot.Models
             Disponible = disponible;
         }
 
-        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
+        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, double prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
             : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, couleurs, disponible)
         {
             Id = id;
@@ -145,7 +145,7 @@ namespace SAE2._01_Pilot.Models
                     if (!produitsParId.ContainsKey(numProduit))
                     {
                         TypePointe? typePointe = typePointes.FirstOrDefault(tp => tp.Id == (int)row["NumTypePointe"]);
-                        TypeProduit? typeProduit = typeProduits.FirstOrDefault(tp => tp.Id == (int)row["NumType"]);
+                        TypeProduit? typeProduit = typeProduits.FirstOrDefault(tp => tp.Id == (int)row["NumTypeProduit"]);
 
                         Produit produit = new Produit(
                             id: numProduit,
@@ -153,7 +153,7 @@ namespace SAE2._01_Pilot.Models
                             typeProduit: typeProduit,
                             codeProduit: row["CodeProduit"].ToString(),
                             nomProduit: row["NomProduit"].ToString(),
-                            prixVente: (decimal)row["PrixVente"],
+                            prixVente: (double)row["PrixVente"],
                             quantiteStock: (int)row["QuantiteStock"],
                             couleurs: new List<CouleurProduit>(),
                             disponible: (bool)row["Disponible"]
