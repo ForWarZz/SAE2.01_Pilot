@@ -34,28 +34,29 @@ namespace SAE2._01_Pilot
 
         public MainWindow()
         {
-            /*CheckLogin();*/
+            CheckLogin();
             InitializeComponent();
+
+            spTop.DataContext = Core.Instance.EmployeConnecte;
         }
 
         private void CheckLogin()
         {
-            this.Hide();
+            Hide();
 
             Connexion connexionWindow = new Connexion();
             connexionWindow.ShowDialog();
 
-            if (connexionWindow.DialogResult == true)
-            {
-                EmployeConnecte = connexionWindow.EmployeResult;
-                spTop.DataContext = EmployeConnecte;
-
-                Charger();
-                this.Show();
-            } else
+            if (connexionWindow.DialogResult == false)
             {
                 Application.Current.Shutdown();
+                return;
             }
+
+            EmployeConnecte = connexionWindow.EmployeResult;
+
+            Charger();
+            Show();
         }
 
         private void Charger()
