@@ -54,10 +54,7 @@ namespace SAE2._01_Pilot.UserControls
             bool dialogResult = creerRevendeurWindow.ShowDialog() ?? false;
 
             if (!dialogResult)
-            {
-                Core.MessageBoxErreur("Une erreur est survenue lors de la création du revendeur. Veuillez réessayer.");
                 return;
-            }
 
             try
             {
@@ -69,7 +66,6 @@ namespace SAE2._01_Pilot.UserControls
             } catch (Exception ex)
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la création du revendeur : {ex.Message}");
-                return;
             }
         }
     }
