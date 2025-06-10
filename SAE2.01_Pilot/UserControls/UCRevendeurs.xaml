@@ -29,7 +29,6 @@
                     Text="Rechercher" />
                 <TextBox
                     Width="300"
-                    Height="40"
                     Style="{StaticResource RechercherTBStyle}" />
             </StackPanel>
         </StackPanel>
