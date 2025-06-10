@@ -49,10 +49,19 @@ namespace SAE2._01_Pilot.UserControls
         {
             bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
 
-            if (!estResponsableProd)
+            if (estResponsableProd)
+            {
+                butAddCommande.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void dgCommandes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
+
+            if (estResponsableProd)
             {
                 butSupprCommande.Visibility = Visibility.Visible;
-                butAddCommande.Visibility = Visibility.Visible;
             }
         }
     }

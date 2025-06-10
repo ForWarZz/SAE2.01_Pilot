@@ -36,7 +36,7 @@
         </Border>
 
         <Border Grid.Row="1" Margin="20,15" Background="White" CornerRadius="4">
-            <DataGrid x:Name="dgCommandes">
+            <DataGrid x:Name="dgCommandes" SelectionChanged="dgCommandes_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Binding="{Binding Id}" Header="Numéro commande" />
                     <DataGridTextColumn Width="*" Binding="{Binding ModeTransport.Libelle}" Header="Mode de transport" />
