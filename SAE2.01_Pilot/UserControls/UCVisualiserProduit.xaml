@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="SAE2._01_Pilot.UserControls.UCVisualiserProduit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SAE2._01_Pilot.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="685" d:DesignWidth="1194">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel x:Name="dpTitre" HorizontalAlignment="Center" Grid.Row="0">
+            <Label x:Name="labVisuProduit" Content="Visualiser " FontSize="30" HorizontalAlignment="Center"/>
+            <Label x:Name="labProduitAVisualiser" Content="" FontSize="30" HorizontalAlignment="Center"/>
+        </DockPanel>
+        <Border Grid.Row="1" Padding="20,25" BorderBrush="#E0E0E0" BorderThickness="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="346">
+            <StackPanel x:Name="spInfos" VerticalAlignment="Center">
+                <StackPanel x:Name="spCodeProduit" Orientation="Horizontal">
+                    <Label Content="Code produit : " FontSize="22"/>
+                    <Label x:Name="labCodeProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spNomProduit" Orientation="Horizontal">
+                    <Label Content="Nom : " FontSize="22"/>
+                    <Label x:Name="labNomProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spCouleurProduit" Orientation="Horizontal">
+                    <Label Content="Couleur : " FontSize="22"/>
+                    <Label x:Name="labCouleurProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spCategorieProduit" Orientation="Horizontal">
+                    <Label Content="Catégorie : " FontSize="22"/>
+                    <Label x:Name="labCategorieProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spTypeProduit" Orientation="Horizontal">
+                    <Label Content="Type : " FontSize="22"/>
+                    <Label x:Name="labTypeProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spTypePointeProduit" Orientation="Horizontal">
+                    <Label Content="Type pointe : " FontSize="22"/>
+                    <Label x:Name="labTypePointeProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spPrixProduit" Orientation="Horizontal">
+                    <Label Content="Prix : " FontSize="22"/>
+                    <Label x:Name="labPrixProduit" Content="" FontSize="22"/>
+                </StackPanel>
+                <StackPanel x:Name="spQuantiteProduit" Orientation="Horizontal">
+                    <Label Content="Quantité en stock : " FontSize="22"/>
+                    <Label x:Name="labQuantiteProduit" Content="" FontSize="22"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <DockPanel x:Name="dpBouton" Grid.Row="2">
+            <Button x:Name="butRetour" Content="Retour" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="0,0,50,40"/>
+        </DockPanel>
+    </Grid>
+</UserControl>
