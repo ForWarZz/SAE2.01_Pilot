@@ -43,6 +43,11 @@ namespace SAE2._01_Pilot.Models
             RaisonSociale = raisonSociale;
         }
 
+        public Revendeur()
+        {
+            Adresse = new Adresse();
+        }
+
         public static ObservableCollection<Revendeur> GetAll()
         {
             ObservableCollection<Revendeur> revendeurs = new ObservableCollection<Revendeur>();
@@ -82,6 +87,8 @@ namespace SAE2._01_Pilot.Models
                 cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
+
+                Console.WriteLine("Revendeur créé avec succès. ID: " + Id);
             }
         }
 

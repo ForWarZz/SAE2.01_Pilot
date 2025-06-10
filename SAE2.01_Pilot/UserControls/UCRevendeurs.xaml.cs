@@ -1,4 +1,6 @@
-﻿using SAE2._01_Pilot.Utils;
+﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
+using SAE2._01_Pilot.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,32 @@ namespace SAE2._01_Pilot.UserControls
         private bool FiltrerRevendeurs(object obj)
         {
             return true;
+        }
+
+        private void butAddRevendeur_Click(object sender, RoutedEventArgs e)
+        {
+            Revendeur revendeur = new Revendeur();
+            CreerRevendeurWindow creerRevendeurWindow = new CreerRevendeurWindow(revendeur, Utils.Action.Ajouter);
+            bool dialogResult = creerRevendeurWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+            {
+                Core.MessageBoxErreur("Une erreur est survenue lors de la création du revendeur. Veuillez réessayer.");
+                return;
+            }
+
+            try
+            {
+                revendeur.Create();
+
+                Core.Instance.Revendeurs.Add(revendeur);
+                Core.MessageBoxSucces("Le revendeur a été créé avec succès.");
+
+            } catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la création du revendeur : {ex.Message}");
+                return;
+            }
         }
     }
 }

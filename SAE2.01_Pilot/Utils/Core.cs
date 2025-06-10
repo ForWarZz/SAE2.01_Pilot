@@ -104,5 +104,10 @@ namespace SAE2._01_Pilot.Utils
         {
             MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public static void MessageBoxSucces(string message)
+        {
+            MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

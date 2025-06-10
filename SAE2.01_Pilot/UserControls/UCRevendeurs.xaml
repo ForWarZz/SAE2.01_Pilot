@@ -82,7 +82,7 @@
                     x:Name="butAddRevendeur"
                     Width="180"
                     Content="Créer un revendeur"
-                    Style="{StaticResource PrimaryButtonStyle}" />
+                    Style="{StaticResource PrimaryButtonStyle}" Click="butAddRevendeur_Click" />
             </StackPanel>
         </Border>
     </Grid>

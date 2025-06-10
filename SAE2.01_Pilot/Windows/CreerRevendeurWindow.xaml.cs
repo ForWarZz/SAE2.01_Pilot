@@ -31,7 +31,9 @@ namespace SAE2._01_Pilot.Windows
                 }
 
                 if (Validation.GetHasError(uie))
+                {
                     ok = false;
+                }
             }
 
             if (ok)
