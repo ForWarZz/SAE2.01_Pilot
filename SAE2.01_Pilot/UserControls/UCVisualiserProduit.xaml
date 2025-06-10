@@ -20,35 +20,35 @@
             <StackPanel x:Name="spInfos" VerticalAlignment="Center">
                 <StackPanel x:Name="spCodeProduit" Orientation="Horizontal">
                     <Label Content="Code produit : " FontSize="22"/>
-                    <Label x:Name="labCodeProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labCodeProduit" Content="{Binding Code}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spNomProduit" Orientation="Horizontal">
                     <Label Content="Nom : " FontSize="22"/>
-                    <Label x:Name="labNomProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labNomProduit" Content="{Binding Nom}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spCouleurProduit" Orientation="Horizontal">
                     <Label Content="Couleur : " FontSize="22"/>
-                    <Label x:Name="labCouleurProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labCouleurProduit" Content="{Binding CouleursStr}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spCategorieProduit" Orientation="Horizontal">
                     <Label Content="Catégorie : " FontSize="22"/>
-                    <Label x:Name="labCategorieProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labCategorieProduit" Content="{Binding Type.Categorie.Libelle}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spTypeProduit" Orientation="Horizontal">
                     <Label Content="Type : " FontSize="22"/>
-                    <Label x:Name="labTypeProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labTypeProduit" Content="{Binding Type.Libelle}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spTypePointeProduit" Orientation="Horizontal">
                     <Label Content="Type pointe : " FontSize="22"/>
-                    <Label x:Name="labTypePointeProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labTypePointeProduit" Content="{Binding TypePointe.Libelle}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spPrixProduit" Orientation="Horizontal">
                     <Label Content="Prix : " FontSize="22"/>
-                    <Label x:Name="labPrixProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labPrixProduit" Content="{Binding PrixVente}" FontSize="22"/>
                 </StackPanel>
                 <StackPanel x:Name="spQuantiteProduit" Orientation="Horizontal">
                     <Label Content="Quantité en stock : " FontSize="22"/>
-                    <Label x:Name="labQuantiteProduit" Content="" FontSize="22"/>
+                    <Label x:Name="labQuantiteProduit" Content="{Binding QuantiteStock}" FontSize="22"/>
                 </StackPanel>
             </StackPanel>
         </Border>
