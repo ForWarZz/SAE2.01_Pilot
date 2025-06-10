@@ -38,6 +38,12 @@ namespace SAE2._01_Pilot.Windows
             InitComboBoxs();
             InitListBoxs();
 
+            if (action == Action.Modifier)
+            {
+                foreach (CouleurProduit couleur in nouveauProduit.Couleurs)
+                    lbCouleurs.SelectedItems.Add(couleur);
+            }
+
             btnCreer.Content = action == Utils.Action.Ajouter ? "Créer un produit" : "Modifier le produit";
             txtTitre.Text = btnCreer.Content.ToString();
         }
