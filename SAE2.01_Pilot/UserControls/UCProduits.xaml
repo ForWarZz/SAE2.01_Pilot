@@ -136,8 +136,8 @@
                         Binding="{Binding QuantiteStock}"
                         Header="Quantité en stock" />
                     <DataGridTextColumn
-                        Width="60"
-                        Binding="{Binding PrixVente}"
+                        Width="90"
+                        Binding="{Binding PrixVente, StringFormat={}{0:F2} €}"
                         Header="Prix" />
                     <DataGridCheckBoxColumn
                         Width="125"
@@ -163,7 +163,6 @@
                         Width="120"
                         Margin="0,0,15,0"
                         Content="Modifier"
-                        IsEnabled="False"
                         Style="{StaticResource SecondaryButtonStyle}" />
                     <Button
                         x:Name="butRendreIndisponibleProduit"
@@ -174,14 +173,22 @@
                         Style="{StaticResource SupprButtonStyle}" />
                 </StackPanel>
 
-                <Button
-                    x:Name="butAddProduit"
-                    Width="200"
-                    Content="Créer un produit"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    HorizontalAlignment="Right"
-                    Click="butAddProduit_Click"
-                    DockPanel.Dock="Right" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button
+                        x:Name="butVisualiserProduit"
+                        Width="120"
+                        Margin="0,0,15,0"
+                        Content="Visualiser"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Click="butVisualiserProduit_Click" />
+                    <Button
+                        x:Name="butAddProduit"
+                        Width="200"
+                        Content="Créer un produit"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Click="butAddProduit_Click" />
+                </StackPanel>
+
             </DockPanel>
         </Border>
     </Grid>

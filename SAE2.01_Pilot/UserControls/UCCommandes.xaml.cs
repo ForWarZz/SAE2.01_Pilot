@@ -87,5 +87,10 @@ namespace SAE2._01_Pilot.UserControls
 
             butSupprCommande.Visibility = estResponsableProd ? Visibility.Visible : Visibility.Hidden;
         }
+
+        private void butVisualiserCommande_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

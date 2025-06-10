@@ -97,9 +97,12 @@ namespace SAE2._01_Pilot.UserControls
             {
                 butRendreIndisponibleProduit.Visibility = Visibility.Hidden;
                 butModifierProduit.Visibility = Visibility.Hidden;
+                butVisualiserProduit.Visibility = Visibility.Hidden;
 
                 return;
             }
+
+            butVisualiserProduit.Visibility = Visibility.Visible;
 
             if (estResponsable)
             {
@@ -128,6 +131,17 @@ namespace SAE2._01_Pilot.UserControls
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la création du produit : {ex.Message}");
             }
+        }
+
+        private void butVisualiserProduit_Click(object sender, RoutedEventArgs e)
+        {
+            Produit? produitSelected = dgProduits.SelectedItem as Produit;
+
+            if (produitSelected == null)
+                return;
+
+            MainWindow mainWindow = ((MainWindow)App.Current.MainWindow);
+            mainWindow.ccMain.Content = new UCVisualiserProduit(produitSelected, this);
         }
     }
 }
