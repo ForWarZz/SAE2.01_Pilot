@@ -108,6 +108,24 @@ namespace SAE2._01_Pilot.Models
 
         public void Update()
         {
+            string sqlCheckExists = @"SELECT COUNT(*) FROM Revendeur WHERE RaisonSociale = @RaisonSociale AND
+                                    AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille
+                                    WHERE NumRevendeur != @NumRevendeur";
+
+            using (NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists))
+            {
+                cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+                cmdCheckExists.Parameters.AddWithValue("@NumRevendeur", Id);
+
+                int count = (int)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+
+                if (count > 0)
+                    throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
+            }
+
             string sql = "UPDATE Revendeur SET RaisonSociale = @raisonSociale, " +
                          "AdresseRue = @AdresseRue, AdresseCP = @AdresseCP, AdresseVille = @AdresseVille " +
                          "WHERE NumRevendeur = @Id";
