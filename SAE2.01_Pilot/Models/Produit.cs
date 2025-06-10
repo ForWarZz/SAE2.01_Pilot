@@ -12,7 +12,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Produit : ICrud<Produit>, INotifyPropertyChanged
+    public class Produit : ICrud<Produit>
     {
         public int Id { get; set; }
 
@@ -27,7 +27,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 typePointe = value;
-                OnPropertyChanged(nameof(TypePointe));
             }
         }
 
@@ -42,7 +41,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 type = value;
-                OnPropertyChanged(nameof(Type));
             }
         }
 
@@ -62,7 +60,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 code = value;
-                OnPropertyChanged(nameof(Code));
             }
         }
 
@@ -77,7 +74,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 nom = value;
-                OnPropertyChanged(nameof(Nom));
             }
         }
 
@@ -92,7 +88,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 prixVente = value;
-                OnPropertyChanged(nameof(PrixVente));
             }
         }
 
@@ -107,7 +102,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 quantiteStock = value;
-                OnPropertyChanged(nameof(QuantiteStock));
             }
         }
 
@@ -122,7 +116,6 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 couleurs = value;
-                OnPropertyChanged(nameof(Couleurs));
             }
         }
 
@@ -136,12 +129,6 @@ namespace SAE2._01_Pilot.Models
         private int quantiteStock;
 
         private ObservableCollection<CouleurProduit> couleurs;
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public Produit()
         {
