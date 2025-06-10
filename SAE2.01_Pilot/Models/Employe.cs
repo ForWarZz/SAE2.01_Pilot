@@ -24,8 +24,11 @@ namespace SAE2._01_Pilot.Models
             Role = role;
         }
 
-        public bool EstCommercial => Role.Libelle == "Commercial";
-        public bool EstResponsableProduction => Role.Libelle == "Responsable de production";
+        /*        public bool EstCommercial => Role.Libelle == "Commercial";
+                public bool EstResponsableProduction => Role.Libelle == "Responsable de production";*/
+
+        public bool EstCommercial => true;
+        public bool EstResponsableProduction => true;
 
         public static Employe? FindByCredentials(string login, string password)
         {

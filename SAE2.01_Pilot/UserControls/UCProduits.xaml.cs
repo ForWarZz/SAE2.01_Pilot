@@ -118,11 +118,9 @@ namespace SAE2._01_Pilot.UserControls
 
             try
             {
-                Console.WriteLine(nouveauProduit.Couleurs.Count);
                 nouveauProduit.Create();
 
                 Core.Instance.Produits.Add(nouveauProduit);
-
                 Core.MessageBoxSucces("Le produit a été créé avec succès.");
             } catch (Exception ex)
             {

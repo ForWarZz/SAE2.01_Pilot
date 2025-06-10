@@ -44,7 +44,7 @@
             Background="White"
             CornerRadius="4">
             <DataGrid
-                x:Name="dgRevendeur">
+                x:Name="dgRevendeur" SelectionChanged="dgRevendeur_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"
@@ -81,8 +81,8 @@
                     Width="120"
                     Margin="0,0,15,0"
                     Content="Modifier"
-                    IsEnabled="False"
-                    Style="{StaticResource SecondaryButtonStyle}" />
+                    Visibility="Hidden"
+                    Style="{StaticResource SecondaryButtonStyle}" Click="butModifierRevendeur_Click" />
                 <Button
                     x:Name="butAddRevendeur"
                     Width="180"

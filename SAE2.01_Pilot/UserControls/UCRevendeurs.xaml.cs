@@ -68,5 +68,50 @@ namespace SAE2._01_Pilot.UserControls
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la création du revendeur : {ex.Message}");
             }
         }
+
+        private void butModifierRevendeur_Click(object sender, RoutedEventArgs e)
+        {
+            Revendeur? revendeur = dgRevendeur.SelectedItem as Revendeur;
+
+            if (revendeur == null)
+                return;
+
+            Revendeur revendeurModifie = new Revendeur(revendeur.Id, revendeur.RaisonSociale, revendeur.Adresse);
+
+            CreerRevendeurWindow creerRevendeurWindow = new CreerRevendeurWindow(revendeurModifie, Utils.Action.Modifier);
+            bool dialogResult = creerRevendeurWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+                return;
+
+            try
+            {
+                revendeur.RaisonSociale = revendeurModifie.RaisonSociale;
+                revendeur.Adresse = revendeurModifie.Adresse;
+                revendeur.Update();
+
+                Core.MessageBoxSucces("Le revendeur a été modifié avec succès.");
+            }
+            catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la modification du revendeur : {ex.Message}");
+            }
+        }
+
+        private void dgRevendeur_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Revendeur? revendeur = dgRevendeur.SelectedItem as Revendeur;
+
+            if (revendeur == null)
+            {
+                butModifierRevendeur.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            bool estCommercial = Core.Instance.EmployeConnecte.EstCommercial;
+
+            if (estCommercial)
+                butModifierRevendeur.Visibility = Visibility.Visible;
+        }
     }
 }
