@@ -70,6 +70,8 @@ namespace SAE2._01_Pilot.Windows
                 return;
             }
 
+            nouveauProduit.Couleurs = couleursSelected;
+
             if (ok)
                 DialogResult = true;
         }
