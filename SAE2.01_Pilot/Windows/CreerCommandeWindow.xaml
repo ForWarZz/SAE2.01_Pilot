@@ -34,7 +34,7 @@
 
         <!-- Formulaire -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel VerticalAlignment="Center" x:Name="spFormulaire" Margin="100,30,100,30">
+            <StackPanel VerticalAlignment="Center" x:Name="spFormulaire" Margin="50,30,50,30">
                 <TextBlock x:Name="txtTitre"
                            HorizontalAlignment="Center"
                            FontSize="32"
@@ -42,7 +42,6 @@
                            FontWeight="Medium"
                            Text="Créer une commande" />
 
-                <!-- Revendeur -->
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
                     <Label Content="_Revendeur" FontSize="20" Target="{Binding btnSelectRevendeur}" />
                     <Button x:Name="btnSelectRevendeur"
@@ -50,13 +49,11 @@
                             Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectRevendeur_Click" />
                 </StackPanel>
 
-                <!-- Mode de transport -->
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
                     <Label Content="_Mode de transport" FontSize="20" Target="{Binding cbTransport}" />
                     <ComboBox x:Name="cbTransport" Height="40" />
                 </StackPanel>
 
-                <!-- Ligne de commande -->
                 <Border BorderBrush="#ccc" BorderThickness="1" Padding="15" Margin="0, 0, 0, 20" CornerRadius="8">
                     <StackPanel>
                         <TextBlock FontSize="18" FontWeight="Medium" Text="Ajouter une ligne de commande" Margin="0, 0, 0, 10" />
@@ -90,9 +87,9 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Code produit" Binding="{Binding Produit.Code}" Width="*" />
                         <DataGridTextColumn Header="Nom produit" Binding="{Binding Produit.Nom}" Width="*" />
-                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="auto" />
-                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="auto" />
-                        <DataGridTemplateColumn Header="Supprimer" Width="Auto">
+                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="60" />
+                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="120" />
+                        <DataGridTemplateColumn Header="Supprimer" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="❌"

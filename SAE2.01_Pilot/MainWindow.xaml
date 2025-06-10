@@ -10,63 +10,57 @@
     Width="1194"
     Height="834"
     mc:Ignorable="d">
-    <StackPanel x:Name="spMainWindow">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <DockPanel
-            x:Name="spTop"
-            Height="72"
-            Background="#FF005EA5">
+        x:Name="spTop"
+        Height="72"
+        Background="#FF005EA5">
             <Image
-                Width="165"
-                Height="44"
-                Margin="20,0,0,0"
-                HorizontalAlignment="Left"
-                Source="/Images/pilot.png" />
+            Width="165"
+            Height="44"
+            Margin="20,0,0,0"
+            HorizontalAlignment="Left"
+            Source="/Images/pilot.png" />
             <TextBlock
-                Margin="0,0,20,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                FontFamily="Roboto"
-                FontSize="16"
-                Foreground="White"
-                Text="Connecté au système central" />
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Right"
+            FontFamily="Roboto"
+            FontSize="16"
+            Foreground="White"
+            Text="Connecté au système central" />
             <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                FontFamily="Roboto"
-                FontSize="16"
-                Foreground="White">
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Right"
+            FontFamily="Roboto"
+            FontSize="16"
+            Foreground="White">
                 <Run Text="Connecté en tant que " />
                 <Run Text="{Binding Prenom}" />
                 <Run Text=" - " />
                 <Run Text="{Binding Role.Libelle}" />
             </TextBlock>
         </DockPanel>
-        <StackPanel
-            x:Name="spMenu"
-            Height="61"
-            Background="#FFEAEAEA">
+
+        <StackPanel Grid.Row="1" Height="61" Background="#FFEAEAEA">
             <Menu x:Name="MenuTop" Background="#FFEAEAEA">
-                <MenuItem
-                    x:Name="miCommandes"
-                    Click="miCommandes_Click"
-                    Header="Les Commandes"
-                    Style="{StaticResource MenuItemSelectStyle}" />
-                <MenuItem
-                    x:Name="miRevendeurs"
-                    Click="miRevendeurs_Click"
-                    Header="Les Revendeurs"
-                    Style="{StaticResource MenuItemStyle}" />
-                <MenuItem
-                    x:Name="miProduits"
-                    Click="miProduits_Click"
-                    Header="Les Produits"
-                    Style="{StaticResource MenuItemStyle}" />
+                <MenuItem x:Name="miCommandes" Click="miCommandes_Click" Header="Les Commandes" Style="{StaticResource MenuItemSelectStyle}" />
+                <MenuItem x:Name="miRevendeurs" Click="miRevendeurs_Click" Header="Les Revendeurs" Style="{StaticResource MenuItemStyle}" />
+                <MenuItem x:Name="miProduits" Click="miProduits_Click" Header="Les Produits" Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
-        <ContentControl x:Name="ccMain" Height="685">
+
+        <ContentControl Grid.Row="2" x:Name="ccMain">
             <uc:UCCommandes />
         </ContentControl>
-    </StackPanel>
+    </Grid>
 </Window>

@@ -6,96 +6,49 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Connexion"
-    Width="811"
-    Height="834"
+    Width="600"
+    Height="700"
+    MinWidth="500"
+    MinHeight="600"
     WindowStartupLocation="CenterScreen"
+    ResizeMode="CanMinimize"
     mc:Ignorable="d">
-    <Grid x:Name="spMainWindow">
+
+    <Grid Background="#FFF5F5F5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="74" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel x:Name="spTop" Background="#FF005EA5">
-            <Image
-                Width="165"
-                Height="44"
-                Margin="20,0,0,0"
-                DockPanel.Dock="Left"
-                Source="/Images/pilot.png" />
-            <TextBlock
-                Margin="0,0,20,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                FontFamily="Roboto"
-                FontSize="16"
-                Foreground="White"
-                Text="Non connectée au système central" />
+        <DockPanel Grid.Row="0" Height="72" Background="#FF005EA5">
+            <Image Width="165" Height="44" Margin="20,0,0,0" HorizontalAlignment="Left" Source="/Images/pilot.png" />
+            <TextBlock Margin="0,0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Roboto" FontSize="16" Foreground="White" Text="Connecté au système central" />
         </DockPanel>
 
-        <StackPanel
-            x:Name="spContent"
-            Grid.Row="1"
-            VerticalAlignment="Center"
-            Orientation="Vertical">
+        <Grid Grid.Row="1">
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="524">
+                <Border Background="White" CornerRadius="10" BorderBrush="#E0E0E0" BorderThickness="1">
+                    <StackPanel>
+                        <Border Background="#FF005EA5" CornerRadius="10,10,0,0" Height="80">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Roboto" FontSize="24" FontWeight="Medium" Foreground="White" Text="Connexion au système central" />
+                        </Border>
 
-            <Border
-                Margin="100,0,100,0"
-                Padding="0"
-                Background="#FFF2F2F2"
-                CornerRadius="15">
+                        <StackPanel Margin="40,30,40,30">
+                            <StackPanel Margin="0,0,0,25">
+                                <Label Content="Identifiant" FontFamily="Roboto" FontSize="18" FontWeight="Medium" Foreground="#333333"/>
+                                <TextBox x:Name="inputLogin" Height="45" Margin="0,5,0,0" Text="smartin" Style="{StaticResource TextBoxStyle}"/>
+                            </StackPanel>
 
-                <StackPanel
-                    x:Name="spConnexion"
-                    VerticalAlignment="Center"
-                    Orientation="Vertical">
-                    <Border Background="#FF005EA5" CornerRadius="15,15,0,0">
-                        <TextBlock
-                            Margin="0,30,0,30"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Roboto"
-                            FontSize="24"
-                            Foreground="White"
-                            Text="Connexion au système central" />
-                    </Border>
+                            <StackPanel Margin="0,0,0,40">
+                                <Label Content="Mot de passe" FontFamily="Roboto" FontSize="18" FontWeight="Medium" Foreground="#333333"/>
+                                <PasswordBox x:Name="inputPassword" Height="45" Margin="0,5,0,0" Password="martin2025" Style="{StaticResource PasswordBoxStyle}"/>
+                            </StackPanel>
 
-                    <StackPanel x:Name="spFormulaireLogin" Margin="50,20,50,20">
-                        <StackPanel>
-                            <Label
-                                Margin="0,0,0,15"
-                                Content="_Identifiant :"
-                                FontFamily="Roboto"
-                                FontSize="24"
-                                Target="{Binding inputLogin}" />
-                            <TextBox x:Name="inputLogin" Text="smartin" Style="{StaticResource TextBoxStyle}" />
+                            <Button x:Name="btnLogin" Height="50" HorizontalAlignment="Stretch" Content="Se connecter" FontSize="18" IsDefault="True" Style="{StaticResource PrimaryButtonStyle}" Click="btnLogin_Click"/>
                         </StackPanel>
-
-                        <StackPanel Margin="0,50,0,0">
-                            <Label
-                                Margin="0,0,0,15"
-                                Content="_Mot de passe :"
-                                FontFamily="Roboto"
-                                FontSize="24"
-                                Target="{Binding inputPassword}" />
-                            <PasswordBox x:Name="inputPassword" Password="martin2025" Style="{StaticResource PasswordBoxStyle}" />
-                        </StackPanel>
-
-                        <Button
-                            x:Name="btnLogin"
-                            Margin="0,50,0,0"
-                            HorizontalAlignment="Right"
-                            Click="btnLogin_Click"
-                            Content="Se connecter"
-                            IsDefault="True"
-                            Style="{StaticResource PrimaryButtonStyle}" />
                     </StackPanel>
-
-                </StackPanel>
+                </Border>
             </Border>
-
-        </StackPanel>
-
+        </Grid>
     </Grid>
 </Window>

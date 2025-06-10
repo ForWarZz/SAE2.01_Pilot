@@ -9,96 +9,105 @@
     d:DesignWidth="1194"
     mc:Ignorable="d">
 
-    <StackPanel x:Name="spMain">
-        <DockPanel
-            x:Name="dpRecherche"
-            Height="80"
-            Margin="0,38,0,0">
-            <TextBox
-                Width="316"
-                Height="47"
-                Margin="20,0,37,0"
-                Style="{StaticResource RechercherTBStyle}" />
-            <StackPanel
-                x:Name="spCategorie"
-                Width="224"
-                Height="80"
-                Margin="0,0,37,0"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labCategorie"
-                    Content="Catégorie :"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="20,20,20,10"
+            Orientation="Horizontal">
+            <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
                     FontFamily="Roboto"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Target="{Binding cbCategorie}" />
-                <ComboBox x:Name="cbCategorie" Height="40" />
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Rechercher" />
+                <TextBox
+                    Width="300"
+                    Height="40"
+                    Style="{StaticResource RechercherTBStyle}" />
             </StackPanel>
+
             <StackPanel
-                x:Name="spType"
-                Width="141"
-                Height="80"
-                Margin="0,0,37,0"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labType"
-                    Content="Type :"
+                Margin="0,0,30,0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
                     FontFamily="Roboto"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Target="{Binding cbType}" />
-                <ComboBox x:Name="cbType" Height="40" />
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Catégorie" />
+                <ComboBox
+                    Width="200"
+                    Height="40"
+                    x:Name="cbCategorie" />
             </StackPanel>
+            
             <StackPanel
-                x:Name="spTypePointe"
-                Width="185"
-                Height="80"
-                Margin="0,0,37,0"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labTypePointe"
-                    Content="Type Pointe :"
+                Margin="0,0,30,0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
                     FontFamily="Roboto"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Target="{Binding cbTypePointe}" />
-                <ComboBox x:Name="cbTypePointe" Height="40" />
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Type" />
+                <ComboBox
+                    Width="150"
+                    Height="40"
+                    x:Name="cbType" />
             </StackPanel>
+
             <StackPanel
-                x:Name="spCouleur"
-                Width="135"
-                Height="80"
-                HorizontalAlignment="Left">
-                <Label
-                    x:Name="labCouleur"
-                    Content="Couleur :"
+                Margin="0,0,30,0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
                     FontFamily="Roboto"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Target="{Binding cbCouleur}" />
-                <ComboBox x:Name="cbCouleur" Height="40" />
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Type Pointe" />
+                <ComboBox
+                    Width="180"
+                    Height="40"
+                    x:Name="cbTypePointe" />
             </StackPanel>
-        </DockPanel>
-        <StackPanel />
-        <StackPanel x:Name="spContent" Height="432">
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
+                    FontFamily="Roboto"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Text="Couleur" />
+                <ComboBox
+                    Width="150"
+                    Height="40"
+                    x:Name="cbCouleur" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border
+           Grid.Row="1"
+           Margin="20,15"
+           Background="White"
+           CornerRadius="4">
             <DataGrid
                 x:Name="dgProduits"
-                Width="1016"
-                Height="298"
-                Margin="0,100,0,0"
-                AutoGenerateColumns="False"
-                ColumnHeaderHeight="35"
-                IsEnabled="False"
-                IsReadOnly="True"
                 SelectionChanged="dgProduits_SelectionChanged">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="125"
+                        Width="150"
                         Binding="{Binding Code}"
                         Header="Code produit" />
                     <DataGridTextColumn
-                        Width="150"
+                        Width="*"
                         Binding="{Binding Nom}"
                         Header="Nom produit" />
                     <DataGridTextColumn
@@ -118,36 +127,45 @@
                         Binding="{Binding QuantiteStock}"
                         Header="Quantité en stock" />
                     <DataGridCheckBoxColumn
-                        Width="80"
+                        Width="*"
                         Binding="{Binding Disponible}"
                         Header="Disponible" />
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
-        <DockPanel x:Name="spActions" Height="135">
-            <Button
-                x:Name="butModifierProduit"
-                Margin="50,0,0,40"
-                VerticalAlignment="Bottom"
-                Content="Modifier"
-                IsEnabled="False"
-                Style="{StaticResource SecondaryButtonStyle}"
-                Visibility="Hidden" />
-            <Button
-                x:Name="butRendreIndisponibleProduit"
-                Margin="50,0,0,40"
-                VerticalAlignment="Bottom"
-                Content="Indisponible"
-                IsEnabled="False"
-                Style="{StaticResource SupprButtonStyle}"
-                Visibility="Hidden" />
-            <Button
-                x:Name="butAddProduit"
-                Margin="0,0,50,40"
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            Padding="20,50"
+            BorderBrush="#E0E0E0"
+            BorderThickness="0,1,0,0">
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,0,15,0"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Content="Créer un produit"
-                Style="{StaticResource PrimaryButtonStyle}" />
-        </DockPanel>
-    </StackPanel>
+                Orientation="Horizontal">
+                <Button
+                    x:Name="butModifierProduit"
+                    Width="120"
+                    Margin="0,0,15,0"
+                    Content="Modifier"
+                    IsEnabled="False"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Visibility="Hidden" />
+                <Button
+                    x:Name="butRendreIndisponibleProduit"
+                    Width="120"
+                    Margin="0,0,15,0"
+                    Content="Indisponible"
+                    IsEnabled="False"
+                    Style="{StaticResource SupprButtonStyle}"
+                Visibility="Hidden" />
+                <Button
+                    x:Name="butAddProduit"
+                    Width="180"
+                    Content="Créer un produit"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>
