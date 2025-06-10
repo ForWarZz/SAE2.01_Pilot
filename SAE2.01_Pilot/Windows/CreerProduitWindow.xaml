@@ -1,0 +1,87 @@
+﻿<Window
+    x:Class="SAE2._01_Pilot.Windows.CreerProduitWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Créer un produit"
+    Width="690"
+    Height="800" mc:Ignorable="d">
+    <Grid x:Name="spMainWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="74" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel
+        x:Name="spTop"
+        Height="72"
+        Background="#FF005EA5">
+            <Image
+            Width="165"
+            Height="44"
+            Margin="20,0,0,0"
+            HorizontalAlignment="Left"
+            Source="/Images/pilot.png" />
+            <TextBlock
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Right"
+            FontFamily="Roboto"
+            FontSize="16"
+            Foreground="White"
+            Text="Connecté au système central" />
+        </DockPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="spFormulaire" Margin="100,20,100,20">
+                <TextBlock x:Name="txtTitre"
+                HorizontalAlignment="Center"
+                FontSize="28" Margin="0,0,0,25" FontWeight="Medium" Text="Créer un produit" />
+
+                <Label Content="_Code produit" Target="{Binding inputCodeProduit}" />
+                <TextBox x:Name="inputCodeProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding CodeProduit, ValidatesOnExceptions=True}" />
+
+                <Label Margin="0, 15, 0, 0" Content="_Nom du produit" Target="{Binding inputNomProduit}" />
+                <TextBox x:Name="inputNomProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding NomProduit, ValidatesOnExceptions=True}" />
+
+                <Label Margin="0, 15, 0, 0" Content="_Catégorie" Target="{Binding cbCategorie}" />
+                <ComboBox x:Name="cbCategorie"
+                      DisplayMemberPath="LibelleCategorie"
+                      SelectedValuePath="NumCategorie"
+                      SelectedItem="{Binding SelectedCategorie, ValidatesOnExceptions=True}">
+                </ComboBox>
+
+                <Label Margin="0, 15, 0, 0" Content="_Type de produit" Target="{Binding cbTypeProduit}" />
+                <ComboBox x:Name="cbTypeProduit"
+                      DisplayMemberPath="LibelleType"
+                      SelectedValuePath="NumType"
+                      SelectedItem="{Binding SelectedType, ValidatesOnExceptions=True}">
+                </ComboBox>
+
+                <Label Margin="0, 15, 0, 0" Content="_Type de pointe" Target="{Binding cbTypePointe}" />
+                <ComboBox x:Name="cbTypePointe"
+                      DisplayMemberPath="LibelleTypePointe"
+                      SelectedValuePath="NumTypePointe"
+                      SelectedItem="{Binding SelectedTypePointe, ValidatesOnExceptions=True}">
+                </ComboBox>
+
+                <Label Margin="0, 15, 0, 0" Content="_Prix de vente" Target="{Binding inputPrixVente}" />
+                <TextBox x:Name="inputPrixVente" Style="{StaticResource TextBoxStyle}" Text="{Binding PrixVente, ValidatesOnExceptions=True}" />
+
+                <Label Margin="0, 15, 0, 0" Content="_Quantité en stock" Target="{Binding inputQuantiteStock}" />
+                <TextBox x:Name="inputQuantiteStock" Style="{StaticResource TextBoxStyle}" Text="{Binding QuantiteStock, ValidatesOnExceptions=True}" />
+
+                <CheckBox Margin="0, 15, 0, 0" Content="_Disponible" FontSize="16" VerticalContentAlignment="Center" IsChecked="{Binding Disponible, ValidatesOnExceptions=True}" />
+                <Label Margin="0, 15, 0, 0" Content="_Couleurs disponibles" />
+                <ListBox x:Name="lbCouleurs" Height="80" Style="{StaticResource ListBoxStyle}" SelectionMode="Multiple"
+                     DisplayMemberPath="LibelleCouleur" SelectedValuePath="NumCouleur" />
+
+
+                <Button IsDefault="True" x:Name="btnCreer" Margin="0,30, 0, 0" HorizontalAlignment="Center" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

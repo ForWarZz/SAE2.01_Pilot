@@ -1,5 +1,6 @@
 ﻿using SAE2._01_Pilot.Models;
 using SAE2._01_Pilot.Utils;
+using SAE2._01_Pilot.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +112,12 @@ namespace SAE2._01_Pilot.UserControls
                 butModifierProduit.Visibility = Visibility.Visible;
                 butRendreIndisponibleProduit.Visibility = Visibility.Visible;
             }
+        }
+
+        private void butAddProduit_Click(object sender, RoutedEventArgs e)
+        {
+            CreerProduitWindow creerProduitWindow = new CreerProduitWindow();
+            bool dialogResult = creerProduitWindow.ShowDialog() ?? false;
         }
     }
 }
