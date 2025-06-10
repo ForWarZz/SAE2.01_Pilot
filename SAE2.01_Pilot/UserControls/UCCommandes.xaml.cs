@@ -23,15 +23,31 @@ namespace SAE2._01_Pilot.UserControls
     /// </summary>
     public partial class UCCommandes : UserControl
     {
+        private ListCollectionView commandesView;
+
         public UCCommandes()
         {
-            Core.Instance.RefreshCommandes();
             InitializeComponent();
+
+            ChargerCommandes();
+
             HandleRoleEmploye();
-
-            dgCommandes.ItemsSource = Core.Instance.Commandes;
-
             InitComboBoxs();
+        }
+
+        private void ChargerCommandes()
+        {
+            Core.Instance.RefreshCommandes();
+
+            commandesView = new ListCollectionView(Core.Instance.Commandes);
+            commandesView.Filter = FiltrerCommandes;
+
+            dgCommandes.ItemsSource = commandesView;
+        }
+
+        private bool FiltrerCommandes(object obj)
+        {
+            return true;
         }
 
         private void InitComboBoxs()

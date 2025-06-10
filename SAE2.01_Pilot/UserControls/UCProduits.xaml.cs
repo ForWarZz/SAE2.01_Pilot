@@ -28,15 +28,15 @@ namespace SAE2._01_Pilot.UserControls
         {
             InitializeComponent();
 
-            // InitComboBoxs();
-            // ChargerProduits();
+            ChargerProduits();
+            InitComboBoxs();
         }
 
         private void InitComboBoxs()
         {
             // Catégories
             List<CategorieProduit> listeCategories = new List<CategorieProduit>(Core.Instance.CategorieProduits);
-            listeCategories.Insert(0, new CategorieProduit(-1, "Tous"));
+            listeCategories.Insert(0, new CategorieProduit(-1, "Toutes les catégories"));
             cbCategorie.ItemsSource = listeCategories;
             cbCategorie.DisplayMemberPath = "Libelle";
             cbCategorie.SelectedValuePath = "Id";
@@ -44,7 +44,7 @@ namespace SAE2._01_Pilot.UserControls
 
             // Couleurs
             List<CouleurProduit> listeCouleurs = new List<CouleurProduit>(Core.Instance.CouleurProduits);
-            listeCouleurs.Insert(0, new CouleurProduit(-1, "Toutes"));
+            listeCouleurs.Insert(0, new CouleurProduit(-1, "Toutes les couleurs"));
             cbCouleur.ItemsSource = listeCouleurs;
             cbCouleur.DisplayMemberPath = "Libelle";
             cbCouleur.SelectedValuePath = "Id";
@@ -52,7 +52,7 @@ namespace SAE2._01_Pilot.UserControls
 
             // Types de pointe
             List<TypePointe> listePointes = new List<TypePointe>(Core.Instance.TypePointes);
-            listePointes.Insert(0, new TypePointe(-1, "Tous"));
+            listePointes.Insert(0, new TypePointe(-1, "Toutes les pointes"));
             cbTypePointe.ItemsSource = listePointes;
             cbTypePointe.DisplayMemberPath = "Libelle";
             cbTypePointe.SelectedValuePath = "Id";
@@ -60,7 +60,7 @@ namespace SAE2._01_Pilot.UserControls
 
             // Types de produit
             List<TypeProduit> listeTypes = new List<TypeProduit>(Core.Instance.TypeProduits);
-            listeTypes.Insert(0, new TypeProduit(-1, "Tous"));
+            listeTypes.Insert(0, new TypeProduit(-1, "Tous les types"));
             cbType.ItemsSource = listeTypes;
             cbType.DisplayMemberPath = "Libelle";
             cbType.SelectedValuePath = "Id";
@@ -79,12 +79,34 @@ namespace SAE2._01_Pilot.UserControls
 
         private bool FiltrerProduits(object obj)
         {
-            throw new NotImplementedException();
+            return true;
+        }
+
+        private void HandleRole()
+        {
+            bool estResponsable = Core.Instance.EmployeConnecte.EstResponsableProduction;
+
+            if (!estResponsable)
+            {
+                butModifierProduit.Visibility = Visibility.Hidden;
+                butRendreIndisponibleProduit.Visibility = Visibility.Hidden;
+            }
         }
 
         private void dgProduits_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Core.Instance.EmployeConnecte.EstResponsableProduction)
+            object selectedItem = dgProduits.SelectedItem;
+            bool estResponsable = Core.Instance.EmployeConnecte.EstResponsableProduction;
+
+            if (selectedItem == null)
+            {
+                butRendreIndisponibleProduit.Visibility = Visibility.Hidden;
+                butModifierProduit.Visibility = Visibility.Hidden;
+
+                return;
+            }
+
+            if (estResponsable)
             {
                 butModifierProduit.Visibility = Visibility.Visible;
                 butRendreIndisponibleProduit.Visibility = Visibility.Visible;

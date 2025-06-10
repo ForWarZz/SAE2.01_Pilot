@@ -42,12 +42,11 @@
                     FontWeight="Medium"
                     Text="Catégorie" />
                 <ComboBox
-                    Width="200"
                     Height="40"
                     x:Name="cbCategorie" />
             </StackPanel>
             
-            <StackPanel
+            <StackPanel x:Name="spTypeProduitFiltre"
                 Margin="0,0,30,0"
                 VerticalAlignment="Center">
                 <TextBlock
@@ -57,7 +56,6 @@
                     FontWeight="Medium"
                     Text="Type" />
                 <ComboBox
-                    Width="150"
                     Height="40"
                     x:Name="cbType" />
             </StackPanel>
@@ -70,9 +68,8 @@
                     FontFamily="Roboto"
                     FontSize="16"
                     FontWeight="Medium"
-                    Text="Type Pointe" />
+                    Text="Pointe" />
                 <ComboBox
-                    Width="180"
                     Height="40"
                     x:Name="cbTypePointe" />
             </StackPanel>
@@ -85,7 +82,6 @@
                     FontWeight="Medium"
                     Text="Couleur" />
                 <ComboBox
-                    Width="150"
                     Height="40"
                     x:Name="cbCouleur" />
             </StackPanel>
