@@ -16,82 +16,96 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel
+        <Border
             Grid.Row="0"
-            Margin="20,20,20,10"
-            Orientation="Horizontal">
-            <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                <TextBlock
-                    Margin="0,0,0,5"
-                    FontFamily="Roboto"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Rechercher" />
-                <TextBox
-                    Width="300"
-                    Style="{StaticResource RechercherTBStyle}" />
-            </StackPanel>
-
+            Padding="20,15"
+            BorderBrush="#E0E0E0"
+            BorderThickness="0,0,0,1">
             <StackPanel
-                Margin="0,0,30,0"
-                VerticalAlignment="Center">
-                <TextBlock
-                    Margin="0,0,0,5"
-                    FontFamily="Roboto"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Catégorie" />
-                <ComboBox
-                    Height="40"
-                    x:Name="cbCategorie" />
-            </StackPanel>
-            
-            <StackPanel x:Name="spTypeProduitFiltre"
-                Margin="0,0,30,0"
-                VerticalAlignment="Center">
-                <TextBlock
-                    Margin="0,0,0,5"
-                    FontFamily="Roboto"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Type" />
-                <ComboBox
-                    Height="40"
-                    x:Name="cbType" />
-            </StackPanel>
+                Grid.Row="0"
+                Orientation="Horizontal">
+                <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontFamily="Roboto"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Rechercher" />
+                    <TextBox
+                        Width="300"
+                        Style="{StaticResource RechercherTBStyle}" />
+                </StackPanel>
 
-            <StackPanel
-                Margin="0,0,30,0"
-                VerticalAlignment="Center">
-                <TextBlock
-                    Margin="0,0,0,5"
-                    FontFamily="Roboto"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Pointe" />
-                <ComboBox
-                    Height="40"
-                    x:Name="cbTypePointe" />
-            </StackPanel>
+                <StackPanel
+                    Margin="0,0,30,0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontFamily="Roboto"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Catégorie" />
+                    <ComboBox
+                        x:Name="cbCategorie"
+                        Height="40"
+                        DisplayMemberPath="Libelle"
+                        SelectedValuePath="Id" />
+                </StackPanel>
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock
-                    Margin="0,0,0,5"
-                    FontFamily="Roboto"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Couleur" />
-                <ComboBox
-                    Height="40"
-                    x:Name="cbCouleur" />
+                <StackPanel
+                    x:Name="spTypeProduitFiltre"
+                    Margin="0,0,30,0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontFamily="Roboto"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Type" />
+                    <ComboBox
+                        x:Name="cbType"
+                        Height="40"
+                        DisplayMemberPath="Libelle"
+                        SelectedValuePath="Id" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="0,0,30,0"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontFamily="Roboto"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Pointe" />
+                    <ComboBox
+                        x:Name="cbTypePointe"
+                        Height="40"
+                        DisplayMemberPath="Libelle"
+                        SelectedValuePath="Id" />
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontFamily="Roboto"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Couleur" />
+                    <ComboBox
+                        x:Name="cbCouleur"
+                        Height="40"
+                        DisplayMemberPath="Libelle"
+                        SelectedValuePath="Id" />
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
 
         <Border
-           Grid.Row="1"
-           Margin="20,15"
-           Background="White"
-           CornerRadius="4">
+            Grid.Row="1"
+            Margin="20,15"
+            Background="White"
+            CornerRadius="4">
             <DataGrid
                 x:Name="dgProduits"
                 SelectionChanged="dgProduits_SelectionChanged">
@@ -138,7 +152,8 @@
                 <StackPanel
                     Grid.Row="2"
                     Margin="0,0,15,0"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    DockPanel.Dock="Left">
                     <Button
                         x:Name="butModifierProduit"
                         Width="120"
@@ -157,9 +172,12 @@
 
                 <Button
                     x:Name="butAddProduit"
-                    Width="180"
+                    Width="200"
                     Content="Créer un produit"
-                    Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Click="butAddProduit_Click" />
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    HorizontalAlignment="Right"
+                    Click="butAddProduit_Click"
+                    DockPanel.Dock="Right" />
             </DockPanel>
         </Border>
     </Grid>

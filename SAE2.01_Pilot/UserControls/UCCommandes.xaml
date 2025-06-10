@@ -30,7 +30,7 @@
 
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <TextBlock Margin="0,0,0,5" FontFamily="Roboto" FontSize="16" FontWeight="Medium" Text="Revendeur" />
-                    <ComboBox Width="200" Height="40" x:Name="cbRevendeur" />
+                    <ComboBox Width="200" Height="40" x:Name="cbRevendeur" DisplayMemberPath="RaisonSociale" SelectedValuePath="Id" />
                 </StackPanel>
             </StackPanel>
         </Border>

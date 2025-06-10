@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Action = SAE2._01_Pilot.Utils.Action;
 
 namespace SAE2._01_Pilot.Windows
 {
@@ -19,9 +22,42 @@ namespace SAE2._01_Pilot.Windows
     /// </summary>
     public partial class CreerProduitWindow : Window
     {
-        public CreerProduitWindow()
+        private Produit nouveauProduit;
+        private Action action;
+
+        public CreerProduitWindow(Produit nouveauProduit, Action action)
         {
+            this.action = action;
+            this.nouveauProduit = nouveauProduit;
+
+            DataContext = nouveauProduit;
+
             InitializeComponent();
+
+            InitComboBoxs();
+            InitListBoxs();
+
+            btnCreer.Content = action == Utils.Action.Ajouter ? "Créer un produit" : "Modifier le produit";
+            txtTitre.Text = btnCreer.Content.ToString();
+        }
+
+        private void InitComboBoxs()
+        {
+            cbTypePointe.ItemsSource = Core.Instance.TypePointes;
+            cbTypeProduit.ItemsSource = Core.Instance.TypeProduits;
+        }
+
+        private void InitListBoxs()
+        {
+            lbCouleurs.ItemsSource = Core.Instance.CouleurProduits;
+        }
+
+        private void btnCreer_Click(object sender, RoutedEventArgs e)
+        {
+            bool ok = Core.ValiderFormulaire(spFormulaire);
+
+            if (ok)
+                DialogResult = true;
         }
     }
 }

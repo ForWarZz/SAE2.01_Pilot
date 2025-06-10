@@ -39,32 +39,24 @@ namespace SAE2._01_Pilot.UserControls
             List<CategorieProduit> listeCategories = new List<CategorieProduit>(Core.Instance.CategorieProduits);
             listeCategories.Insert(0, new CategorieProduit(-1, "Toutes les catégories"));
             cbCategorie.ItemsSource = listeCategories;
-            cbCategorie.DisplayMemberPath = "Libelle";
-            cbCategorie.SelectedValuePath = "Id";
             cbCategorie.SelectedIndex = 0;
 
             // Couleurs
             List<CouleurProduit> listeCouleurs = new List<CouleurProduit>(Core.Instance.CouleurProduits);
             listeCouleurs.Insert(0, new CouleurProduit(-1, "Toutes les couleurs"));
             cbCouleur.ItemsSource = listeCouleurs;
-            cbCouleur.DisplayMemberPath = "Libelle";
-            cbCouleur.SelectedValuePath = "Id";
             cbCouleur.SelectedIndex = 0;
 
             // Types de pointe
             List<TypePointe> listePointes = new List<TypePointe>(Core.Instance.TypePointes);
             listePointes.Insert(0, new TypePointe(-1, "Toutes les pointes"));
             cbTypePointe.ItemsSource = listePointes;
-            cbTypePointe.DisplayMemberPath = "Libelle";
-            cbTypePointe.SelectedValuePath = "Id";
             cbTypePointe.SelectedIndex = 0;
 
             // Types de produit
             List<TypeProduit> listeTypes = new List<TypeProduit>(Core.Instance.TypeProduits);
             listeTypes.Insert(0, new TypeProduit(-1, "Tous les types"));
             cbType.ItemsSource = listeTypes;
-            cbType.DisplayMemberPath = "Libelle";
-            cbType.SelectedValuePath = "Id";
             cbType.SelectedIndex = 0;
         }
 
@@ -116,8 +108,26 @@ namespace SAE2._01_Pilot.UserControls
 
         private void butAddProduit_Click(object sender, RoutedEventArgs e)
         {
-            CreerProduitWindow creerProduitWindow = new CreerProduitWindow();
+            Produit nouveauProduit = new Produit();
+            CreerProduitWindow creerProduitWindow = new CreerProduitWindow(nouveauProduit, Utils.Action.Ajouter);
+
             bool dialogResult = creerProduitWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+                return;
+
+            try
+            {
+                Console.WriteLine(nouveauProduit.Couleurs.Count);
+                nouveauProduit.Create();
+
+                Core.Instance.Produits.Add(nouveauProduit);
+
+                Core.MessageBoxSucces("Le produit a été créé avec succès.");
+            } catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la création du produit : {ex.Message}");
+            }
         }
     }
 }

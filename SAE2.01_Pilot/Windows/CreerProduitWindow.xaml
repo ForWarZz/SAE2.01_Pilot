@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Créer un produit"
     Width="690"
-    Height="800" mc:Ignorable="d">
+    Height="961" mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="74" />
@@ -42,30 +42,21 @@
                 FontSize="28" Margin="0,0,0,25" FontWeight="Medium" Text="Créer un produit" />
 
                 <Label Content="_Code produit" Target="{Binding inputCodeProduit}" />
-                <TextBox x:Name="inputCodeProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding CodeProduit, ValidatesOnExceptions=True}" />
+                <TextBox x:Name="inputCodeProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding Code, ValidatesOnExceptions=True}" />
 
                 <Label Margin="0, 15, 0, 0" Content="_Nom du produit" Target="{Binding inputNomProduit}" />
-                <TextBox x:Name="inputNomProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding NomProduit, ValidatesOnExceptions=True}" />
+                <TextBox x:Name="inputNomProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding Nom, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="_Catégorie" Target="{Binding cbCategorie}" />
-                <ComboBox x:Name="cbCategorie"
-                      DisplayMemberPath="LibelleCategorie"
-                      SelectedValuePath="NumCategorie"
-                      SelectedItem="{Binding SelectedCategorie, ValidatesOnExceptions=True}">
-                </ComboBox>
-
-                <Label Margin="0, 15, 0, 0" Content="_Type de produit" Target="{Binding cbTypeProduit}" />
+                <Label Margin="0, 15, 0, 0" Content="T_ype de produit" Target="{Binding cbTypeProduit}" />
                 <ComboBox x:Name="cbTypeProduit"
-                      DisplayMemberPath="LibelleType"
-                      SelectedValuePath="NumType"
-                      SelectedItem="{Binding SelectedType, ValidatesOnExceptions=True}">
+                      DisplayMemberPath="Libelle"
+                      SelectedItem="{Binding Type, ValidatesOnExceptions=True}">
                 </ComboBox>
 
                 <Label Margin="0, 15, 0, 0" Content="_Type de pointe" Target="{Binding cbTypePointe}" />
                 <ComboBox x:Name="cbTypePointe"
-                      DisplayMemberPath="LibelleTypePointe"
-                      SelectedValuePath="NumTypePointe"
-                      SelectedItem="{Binding SelectedTypePointe, ValidatesOnExceptions=True}">
+                      DisplayMemberPath="Libelle"
+                      SelectedItem="{Binding TypePointe, ValidatesOnExceptions=True}">
                 </ComboBox>
 
                 <Label Margin="0, 15, 0, 0" Content="_Prix de vente" Target="{Binding inputPrixVente}" />
@@ -75,12 +66,11 @@
                 <TextBox x:Name="inputQuantiteStock" Style="{StaticResource TextBoxStyle}" Text="{Binding QuantiteStock, ValidatesOnExceptions=True}" />
 
                 <CheckBox Margin="0, 15, 0, 0" Content="_Disponible" FontSize="16" VerticalContentAlignment="Center" IsChecked="{Binding Disponible, ValidatesOnExceptions=True}" />
-                <Label Margin="0, 15, 0, 0" Content="_Couleurs disponibles" />
-                <ListBox x:Name="lbCouleurs" Height="80" Style="{StaticResource ListBoxStyle}" SelectionMode="Multiple"
-                     DisplayMemberPath="LibelleCouleur" SelectedValuePath="NumCouleur" />
+                <Label Margin="0, 15, 0, 0" Content="C_ouleurs disponibles" />
+                <ListBox x:Name="lbCouleurs" Height="150" Style="{StaticResource ListBoxStyle}" SelectionMode="Multiple"
+                     DisplayMemberPath="Libelle" SelectedItem="{Binding Couleurs, ValidatesOnExceptions=True}" />
 
-
-                <Button IsDefault="True" x:Name="btnCreer" Margin="0,30, 0, 0" HorizontalAlignment="Center" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" />
+                <Button IsDefault="True" x:Name="btnCreer" Margin="0,30, 0, 0" HorizontalAlignment="Center" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

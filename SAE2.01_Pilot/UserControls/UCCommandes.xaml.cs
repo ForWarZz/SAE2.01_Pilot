@@ -56,8 +56,6 @@ namespace SAE2._01_Pilot.UserControls
             revendeurs.Insert(0, new Revendeur(-1, "Tous"));
 
             cbRevendeur.ItemsSource = revendeurs;
-            cbRevendeur.DisplayMemberPath = "RaisonSociale";
-            cbRevendeur.SelectedValuePath = "Id";
             cbRevendeur.SelectedIndex = 0;
         }
 

@@ -3,6 +3,7 @@ using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,40 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Produit : ICrud<Produit>
+    public class Produit : ICrud<Produit>, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public TypePointe TypePointe { get; set; }
-        public TypeProduit Type { get; set; }
+
+        public TypePointe TypePointe
+        {
+            get => typePointe;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Le type de pointe ne peut pas être nul.");
+                }
+
+                typePointe = value;
+                OnPropertyChanged(nameof(TypePointe));
+            }
+        }
+
+        public TypeProduit Type
+        {
+            get => type;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Le type de produit ne peut pas être nul.");
+                }
+
+                type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
+
         public string Code
         {
             get => code;
@@ -32,6 +62,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 code = value;
+                OnPropertyChanged(nameof(Code));
             }
         }
 
@@ -46,6 +77,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 nom = value;
+                OnPropertyChanged(nameof(Nom));
             }
         }
 
@@ -60,6 +92,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 prixVente = value;
+                OnPropertyChanged(nameof(PrixVente));
             }
         }
 
@@ -74,40 +107,59 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 quantiteStock = value;
+                OnPropertyChanged(nameof(QuantiteStock));
             }
         }
 
-        public List<CouleurProduit> Couleurs
+        public ObservableCollection<CouleurProduit> Couleurs
         {
             get => couleurs;
-            set => couleurs = value;
+            set
+            {
+                if (value == null || value.Count == 0)
+                {
+                    throw new ArgumentException("La liste des couleurs ne peut pas être vide.");
+                }
+
+                couleurs = value;
+                OnPropertyChanged(nameof(Couleurs));
+            }
         }
 
         public bool Disponible { get; set; }
 
         private string code;
         private string nom;
+        private TypePointe typePointe;
+        private TypeProduit type;
         private decimal prixVente;
         private int quantiteStock;
 
-        private List<CouleurProduit> couleurs;
+        private ObservableCollection<CouleurProduit> couleurs;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Produit(TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible)
+        protected void OnPropertyChanged(string propertyName)
         {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Produit()
+        {
+            couleurs = new ObservableCollection<CouleurProduit>();
+        }
+
+        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible) 
+        {
+            Id = id;
+
             TypePointe = typePointe;
             Type = typeProduit;
             Code = codeProduit;
             Nom = nomProduit;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
-            Couleurs = couleurs;
+            couleurs = new ObservableCollection<CouleurProduit>();
             Disponible = disponible;
-        }
-
-        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, List<CouleurProduit> couleurs, bool disponible) 
-            : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, couleurs, disponible)
-        {
-            Id = id;
         }
 
         public string CouleursString => string.Join(", ", Couleurs.Select(c => c.Libelle));
@@ -155,7 +207,6 @@ namespace SAE2._01_Pilot.Models
                             nomProduit: row["NomProduit"].ToString(),
                             prixVente: (decimal)row["PrixVente"],
                             quantiteStock: (int)row["QuantiteStock"],
-                            couleurs: new List<CouleurProduit>(),
                             disponible: (bool)row["Disponible"]
                         );
 

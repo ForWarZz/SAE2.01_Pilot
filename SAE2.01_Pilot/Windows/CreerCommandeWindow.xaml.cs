@@ -31,8 +31,6 @@ namespace SAE2._01_Pilot.Windows
             InitializeComponent();
 
             cbTransport.ItemsSource = Core.Instance.ModeTransports;
-            cbTransport.DisplayMemberPath = "Libelle";
-            cbTransport.SelectedValuePath = "Id";
 
             dgLignesCommande.ItemsSource = nouvelleCommande.LigneCommandes;
         }

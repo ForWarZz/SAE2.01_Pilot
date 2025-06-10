@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Utils;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,20 +22,7 @@ namespace SAE2._01_Pilot.Windows
 
         private void btnCreer_Click(object sender, RoutedEventArgs e)
         {
-            bool ok = true;
-            foreach (UIElement uie in spFormulaire.Children)
-            {
-                if (uie is TextBox)
-                {
-                    TextBox txt = (TextBox)uie;
-                    txt.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-                }
-
-                if (Validation.GetHasError(uie))
-                {
-                    ok = false;
-                }
-            }
+            bool ok = Core.ValiderFormulaire(spFormulaire);
 
             if (ok)
                 DialogResult = true;

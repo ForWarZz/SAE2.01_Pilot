@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace SAE2._01_Pilot.Utils
 {
@@ -108,6 +111,42 @@ namespace SAE2._01_Pilot.Utils
         public static void MessageBoxSucces(string message)
         {
             MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public static bool ValiderFormulaire(DependencyObject container)
+        {
+            bool ok = true;
+
+            foreach (object child in LogicalTreeHelper.GetChildren(container))
+            {
+                if (child is UIElement uie)
+                {
+                    BindingOperations.GetBindingExpression(uie, TextBox.TextProperty)?.UpdateSource();
+                    BindingOperations.GetBindingExpression(uie, ComboBox.SelectedItemProperty)?.UpdateSource();
+                    BindingOperations.GetBindingExpression(uie, CheckBox.IsCheckedProperty)?.UpdateSource();
+                    BindingOperations.GetBindingExpression(uie, ListBox.SelectedItemsProperty)?.UpdateSource();
+
+                    Console.Write($"JE VALIDE : {uie.GetType().Name} - HasError: {Validation.GetHasError(uie)} - Erreurs: ");
+                    foreach (var error in Validation.GetErrors(uie))
+                    {
+                        Console.Write($"[{error.ErrorContent}] "); // C'est CA qui nous donnera le message exact
+                    }
+                    Console.WriteLine();
+
+                    if (Validation.GetHasError(uie))
+                        ok = false;
+
+                    //if (uie is DependencyObject nestedContainer)
+                    //{
+                    //    if (!ValiderFormulaire(nestedContainer))
+                    //    {
+                    //        allValid = false;
+                    //    }
+                    //}
+                }
+            }
+
+            return ok;
         }
     }
 }

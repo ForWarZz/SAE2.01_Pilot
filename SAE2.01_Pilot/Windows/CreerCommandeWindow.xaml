@@ -51,7 +51,7 @@
 
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
                     <Label Content="_Mode de transport" Target="{Binding cbTransport}" />
-                    <ComboBox x:Name="cbTransport" Height="40" />
+                    <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" />
                 </StackPanel>
 
                 <Border BorderBrush="#ccc" BorderThickness="1" Padding="15" Margin="0, 0, 0, 20" CornerRadius="8">
