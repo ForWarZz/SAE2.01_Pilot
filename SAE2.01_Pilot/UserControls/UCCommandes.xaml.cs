@@ -69,6 +69,8 @@ namespace SAE2._01_Pilot.UserControls
             {
                 butAddCommande.Visibility = Visibility.Hidden;
                 butSupprCommande.Visibility = Visibility.Hidden;
+
+                butVisualiserCommande.Style = (Style)FindResource("PrimaryButtonStyle");
             }
         }
 

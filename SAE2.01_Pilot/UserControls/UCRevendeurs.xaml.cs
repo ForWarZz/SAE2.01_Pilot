@@ -21,10 +21,28 @@ namespace SAE2._01_Pilot.UserControls
     /// </summary>
     public partial class UCRevendeurs : UserControl
     {
+        private ListCollectionView revendeursView;
+
         public UCRevendeurs()
         {
-            // Core.Instance.RefreshRevendeurs();
             InitializeComponent();
+
+            ChargerRevendeurs();
+        }
+
+        private void ChargerRevendeurs()
+        {
+            Core.Instance.RefreshRevendeurs();
+
+            revendeursView = new ListCollectionView(Core.Instance.Revendeurs);
+            revendeursView.Filter = FiltrerRevendeurs;
+
+            dgRevendeur.ItemsSource = revendeursView;
+        }
+
+        private bool FiltrerRevendeurs(object obj)
+        {
+            return true;
         }
     }
 }

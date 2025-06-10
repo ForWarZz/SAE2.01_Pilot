@@ -284,8 +284,7 @@
             <Setter Property="HeadersVisibility" Value="Column" />
             <Setter Property="GridLinesVisibility" Value="None" />
             <Setter Property="AutoGenerateColumns" Value="False" />
-            <Setter Property="SelectionMode" Value="Single" />
-            <Setter Property="SelectionUnit" Value="FullRow" />
+
             <Setter Property="RowHeaderWidth" Value="0" />
             <Setter Property="CanUserAddRows" Value="False" />
             <Setter Property="Margin" Value="20,10" />
@@ -294,6 +293,7 @@
             <Setter Property="VerticalGridLinesBrush" Value="#EEEEEE" />
             <Setter Property="RowHeight" Value="40" />
             <Setter Property="ColumnHeaderHeight" Value="45" />
+            <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
         </Style>

@@ -49,9 +49,9 @@
 
         <Border Grid.Row="2" Padding="20,25" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
             <DockPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="butVisualiserCommande" Width="150" Margin="0,0,15,0" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" />
+                <StackPanel x:Name="spBtn" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="butSupprCommande" Width="150" Margin="0,0,15,0" Content="Supprimer" Style="{StaticResource SupprButtonStyle}" />
+                    <Button x:Name="butVisualiserCommande" Width="150" Margin="0,0,15,0" Content="Visualiser" Style="{StaticResource SecondaryButtonStyle}" />
                 </StackPanel>
 
                 <Button x:Name="butAddCommande" Width="200" Content="Créer une commande" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" />

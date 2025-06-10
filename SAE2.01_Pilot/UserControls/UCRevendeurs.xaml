@@ -47,15 +47,15 @@
                         Header="Raison sociale" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding Rue}"
+                        Binding="{Binding Adresse.Rue}"
                         Header="Rue" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding CodePostal}"
+                        Binding="{Binding Adresse.CodePostal}"
                         Header="Code postal" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding Ville}"
+                        Binding="{Binding Adresse.Ville}"
                         Header="Ville" />
                 </DataGrid.Columns>
             </DataGrid>
