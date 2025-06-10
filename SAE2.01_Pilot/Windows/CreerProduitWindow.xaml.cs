@@ -2,6 +2,7 @@
 using SAE2._01_Pilot.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,13 @@ namespace SAE2._01_Pilot.Windows
         private void btnCreer_Click(object sender, RoutedEventArgs e)
         {
             bool ok = Core.ValiderFormulaire(spFormulaire);
+            ObservableCollection<CouleurProduit> couleursSelected = new ObservableCollection<CouleurProduit>(lbCouleurs.SelectedItems.Cast<CouleurProduit>().ToList());
+
+            if (couleursSelected.Count == 0)
+            {
+                Core.MessageBoxErreur("Veuillez sélectionner au moins une couleur pour le produit.");
+                return;
+            }
 
             if (ok)
                 DialogResult = true;

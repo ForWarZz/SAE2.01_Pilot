@@ -68,7 +68,7 @@
                 <CheckBox Margin="0, 15, 0, 0" Content="_Disponible" FontSize="16" VerticalContentAlignment="Center" IsChecked="{Binding Disponible, ValidatesOnExceptions=True}" />
                 <Label Margin="0, 15, 0, 0" Content="C_ouleurs disponibles" />
                 <ListBox x:Name="lbCouleurs" Height="150" Style="{StaticResource ListBoxStyle}" SelectionMode="Multiple"
-                     DisplayMemberPath="Libelle" SelectedItem="{Binding Couleurs, ValidatesOnExceptions=True}" />
+                     DisplayMemberPath="Libelle" />
 
                 <Button IsDefault="True" x:Name="btnCreer" Margin="0,30, 0, 0" HorizontalAlignment="Center" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />
             </StackPanel>
