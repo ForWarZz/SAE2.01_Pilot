@@ -14,7 +14,7 @@ namespace SAE2._01_Pilot.Models
     public class Commande : ICrud<Commande>
     {
         private ObservableCollection<LigneCommande> ligneCommandes;
-        private DateTime dateCommande;
+        private DateTime dateCreation;
         private DateTime dateLivraison;
 
         public int Id { get; set; }
@@ -22,7 +22,7 @@ namespace SAE2._01_Pilot.Models
         public Revendeur Revendeur { get; set; }
         public int EmployeId { get; set; }
         public ObservableCollection<LigneCommande> LigneCommandes { get => ligneCommandes; set => ligneCommandes = value; }
-        public DateTime DateCommande { get => dateCommande; set => dateCommande = value; }
+        public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
         public DateTime DateLivraison { get => dateLivraison; set => dateLivraison = value; }
 
         public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime dateLivraison)
@@ -32,13 +32,13 @@ namespace SAE2._01_Pilot.Models
             Revendeur = revendeur;
             EmployeId = employeId;
             LigneCommandes = new ObservableCollection<LigneCommande>();
-            DateCommande = dateCommande;
+            DateCreation = dateCommande;
             DateLivraison = dateLivraison;
         }
 
         public Commande()
         {
-            DateCommande = DateTime.Now;
+            DateCreation = DateTime.Now;
         }
 
         public decimal PrixTotal
@@ -55,16 +55,16 @@ namespace SAE2._01_Pilot.Models
 
             string sql = @"
                 SELECT 
-                    c.Id AS CommandeId,
+                    c.NumCommande,
                     c.NumTransport,
                     c.NumRevendeur,
                     c.NumEmploye,
                     c.DateCommande,
                     c.DateLivraison,
-                    lc.NumProduit,
-                    lc.QuantiteCommande,
+                    pc.NumProduit,
+                    pc.QuantiteCommande
                 FROM Commande c
-                JOIN ProduitCommande lc ON lc.IdCommande = c.Id
+                JOIN ProduitCommande pc ON pc.NumCommande = c.NumCommande
                 WHERE c.NumEmploye = @NumEmploye
             ";
 
@@ -78,15 +78,28 @@ namespace SAE2._01_Pilot.Models
                 {
                     int commandeId = (int)row["NumCommande"];
 
+                    Console.WriteLine("Commande id " + commandeId);
+
                     if (!commandesParId.ContainsKey(commandeId))
                     {
                         ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
+
+                        Console.WriteLine("Mode de transdport " + modeTransport.Libelle);
+                        Console.WriteLine("Revendeur id : " + (int)row["NumRevendeur"]);
+
                         Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
+
+                        Console.WriteLine("Revendeur : " + revendeur.Adresse.Rue);
                         
                         int employeId = (int)row["NumEmploye"];
 
+                        Console.WriteLine("Employe " + employeId);
+
                         DateTime dateCommande = (DateTime)row["DateCommande"];
                         DateTime dateLivraison = (DateTime)row["DateLivraison"];
+
+                        Console.WriteLine("date commande " + dateCommande);
+                        Console.WriteLine("date livraison " + dateLivraison);
 
                         commandesParId[commandeId] = new Commande(
                             id: commandeId,
@@ -99,6 +112,8 @@ namespace SAE2._01_Pilot.Models
                     }
 
                     int quantite = (int)row["QuantiteCommande"];
+
+                    Console.WriteLine("Quantite : " + quantite);
 
                     Produit? produit = produits.FirstOrDefault(p => p.Id == (int)row["NumProduit"]);
                     LigneCommande ligne = new LigneCommande(produit, quantite);
@@ -121,7 +136,7 @@ namespace SAE2._01_Pilot.Models
                 cmdInsert.Parameters.AddWithValue("@NumTransport", ModeTransport.Id);
                 cmdInsert.Parameters.AddWithValue("@NumRevendeur", Revendeur.Id);
                 cmdInsert.Parameters.AddWithValue("@EmployeId", EmployeId);
-                cmdInsert.Parameters.AddWithValue("@DateCommande", DateCommande);
+                cmdInsert.Parameters.AddWithValue("@DateCommande", DateCreation);
                 cmdInsert.Parameters.AddWithValue("@DateLivraison", DateLivraison);
                 cmdInsert.Parameters.AddWithValue("@PrixTotal", PrixTotal);
 

@@ -87,7 +87,10 @@
                 Height="298"
                 Margin="0,100,0,0"
                 AutoGenerateColumns="False"
-                ColumnHeaderHeight="35" SelectionChanged="dgProduits_SelectionChanged">
+                ColumnHeaderHeight="35"
+                IsEnabled="False"
+                IsReadOnly="True"
+                SelectionChanged="dgProduits_SelectionChanged">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn
