@@ -31,6 +31,8 @@ namespace SAE2._01_Pilot.UserControls
 
             ChargerProduits();
             InitComboBoxs();
+
+            dgProduits.UnselectAll();
         }
 
         private void InitComboBoxs()

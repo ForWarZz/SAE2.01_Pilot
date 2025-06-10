@@ -33,6 +33,8 @@ namespace SAE2._01_Pilot.UserControls
 
             HandleRoleEmploye();
             InitComboBoxs();
+
+            dgCommandes.UnselectAll();
         }
 
         private void ChargerCommandes()

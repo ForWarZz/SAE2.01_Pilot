@@ -40,6 +40,7 @@ namespace SAE2._01_Pilot.UserControls
             revendeursView.Filter = FiltrerRevendeurs;
 
             dgRevendeur.ItemsSource = revendeursView;
+            dgRevendeur.UnselectAll();
         }
 
         private bool FiltrerRevendeurs(object obj)
