@@ -139,33 +139,33 @@
             Padding="20,25"
             BorderBrush="#E0E0E0"
             BorderThickness="0,1,0,0">
-            <StackPanel
-                Grid.Row="2"
-                Margin="0,0,15,0"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <Button
-                    x:Name="butModifierProduit"
-                    Width="120"
+            <DockPanel>
+                <StackPanel
+                    Grid.Row="2"
                     Margin="0,0,15,0"
-                    Content="Modifier"
-                    IsEnabled="False"
-                    Style="{StaticResource SecondaryButtonStyle}"
-                    Visibility="Hidden" />
-                <Button
-                    x:Name="butRendreIndisponibleProduit"
-                    Width="120"
-                    Margin="0,0,15,0"
-                    Content="Indisponible"
-                    IsEnabled="False"
-                    Style="{StaticResource SupprButtonStyle}"
-                Visibility="Hidden" />
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="butModifierProduit"
+                        Width="120"
+                        Margin="0,0,15,0"
+                        Content="Modifier"
+                        IsEnabled="False"
+                        Style="{StaticResource SecondaryButtonStyle}" />
+                    <Button
+                        x:Name="butRendreIndisponibleProduit"
+                        Width="120"
+                        Margin="0,0,15,0"
+                        Content="Indisponible"
+                        IsEnabled="False"
+                        Style="{StaticResource SupprButtonStyle}" />
+                </StackPanel>
+
                 <Button
                     x:Name="butAddProduit"
                     Width="180"
                     Content="Créer un produit"
-                    Style="{StaticResource PrimaryButtonStyle}" />
-            </StackPanel>
+                    Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" />
+            </DockPanel>
         </Border>
     </Grid>
 </UserControl>
