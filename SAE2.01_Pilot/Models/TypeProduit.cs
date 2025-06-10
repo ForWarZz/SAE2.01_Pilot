@@ -38,11 +38,7 @@ namespace SAE2._01_Pilot.Models
         {
             List<TypeProduit> typeProduits = new List<TypeProduit>();
 
-            string sql = @"
-                SELECT * FROM TypeProduit tp
-                JOIN Type t
-                ON tp.NumType = t.NumType
-            ";
+            string sql = "SELECT * FROM type";
 
             using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
             {
