@@ -64,7 +64,7 @@ namespace SAE2._01_Pilot.Models
                     lc.NumProduit,
                     lc.QuantiteCommande,
                 FROM Commande c
-                JOIN LigneCommande lc ON lc.IdCommande = c.Id
+                JOIN ProduitCommande lc ON lc.IdCommande = c.Id
                 WHERE c.NumEmploye = @NumEmploye
             ";
 

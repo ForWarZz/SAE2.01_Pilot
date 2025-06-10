@@ -53,7 +53,7 @@ namespace SAE2._01_Pilot.Models
         public void Create()
         {
             string sqlInsertCmd = @"
-                INSERT INTO LigneCommande (NumCommande, NumProduit, QuantiteCommande, Prix)
+                INSERT INTO ProduitCommande (NumCommande, NumProduit, QuantiteCommande, Prix)
                 VALUES (@NumCommande, @NumProduit, @QuantiteCommande, @Prix)";
 
             using (NpgsqlCommand cmd = new NpgsqlCommand(sqlInsertCmd))
