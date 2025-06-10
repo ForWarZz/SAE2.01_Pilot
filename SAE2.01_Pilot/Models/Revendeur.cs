@@ -76,6 +76,22 @@ namespace SAE2._01_Pilot.Models
 
         public void Create()
         {
+            string sqlCheckExists = @"SELECT COUNT(*) FROM Revendeur WHERE RaisonSociale = @RaisonSociale AND
+                                    AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille";
+
+            using (NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists))
+            {
+                cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+                cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+
+                int count = (int)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+
+                if (count > 0)
+                    throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
+            }
+
             string sql = "INSERT INTO Revendeur (RaisonSociale, AdresseRue, AdresseCP, AdresseVille) " +
                          "VALUES (@RaisonSociale, @AdresseRue, @AdresseCP, @AdresseVille) RETURNING NumRevendeur";
 
@@ -87,8 +103,6 @@ namespace SAE2._01_Pilot.Models
                 cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
-
-                Console.WriteLine("Revendeur créé avec succès. ID: " + Id);
             }
         }
 
