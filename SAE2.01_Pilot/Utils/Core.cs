@@ -62,7 +62,7 @@ namespace SAE2._01_Pilot.Utils
         {
             try
             {
-                Revendeurs = Revendeur.GetAll();    
+                Revendeurs = Revendeur.GetAll();
             } catch (Exception ex)
             {
                 MessageBoxErreur($"Erreur lors du chargement des revendeurs : {ex.Message}");
@@ -85,7 +85,14 @@ namespace SAE2._01_Pilot.Utils
         {
             try
             {
+                RefreshRevendeurs();
+                RefreshProduits();
+
                 Commandes = Commande.GetFromEmploye(ModeTransports, Revendeurs, Produits, EmployeConnecte);
+                foreach (Commande cmd in Commandes)
+                {
+                    Console.WriteLine(cmd);
+                }
             }
             catch (Exception ex)
             {

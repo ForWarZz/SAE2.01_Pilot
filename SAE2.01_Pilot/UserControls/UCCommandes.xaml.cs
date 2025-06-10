@@ -25,10 +25,35 @@ namespace SAE2._01_Pilot.UserControls
     {
         public UCCommandes()
         {
-            // Core.Instance.RefreshCommandes();
+            Core.Instance.RefreshCommandes();
             InitializeComponent();
+            HandleRoleEmploye();
 
-            // dgCommandes.ItemSources = Core.Instance.Commandes;
+            dgCommandes.ItemsSource = Core.Instance.Commandes;
+
+            InitComboBoxs();
+        }
+
+        private void InitComboBoxs()
+        {
+            List<Revendeur> revendeurs = new List<Revendeur>(Core.Instance.Revendeurs);
+            revendeurs.Insert(0, new Revendeur(-1, "Tous"));
+
+            cbRevendeur.ItemsSource = revendeurs;
+            cbRevendeur.DisplayMemberPath = "RaisonSociale";
+            cbRevendeur.SelectedValuePath = "Id";
+            cbRevendeur.SelectedIndex = 0;
+        }
+
+        private void HandleRoleEmploye()
+        {
+            bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
+
+            if (!estResponsableProd)
+            {
+                butSupprCommande.Visibility = Visibility.Visible;
+                butAddCommande.Visibility = Visibility.Visible;
+            }
         }
     }
 }
