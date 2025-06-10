@@ -1,56 +1,150 @@
-﻿<UserControl x:Class="SAE2._01_Pilot.UserControls.UCProduits"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SAE2._01_Pilot.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="685" d:DesignWidth="1194">
+﻿<UserControl
+    x:Class="SAE2._01_Pilot.UserControls.UCProduits"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE2._01_Pilot.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="685"
+    d:DesignWidth="1194"
+    mc:Ignorable="d">
 
     <StackPanel x:Name="spMain">
-        <DockPanel x:Name="dpRecherche" Height="80" Margin="0,38,0,0">
-            <TextBox Width="316" Style="{StaticResource RechercherTBStyle}" Margin="20,0,37,0" Height="47" />
-            <StackPanel x:Name="spCategorie" Width="224" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
-                <Label x:Name="labCategorie" Content="Catégorie :" FontFamily="Roboto" FontSize="20" Target="{Binding cbCategorie}" FontWeight="Bold"/>
+        <DockPanel
+            x:Name="dpRecherche"
+            Height="80"
+            Margin="0,38,0,0">
+            <TextBox
+                Width="316"
+                Height="47"
+                Margin="20,0,37,0"
+                Style="{StaticResource RechercherTBStyle}" />
+            <StackPanel
+                x:Name="spCategorie"
+                Width="224"
+                Height="80"
+                Margin="0,0,37,0"
+                HorizontalAlignment="Left">
+                <Label
+                    x:Name="labCategorie"
+                    Content="Catégorie :"
+                    FontFamily="Roboto"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Target="{Binding cbCategorie}" />
                 <ComboBox x:Name="cbCategorie" Height="40" />
             </StackPanel>
-            <StackPanel x:Name="spType" Width="141" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
-                <Label x:Name="labType" Content="Type :" FontFamily="Roboto" FontSize="20" Target="{Binding cbType}" FontWeight="Bold"/>
+            <StackPanel
+                x:Name="spType"
+                Width="141"
+                Height="80"
+                Margin="0,0,37,0"
+                HorizontalAlignment="Left">
+                <Label
+                    x:Name="labType"
+                    Content="Type :"
+                    FontFamily="Roboto"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Target="{Binding cbType}" />
                 <ComboBox x:Name="cbType" Height="40" />
             </StackPanel>
-            <StackPanel x:Name="spTypePointe" Width="185" Height="80" HorizontalAlignment="Left" Margin="0,0,37,0" >
-                <Label x:Name="labTypePointe" Content="Type Pointe :" FontFamily="Roboto" FontSize="20" Target="{Binding cbTypePointe}" FontWeight="Bold"/>
+            <StackPanel
+                x:Name="spTypePointe"
+                Width="185"
+                Height="80"
+                Margin="0,0,37,0"
+                HorizontalAlignment="Left">
+                <Label
+                    x:Name="labTypePointe"
+                    Content="Type Pointe :"
+                    FontFamily="Roboto"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Target="{Binding cbTypePointe}" />
                 <ComboBox x:Name="cbTypePointe" Height="40" />
             </StackPanel>
-            <StackPanel x:Name="spCouleur" Width="135" Height="80" HorizontalAlignment="Left" >
-                <Label x:Name="labCouleur" Content="Couleur :" FontFamily="Roboto" FontSize="20" Target="{Binding cbCouleur}" FontWeight="Bold"/>
+            <StackPanel
+                x:Name="spCouleur"
+                Width="135"
+                Height="80"
+                HorizontalAlignment="Left">
+                <Label
+                    x:Name="labCouleur"
+                    Content="Couleur :"
+                    FontFamily="Roboto"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Target="{Binding cbCouleur}" />
                 <ComboBox x:Name="cbCouleur" Height="40" />
             </StackPanel>
         </DockPanel>
         <StackPanel />
         <StackPanel x:Name="spContent" Height="432">
-            <DataGrid x:Name="dgProduits"
-                    AutoGenerateColumns="False"
-                    Height="298"
-                    Width="1016"
-                    Margin="0,100,0,0"
-                    ColumnHeaderHeight="35" Selected="dgCommandes_Selected">
+            <DataGrid
+                x:Name="dgProduits"
+                Width="1016"
+                Height="298"
+                Margin="0,100,0,0"
+                AutoGenerateColumns="False"
+                ColumnHeaderHeight="35" SelectionChanged="dgProduits_SelectionChanged">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Code produit" Binding="{Binding Code}" Width="125" />
-                    <DataGridTextColumn Header="Nom produit" Binding="{Binding Nom}" Width="150" />
-                    <DataGridTextColumn Header="Type pointe" Binding="{Binding TypePointe.Libelle}" Width="*" />
-                    <DataGridTextColumn Header="Type produit" Binding="{Binding Type.Libelle}" Width="*" />
-                    <DataGridTextColumn Header="Couleurs" Binding="{Binding CouleursString}" Width="*" />
-                    <DataGridTextColumn Header="Quantité en stock" Binding="{Binding QuantiteStock}" Width="*" />
-                    <DataGridCheckBoxColumn Header="Disponible" Binding="{Binding Disponible}" Width="80" />
+                    <DataGridTextColumn
+                        Width="125"
+                        Binding="{Binding Code}"
+                        Header="Code produit" />
+                    <DataGridTextColumn
+                        Width="150"
+                        Binding="{Binding Nom}"
+                        Header="Nom produit" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding TypePointe.Libelle}"
+                        Header="Type pointe" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Type.Libelle}"
+                        Header="Type produit" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding CouleursString}"
+                        Header="Couleurs" />
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding QuantiteStock}"
+                        Header="Quantité en stock" />
+                    <DataGridCheckBoxColumn
+                        Width="80"
+                        Binding="{Binding Disponible}"
+                        Header="Disponible" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
         <DockPanel x:Name="spActions" Height="135">
-            <Button x:Name="butModifierProduit" Content="Modifier" Visibility="Hidden" Style="{StaticResource SecondaryButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
-            <Button x:Name="butRendreIndisponibleProduit" Content="Indisponible" Visibility="Hidden"  Style="{StaticResource SupprButtonStyle}" Margin="50,0,0,40" IsEnabled="False" VerticalAlignment="Bottom"/>
-            <Button x:Name="butAddProduit" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,50,40" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            <Button
+                x:Name="butModifierProduit"
+                Margin="50,0,0,40"
+                VerticalAlignment="Bottom"
+                Content="Modifier"
+                IsEnabled="False"
+                Style="{StaticResource SecondaryButtonStyle}"
+                Visibility="Hidden" />
+            <Button
+                x:Name="butRendreIndisponibleProduit"
+                Margin="50,0,0,40"
+                VerticalAlignment="Bottom"
+                Content="Indisponible"
+                IsEnabled="False"
+                Style="{StaticResource SupprButtonStyle}"
+                Visibility="Hidden" />
+            <Button
+                x:Name="butAddProduit"
+                Margin="0,0,50,40"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Créer un produit"
+                Style="{StaticResource PrimaryButtonStyle}" />
         </DockPanel>
     </StackPanel>
 </UserControl>

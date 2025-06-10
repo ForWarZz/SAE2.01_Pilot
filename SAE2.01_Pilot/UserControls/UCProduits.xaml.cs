@@ -82,7 +82,7 @@ namespace SAE2._01_Pilot.UserControls
             throw new NotImplementedException();
         }
 
-        private void dgCommandes_Selected(object sender, RoutedEventArgs e)
+        private void dgProduits_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Core.Instance.EmployeConnecte.EstResponsableProduction)
             {

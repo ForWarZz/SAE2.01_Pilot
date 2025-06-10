@@ -68,7 +68,7 @@
             </Menu>
         </StackPanel>
         <ContentControl x:Name="ccMain" Height="685">
-            <uc:UCCommandes/>
+            <uc:UCCommandes />
         </ContentControl>
     </StackPanel>
 </Window>
