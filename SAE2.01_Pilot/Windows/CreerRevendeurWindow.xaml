@@ -44,16 +44,16 @@
                 FontWeight="Medium"
                 Text="Créer un revendeur" />
 
-            <Label Content="R_aison sociale" FontSize="20" Target="{Binding inputRaisonSociale}" />
+            <Label Content="R_aison sociale" Target="{Binding inputRaisonSociale}" />
             <TextBox x:Name="inputRaisonSociale" Style="{StaticResource TextBoxStyle}" Text="{Binding RaisonSociale, ValidatesOnExceptions=True}" />
-            
-            <Label Margin="0, 20, 0, 0" Content="_Rue" FontSize="20" Target="{Binding inputRue}" />
+
+            <Label Margin="0, 20, 0, 0" Content="_Rue" Target="{Binding inputRue}" />
             <TextBox x:Name="inputRue" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.Rue, ValidatesOnExceptions=True}" />
-            
-            <Label Margin="0, 20, 0, 0" Content="_Code postal" FontSize="20" Target="{Binding inputCP}" />
+
+            <Label Margin="0, 20, 0, 0" Content="_Code postal" Target="{Binding inputCP}" />
             <TextBox x:Name="inputCP" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.CodePostal, ValidatesOnExceptions=True}" />
             
-            <Label Margin="0, 20, 0, 0" Content="_Ville" FontSize="20" Target="{Binding inputVille}" />
+            <Label Margin="0, 20, 0, 0" Content="_Ville" Target="{Binding inputVille}" />
             <TextBox x:Name="inputVille" Style="{StaticResource TextBoxStyle}"  Text="{Binding Adresse.Ville, ValidatesOnExceptions=True}" />
 
             <Button IsDefault="True" x:Name="btnCreer" Margin="0,50, 0, 0" HorizontalAlignment="Center" Content="Créer un revendeur" Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />

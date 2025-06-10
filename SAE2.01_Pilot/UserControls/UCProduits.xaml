@@ -159,7 +159,7 @@
                     x:Name="butAddProduit"
                     Width="180"
                     Content="Créer un produit"
-                    Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" />
+                    Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Click="butAddProduit_Click" />
             </DockPanel>
         </Border>
     </Grid>

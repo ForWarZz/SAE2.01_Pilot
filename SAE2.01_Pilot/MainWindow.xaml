@@ -51,11 +51,11 @@
             </TextBlock>
         </DockPanel>
 
-        <StackPanel Grid.Row="1" Height="61" Background="#FFEAEAEA">
+        <StackPanel Grid.Row="1" Background="#FFEAEAEA">
             <Menu x:Name="MenuTop" Background="#FFEAEAEA">
-                <MenuItem x:Name="miCommandes" Click="miCommandes_Click" Header="Les Commandes" Style="{StaticResource MenuItemSelectStyle}" />
-                <MenuItem x:Name="miRevendeurs" Click="miRevendeurs_Click" Header="Les Revendeurs" Style="{StaticResource MenuItemStyle}" />
-                <MenuItem x:Name="miProduits" Click="miProduits_Click" Header="Les Produits" Style="{StaticResource MenuItemStyle}" />
+                <MenuItem x:Name="miCommandes" Click="miCommandes_Click" Header="Commandes" Style="{StaticResource MenuItemSelectStyle}" />
+                <MenuItem x:Name="miRevendeurs" Click="miRevendeurs_Click" Header="Revendeurs" Style="{StaticResource MenuItemStyle}" />
+                <MenuItem x:Name="miProduits" Click="miProduits_Click" Header="Produits" Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
 

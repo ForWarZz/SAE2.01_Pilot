@@ -43,14 +43,14 @@
                            Text="Créer une commande" />
 
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
-                    <Label Content="_Revendeur" FontSize="20" Target="{Binding btnSelectRevendeur}" />
+                    <Label Content="_Revendeur" Target="{Binding btnSelectRevendeur}" />
                     <Button x:Name="btnSelectRevendeur"
                             Content="Sélectionner un revendeur"
                             Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectRevendeur_Click" />
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
-                    <Label Content="_Mode de transport" FontSize="20" Target="{Binding cbTransport}" />
+                    <Label Content="_Mode de transport" Target="{Binding cbTransport}" />
                     <ComboBox x:Name="cbTransport" Height="40" />
                 </StackPanel>
 
@@ -59,14 +59,14 @@
                         <TextBlock FontSize="18" FontWeight="Medium" Text="Ajouter une ligne de commande" Margin="0, 0, 0, 10" />
 
                         <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
-                            <Label Content="_Produit" FontSize="16" Target="{Binding btnSelectProduit}" />
+                            <Label Content="_Produit" Target="{Binding btnSelectProduit}" />
                             <Button x:Name="btnSelectProduit"
                                     Content="Sélectionner un produit"
                                     Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectProduit_Click" />
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
-                            <Label Content="_Quantité souhaitée" FontSize="16" Target="{Binding inputQuantite}" />
+                            <Label Content="_Quantité souhaitée" Target="{Binding inputQuantite}" />
                             <TextBox x:Name="inputQuantite"
                                      Style="{StaticResource TextBoxStyle}"
                                      Text="{Binding Quantite}" />

@@ -5,11 +5,12 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
         <Style x:Key="MenuItemStyle" TargetType="MenuItem">
             <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Height" Value="61" />
-            <Setter Property="Width" Value="219" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="45" />
+            <Setter Property="Width" Value="150" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
@@ -34,9 +35,9 @@
             <Setter Property="Background" Value="#FF005EA5" />
             <Setter Property="Foreground" Value="#FFFFFFFF" />
             <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Height" Value="61" />
-            <Setter Property="Width" Value="219" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="45" />
+            <Setter Property="Width" Value="150" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
@@ -50,6 +51,12 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="#333333" />
         </Style>
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
@@ -171,49 +178,54 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="10,7" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
 
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Padding" Value="20,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="12,7" />
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
 
         <Style x:Key="RechercherTBStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="White" />
-            <Setter Property="FontFamily" Value="Roboto" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Padding" Value="20,7" />
+            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="10,7" />
             <Setter Property="Height" Value="40" />
             <Setter Property="Tag" Value="Rechercher" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="Black"
-                            BorderThickness="2">
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="Black"
+                    BorderThickness="2">
                             <Grid>
                                 <ScrollViewer x:Name="PART_ContentHost" />
                                 <TextBlock
-                                    x:Name="Placeholder"
-                                    Margin="20,0,0,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="LightGray"
-                                    IsHitTestVisible="False"
-                                    Text="{TemplateBinding Tag}"
-                                    Visibility="Collapsed" />
+                            x:Name="Placeholder"
+                            Margin="{TemplateBinding Padding}" VerticalAlignment="Center"
+                            Foreground="LightGray"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Tag}"
+                            Visibility="Collapsed" />
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -270,6 +282,70 @@
                     <Setter Property="BorderBrush" Value="#CCC" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="ListBox">
+            <Setter Property="BorderBrush" Value="#FFCCCCCC" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <ScrollViewer Margin="0" Focusable="false">
+                                <StackPanel Margin="2" IsItemsHost="true" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="5,8" />
+            <Setter Property="Margin" Value="0,1" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            Margin="{TemplateBinding Margin}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FFF0F0F0" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FFCCE8FF" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Border" Property="Background" Value="#FFE0E0E0" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FF888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style TargetType="DataGrid">
