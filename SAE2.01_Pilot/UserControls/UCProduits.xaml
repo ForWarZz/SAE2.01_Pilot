@@ -112,7 +112,7 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="150"
+                        Width="*"
                         Binding="{Binding Code}"
                         Header="Code produit" />
                     <DataGridTextColumn
@@ -135,8 +135,12 @@
                         Width="*"
                         Binding="{Binding QuantiteStock}"
                         Header="Quantité en stock" />
+                    <DataGridTextColumn
+                        Width="60"
+                        Binding="{Binding PrixVente}"
+                        Header="Prix" />
                     <DataGridCheckBoxColumn
-                        Width="*"
+                        Width="125"
                         Binding="{Binding Disponible}"
                         Header="Disponible" />
                 </DataGrid.Columns>
