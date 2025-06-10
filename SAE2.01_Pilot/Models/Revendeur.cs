@@ -37,16 +37,10 @@ namespace SAE2._01_Pilot.Models
             Adresse = adresse;
         }
 
-        public Revendeur(string raisonSociale, Adresse adresse)
-        {
-            RaisonSociale = raisonSociale;
-            Adresse = adresse;
-        }
-
-        public Revendeur(int id)
+        public Revendeur(int id, string raisonSociale)
         {
             Id = id;
-            Adresse = new Adresse();
+            RaisonSociale = raisonSociale;
         }
 
         public static ObservableCollection<Revendeur> GetAll()
@@ -78,14 +72,14 @@ namespace SAE2._01_Pilot.Models
         public void Create()
         {
             string sql = "INSERT INTO Revendeur (RaisonSociale, AdresseRue, AdresseCP, AdresseVille) " +
-                         "VALUES (@raisonSociale, @adresseRue, @adresseCP, @adresseVille) RETURNING NumRevendeur";
+                         "VALUES (@RaisonSociale, @AdresseRue, @AdresseCP, @AdresseVille) RETURNING NumRevendeur";
 
             using (NpgsqlCommand cmdInsert = new NpgsqlCommand(sql))
             {
-                cmdInsert.Parameters.AddWithValue("@raisonSociale", RaisonSociale);
-                cmdInsert.Parameters.AddWithValue("@adresseRue", Adresse.Rue);
-                cmdInsert.Parameters.AddWithValue("@adresseCP", Adresse.CodePostal);
-                cmdInsert.Parameters.AddWithValue("@adresseVille", Adresse.Ville);
+                cmdInsert.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+                cmdInsert.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+                cmdInsert.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+                cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
             }
@@ -94,16 +88,16 @@ namespace SAE2._01_Pilot.Models
         public void Update()
         {
             string sql = "UPDATE Revendeur SET RaisonSociale = @raisonSociale, " +
-                         "AdresseRue = @adresseRue, AdresseCP = @adresseCP, AdresseVille = @adresseVille " +
-                         "WHERE NumRevendeur = @id";
+                         "AdresseRue = @AdresseRue, AdresseCP = @AdresseCP, AdresseVille = @AdresseVille " +
+                         "WHERE NumRevendeur = @Id";
 
             using (NpgsqlCommand cmdUpdate = new NpgsqlCommand(sql))
             {
-                cmdUpdate.Parameters.AddWithValue("@id", Id);
-                cmdUpdate.Parameters.AddWithValue("@raisonSociale", RaisonSociale);
-                cmdUpdate.Parameters.AddWithValue("@adresseRue", Adresse.Rue);
-                cmdUpdate.Parameters.AddWithValue("@adresseCP", Adresse.CodePostal);
-                cmdUpdate.Parameters.AddWithValue("@adresseVille", Adresse.Ville);
+                cmdUpdate.Parameters.AddWithValue("@Id", Id);
+                cmdUpdate.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+                cmdUpdate.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+                cmdUpdate.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+                cmdUpdate.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
                 
                 DataAccess.Instance.ExecuteSet(cmdUpdate);
             }
