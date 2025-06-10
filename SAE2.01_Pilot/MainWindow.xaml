@@ -39,8 +39,6 @@
                 Foreground="White">
                 <Run Text="Connecté en tant que " />
                 <Run Text="{Binding Prenom}" />
-                <Run Text=" " />
-                <Run Text="{Binding Nom}" />
                 <Run Text=" - " />
                 <Run Text="{Binding Role.Libelle}" />
             </TextBlock>
