@@ -45,7 +45,7 @@ namespace SAE2._01_Pilot.Models
         {
             get
             {
-                return (decimal)LigneCommandes.Sum(ligne => ligne.Produit.PrixVente * ligne.Quantite);
+                return LigneCommandes.Sum(ligne => ligne.Produit.PrixVente * ligne.Quantite);
             }
         }
 
