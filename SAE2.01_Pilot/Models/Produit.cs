@@ -14,7 +14,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Produit : ICrud<Produit>
+    public class Produit : ICrud<Produit>, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -29,6 +29,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 typePointe = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypePointe)));
             }
         }
 
@@ -43,6 +44,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 type = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Type)));
             }
         }
 
@@ -50,18 +52,19 @@ namespace SAE2._01_Pilot.Models
         {
             get => code;
             set
-            { 
+            {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Le code produit ne peut pas être vide.");
                 }
 
-                if (value.Length < 5)
+                if (value.Length != 5)
                 {
                     throw new ArgumentOutOfRangeException("Le code produit doit comporter au moins 5 caractères.");
                 }
 
                 code = value.ToUpper();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Code)));
             }
         }
 
@@ -76,6 +79,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 nom = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nom)));
             }
         }
 
@@ -90,6 +94,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 prixVente = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PrixVente)));
             }
         }
 
@@ -104,6 +109,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 quantiteStock = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuantiteStock)));
             }
         }
 
@@ -118,6 +124,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 couleurs = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Couleurs)));
             }
         }
 
@@ -132,12 +139,14 @@ namespace SAE2._01_Pilot.Models
 
         private ObservableCollection<CouleurProduit> couleurs;
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public Produit()
         {
             couleurs = new ObservableCollection<CouleurProduit>();
         }
 
-        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible) 
+        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible)
         {
             Id = id;
 
@@ -161,6 +170,18 @@ namespace SAE2._01_Pilot.Models
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
             Couleurs = couleurs;
+            Disponible = disponible;
+        }
+
+        public Produit(TypePointe typePointe, TypeProduit type, string code, string nom, decimal prixVente, int quantiteStock, ObservableCollection<CouleurProduit> couleurs, bool disponible)
+        {
+            TypePointe = typePointe;
+            Type = type;
+            Code = code;
+            Nom = nom;
+            PrixVente = prixVente;
+            QuantiteStock = quantiteStock;
+            this.couleurs = couleurs;
             Disponible = disponible;
         }
 
@@ -225,72 +246,59 @@ namespace SAE2._01_Pilot.Models
 
         public void Create()
         {
-            NpgsqlConnection conn = DataAccess.Instance.GetConnection();
-            using (NpgsqlTransaction transaction = conn.BeginTransaction())
+            string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
+
+            using (NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists))
             {
-                try
+                cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
+                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
+
+                if (count > 0)
                 {
-                    string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
-
-                    using (NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists, conn, transaction))
-                    {
-                        cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
-                        int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
-
-                        if (count > 0)
-                        {
-                            throw new InvalidOperationException("Un produit avec ce code existe déjà.");
-                        }
-                    }
-
-                    Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
-
-                    string sqlInsertProduit = @"
-                            INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
-                            VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
-                            RETURNING NumProduit;";
-
-                    using (NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit, conn, transaction))
-                    {
-                        cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
-                        cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
-                        cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
-                        cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
-                        cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
-                        cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
-                        cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
-
-                        Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
-                    }
-
-                    List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
-
-                    string sqlInsertCouleurs = @"
-                                INSERT INTO CouleurProduit (NumProduit, NumCouleur)
-                                SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
-                            ";
-
-                    using (NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction))
-                    {
-                        cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
-                        cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
-
-                        cmdInsertCouleurs.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
+                    throw new InvalidOperationException("Un produit avec ce code existe déjà.");
                 }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+            }
+
+            Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
+
+            string sqlInsertProduit = @"
+                INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
+                VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
+                RETURNING NumProduit;";
+
+            using (NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit))
+            {
+                cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
+                cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
+                cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
+                cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
+                cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
+                cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
+                cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
+
+                Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
+            }
+
+            List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
+
+            string sqlInsertCouleurs = @"
+                    INSERT INTO CouleurProduit (NumProduit, NumCouleur)
+                    SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
+                ";
+
+            using (NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs))
+            {
+                cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
+
+                cmdInsertCouleurs.ExecuteNonQuery();
             }
         }
 
+
         public void Update()
         {
-            NpgsqlConnection conn = DataAccess.Instance.GetConnection();
+            /*NpgsqlConnection conn = DataAccess.Instance.GetConnection();
             using (NpgsqlTransaction transaction = conn.BeginTransaction())
             {
                 try
@@ -341,7 +349,7 @@ namespace SAE2._01_Pilot.Models
                     transaction.Rollback();
                     throw;
                 }
-            }
+            }*/
         }
 
         public void UpdateBase()

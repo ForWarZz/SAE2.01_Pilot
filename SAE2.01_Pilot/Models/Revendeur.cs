@@ -3,6 +3,7 @@ using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,30 +12,50 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Revendeur
+    public class Revendeur : INotifyPropertyChanged
     {
         private string raisonSociale;
+        private Adresse adresse;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public int Id { get; set; }
-        public Adresse Adresse { get; set; }
+        public Adresse Adresse
+        {
+            get => adresse;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("L'adresse ne peut pas être vide.");
+
+                adresse = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Adresse)));
+            }
+        }
         public string RaisonSociale { 
             get => raisonSociale;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("La raison sociale ne peut pas être vide.");
+                    throw new ArgumentNullException("La raison sociale ne peut pas être vide.");
                 }
 
                 raisonSociale = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RaisonSociale)));
             }
         }
 
-        public Revendeur(int id, string raisonSociale, Adresse adresse)
+        public Revendeur(string raisonSociale, Adresse adresse)
         {
-            Id = id;
             RaisonSociale = raisonSociale;
             Adresse = adresse;
+        }
+
+        public Revendeur(int id, string raisonSociale, Adresse adresse) :
+            this(raisonSociale, adresse)
+        {
+            Id = id;
         }
 
         public Revendeur(int id, string raisonSociale)
@@ -86,7 +107,11 @@ namespace SAE2._01_Pilot.Models
                 cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
                 cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
-                int count = (int)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+                Console.WriteLine(sqlCheckExists.ToString());
+
+                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+
+                Console.WriteLine("EXECUTERRRRR");
 
                 if (count > 0)
                     throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
@@ -94,6 +119,8 @@ namespace SAE2._01_Pilot.Models
 
             string sql = "INSERT INTO Revendeur (RaisonSociale, AdresseRue, AdresseCP, AdresseVille) " +
                          "VALUES (@RaisonSociale, @AdresseRue, @AdresseCP, @AdresseVille) RETURNING NumRevendeur";
+
+            Console.WriteLine(sql);
 
             using (NpgsqlCommand cmdInsert = new NpgsqlCommand(sql))
             {
@@ -103,14 +130,16 @@ namespace SAE2._01_Pilot.Models
                 cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
+
+                Console.WriteLine("Execute cmd insert");
             }
         }
 
         public void Update()
         {
             string sqlCheckExists = @"SELECT COUNT(*) FROM Revendeur WHERE RaisonSociale = @RaisonSociale AND
-                                    AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille
-                                    WHERE NumRevendeur != @NumRevendeur";
+                                    AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille AND
+                                    NumRevendeur != @NumRevendeur";
 
             using (NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists))
             {
@@ -120,7 +149,7 @@ namespace SAE2._01_Pilot.Models
                 cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
                 cmdCheckExists.Parameters.AddWithValue("@NumRevendeur", Id);
 
-                int count = (int)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
 
                 if (count > 0)
                     throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
@@ -144,7 +173,7 @@ namespace SAE2._01_Pilot.Models
 
         public void Delete()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

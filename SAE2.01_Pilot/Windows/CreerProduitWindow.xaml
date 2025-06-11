@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Créer un produit"
     Width="690"
-    Height="961"
+    Height="787"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
