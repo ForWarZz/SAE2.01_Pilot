@@ -12,13 +12,7 @@ namespace SAE2._01_Pilot.Models.Tests
         [TestInitialize()]
         public void TestInitialize()
         {
-            //DataAccess.Instance.StartTransaction();
-        }
 
-        [TestCleanup()]
-        public void TestCleanup()
-        {
-            //DataAccess.Instance.RollbackTransaction();
         }
 
         [TestMethod()]
@@ -62,7 +56,7 @@ namespace SAE2._01_Pilot.Models.Tests
         public void TestUpdateRevendeur()
         {
             Adresse adresse = new Adresse("123 Rue Exemple", "75000", "Paris");
-            Revendeur revendeur = new Revendeur("Revendeur Test", adresse);
+            Revendeur revendeur = new Revendeur("Revendeur Test 1", adresse);
 
             revendeur.Create();
 

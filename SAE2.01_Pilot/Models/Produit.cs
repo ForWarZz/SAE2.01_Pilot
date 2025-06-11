@@ -246,59 +246,72 @@ namespace SAE2._01_Pilot.Models
 
         public void Create()
         {
-            string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
-
-            using (NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists))
+            NpgsqlConnection conn = DataAccess.Instance.GetConnection();
+            using (NpgsqlTransaction transaction = conn.BeginTransaction())
             {
-                cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
-                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
-
-                if (count > 0)
+                try
                 {
-                    throw new InvalidOperationException("Un produit avec ce code existe déjà.");
+                    string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
+
+                    using (NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists, conn, transaction))
+                    {
+                        cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
+                        int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
+
+                        if (count > 0)
+                        {
+                            throw new InvalidOperationException("Un produit avec ce code existe déjà.");
+                        }
+                    }
+
+                    Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
+
+                    string sqlInsertProduit = @"
+                            INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
+                            VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
+                            RETURNING NumProduit;";
+
+                    using (NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit, conn, transaction))
+                    {
+                        cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
+                        cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
+                        cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
+                        cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
+                        cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
+                        cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
+                        cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
+
+                        Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
+                    }
+
+                    List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
+
+                    string sqlInsertCouleurs = @"
+                                INSERT INTO CouleurProduit (NumProduit, NumCouleur)
+                                SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
+                            ";
+
+                    using (NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction))
+                    {
+                        cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                        cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
+
+                        cmdInsertCouleurs.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
                 }
-            }
-
-            Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
-
-            string sqlInsertProduit = @"
-                INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
-                VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
-                RETURNING NumProduit;";
-
-            using (NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit))
-            {
-                cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
-                cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
-                cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
-                cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
-                cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
-                cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
-                cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
-
-                Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
-            }
-
-            List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
-
-            string sqlInsertCouleurs = @"
-                    INSERT INTO CouleurProduit (NumProduit, NumCouleur)
-                    SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
-                ";
-
-            using (NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs))
-            {
-                cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
-                cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
-
-                cmdInsertCouleurs.ExecuteNonQuery();
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
             }
         }
 
-
         public void Update()
         {
-            /*NpgsqlConnection conn = DataAccess.Instance.GetConnection();
+            NpgsqlConnection conn = DataAccess.Instance.GetConnection();
             using (NpgsqlTransaction transaction = conn.BeginTransaction())
             {
                 try
@@ -349,7 +362,7 @@ namespace SAE2._01_Pilot.Models
                     transaction.Rollback();
                     throw;
                 }
-            }*/
+            }
         }
 
         public void UpdateBase()

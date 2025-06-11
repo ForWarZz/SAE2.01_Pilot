@@ -13,37 +13,37 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <DockPanel
-        x:Name="spTop"
-        Height="72"
-        Background="#FF005EA5">
+            x:Name="spTop"
+            Height="72"
+            Background="#FF005EA5">
             <Image
-            Width="165"
-            Height="44"
-            Margin="20,0,0,0"
-            HorizontalAlignment="Left"
-            Source="/Images/pilot.png" />
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
             <TextBlock
-            Margin="0,0,20,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Right"
-            FontFamily="Roboto"
-            FontSize="16"
-            Foreground="White"
-            Text="Connecté au système central" />
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
             <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Right"
-            FontFamily="Roboto"
-            FontSize="16"
-            Foreground="White">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White">
                 <Run Text="Connecté en tant que " />
                 <Run Text="{Binding Prenom}" />
                 <Run Text=" - " />
@@ -53,13 +53,25 @@
 
         <StackPanel Grid.Row="1" Background="#FFEAEAEA">
             <Menu x:Name="MenuTop" Background="#FFEAEAEA">
-                <MenuItem x:Name="miCommandes" Click="miCommandes_Click" Header="Commandes" Style="{StaticResource MenuItemSelectStyle}" />
-                <MenuItem x:Name="miRevendeurs" Click="miRevendeurs_Click" Header="Revendeurs" Style="{StaticResource MenuItemStyle}" />
-                <MenuItem x:Name="miProduits" Click="miProduits_Click" Header="Produits" Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="miCommandes"
+                    Click="miCommandes_Click"
+                    Header="Commandes"
+                    Style="{StaticResource MenuItemSelectStyle}" />
+                <MenuItem
+                    x:Name="miRevendeurs"
+                    Click="miRevendeurs_Click"
+                    Header="Revendeurs"
+                    Style="{StaticResource MenuItemStyle}" />
+                <MenuItem
+                    x:Name="miProduits"
+                    Click="miProduits_Click"
+                    Header="Produits"
+                    Style="{StaticResource MenuItemStyle}" />
             </Menu>
         </StackPanel>
 
-        <ContentControl Grid.Row="2" x:Name="ccMain">
+        <ContentControl x:Name="ccMain" Grid.Row="2">
             <uc:UCCommandes />
         </ContentControl>
     </Grid>
