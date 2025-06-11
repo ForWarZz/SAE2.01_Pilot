@@ -21,9 +21,7 @@
             Padding="20,15"
             BorderBrush="#E0E0E0"
             BorderThickness="0,0,0,1">
-            <StackPanel
-                Grid.Row="0"
-                Orientation="Horizontal">
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
                     <TextBlock
                         Margin="0,0,0,5"
@@ -32,8 +30,9 @@
                         FontWeight="Medium"
                         Text="Rechercher" />
                     <TextBox
+                        x:Name="txtRecherche"
                         Width="300"
-                        Style="{StaticResource RechercherTBStyle}" />
+                        Style="{StaticResource RechercherTBStyle}" TextChanged="txtRecherche_TextChanged" />
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -43,8 +42,7 @@
             Margin="20,15"
             Background="White"
             CornerRadius="4">
-            <DataGrid
-                x:Name="dgRevendeur" SelectionChanged="dgRevendeur_SelectionChanged">
+            <DataGrid x:Name="dgRevendeur" SelectionChanged="dgRevendeur_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"
@@ -80,14 +78,16 @@
                     x:Name="butModifierRevendeur"
                     Width="120"
                     Margin="0,0,15,0"
+                    Click="butModifierRevendeur_Click"
                     Content="Modifier"
-                    Visibility="Hidden"
-                    Style="{StaticResource SecondaryButtonStyle}" Click="butModifierRevendeur_Click" />
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Visibility="Hidden" />
                 <Button
                     x:Name="butAddRevendeur"
                     Width="180"
+                    Click="butAddRevendeur_Click"
                     Content="Créer un revendeur"
-                    Style="{StaticResource PrimaryButtonStyle}" Click="butAddRevendeur_Click" />
+                    Style="{StaticResource PrimaryButtonStyle}" />
             </StackPanel>
         </Border>
     </Grid>

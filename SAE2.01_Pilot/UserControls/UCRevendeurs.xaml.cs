@@ -45,6 +45,12 @@ namespace SAE2._01_Pilot.UserControls
 
         private bool FiltrerRevendeurs(object obj)
         {
+            string recherche = txtRecherche.Text;
+            Revendeur revendeur = (Revendeur)obj;
+
+            if (!revendeur.RaisonSociale.ToLower().StartsWith(recherche.ToLower()))
+                return false;
+
             return true;
         }
 
@@ -113,6 +119,11 @@ namespace SAE2._01_Pilot.UserControls
 
             if (estCommercial)
                 butModifierRevendeur.Visibility = Visibility.Visible;
+        }
+
+        private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            revendeursView.Refresh();
         }
     }
 }
