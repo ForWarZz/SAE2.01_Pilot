@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE2._01_Pilot.UserControls"
+    xmlns:converters="clr-namespace:SAE2._01_Pilot.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="685"
     d:DesignWidth="1194"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:NullableDateToStringConverter x:Key="DateConverter"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -95,7 +99,7 @@
                         Header="Date commande" />
                     <DataGridTextColumn
                         Width="*"
-                        Binding="{Binding DateLivraison, StringFormat={}{0:dd/MM/yyyy}}"
+                        Binding="{Binding DateLivraison, StringFormat={}{0:dd/MM/yyyy}, Converter={StaticResource DateConverter}}"
                         Header="Date livraison" />
                     <DataGridTextColumn
                         Width="150"

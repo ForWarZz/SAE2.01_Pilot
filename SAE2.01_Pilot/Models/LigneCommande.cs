@@ -50,6 +50,11 @@ namespace SAE2._01_Pilot.Models
             Quantite = quantite;
         }
 
+        public LigneCommande()
+        {
+            
+        }
+
         public void Create(NpgsqlConnection conn, NpgsqlTransaction transaction)
         {
             string sqlInsertCmd = @"

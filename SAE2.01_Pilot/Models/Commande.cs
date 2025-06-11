@@ -13,19 +13,18 @@ namespace SAE2._01_Pilot.Models
 {
     public class Commande : ICrud<Commande>
     {
+        public int Id { get; set; }
+
         private ObservableCollection<LigneCommande> ligneCommandes;
         private DateTime dateCreation;
-        private DateTime dateLivraison;
+        private DateTime? dateLivraison;
 
-        public int Id { get; set; }
-        public ModeTransport ModeTransport { get; set; }
-        public Revendeur Revendeur { get; set; }
-        public int EmployeId { get; set; }
-        public ObservableCollection<LigneCommande> LigneCommandes { get => ligneCommandes; set => ligneCommandes = value; }
-        public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
-        public DateTime DateLivraison { get => dateLivraison; set => dateLivraison = value; }
+        private ModeTransport modeTransport;
+        private Revendeur revendeur;
 
-        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime dateLivraison)
+        private int employeId;
+
+        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
         {
             Id = id;
             ModeTransport = modeTransport;
@@ -50,24 +49,76 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
+        public ModeTransport ModeTransport
+        {
+            get => modeTransport;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Le mode de transport ne peut pas être nul.");
+                }
+
+                modeTransport = value;
+            }
+        }
+
+        public Revendeur Revendeur
+        {
+            get => revendeur;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Le revendeur ne peut pas être nul.");
+                }
+
+                revendeur = value;
+            }
+        }
+
+        public int EmployeId { get => employeId; set => employeId = value; }
+
+        public ObservableCollection<LigneCommande> LigneCommandes { get => ligneCommandes; set => ligneCommandes = value; }
+
+        public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
+
+        public DateTime? DateLivraison { 
+            get => dateLivraison;
+            set 
+            {
+                if (value < DateCreation)
+                {
+                    Console.WriteLine("Date de livraison invalide : " + value + " < " + DateCreation);
+                    throw new ArgumentOutOfRangeException("La date de livraison ne peut pas être antérieure à la date de commande.");
+                }
+
+                dateLivraison = value;
+            } 
+        }
+
         public static ObservableCollection<Commande> GetFromEmploye(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits, Employe employeConnecte)
         {
             Dictionary<int, Commande> commandesParId = new Dictionary<int, Commande>();
 
             string sql = @"
-                SELECT 
+                SELECT
                     c.NumCommande,
                     c.NumTransport,
                     c.NumRevendeur,
                     c.NumEmploye,
                     c.DateCommande,
-                    c.DateLivraison,
+                    CASE
+                        WHEN c.DateLivraison = '-infinity' THEN NULL
+                        ELSE c.DateLivraison
+                    END AS DateLivraisonValide,
                     pc.NumProduit,
                     pc.QuantiteCommande
                 FROM Commande c
                 JOIN ProduitCommande pc ON pc.NumCommande = c.NumCommande
                 WHERE c.NumEmploye = @NumEmploye
             ";
+
 
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -98,7 +149,9 @@ namespace SAE2._01_Pilot.Models
                     Console.WriteLine("Employe " + employeId);
 
                     DateTime dateCommande = (DateTime)row["DateCommande"];
-                    DateTime dateLivraison = (DateTime)row["DateLivraison"];
+                    DateTime? dateLivraison = row["DateLivraisonValide"] == DBNull.Value
+                                                          ? null
+                                                          : (DateTime)row["DateLivraisonValide"];
 
                     Console.WriteLine("date commande " + dateCommande);
                     Console.WriteLine("date livraison " + dateLivraison);
@@ -142,7 +195,7 @@ namespace SAE2._01_Pilot.Models
                 cmdInsert.Parameters.AddWithValue("@NumRevendeur", Revendeur.Id);
                 cmdInsert.Parameters.AddWithValue("@NumEmploye", EmployeId);
                 cmdInsert.Parameters.AddWithValue("@DateCommande", DateCreation);
-                cmdInsert.Parameters.AddWithValue("@DateLivraison", DateLivraison);
+               /* cmdInsert.Parameters.AddWithValue("@DateLivraison", DateLivraison);*/
                 cmdInsert.Parameters.AddWithValue("@PrixTotal", PrixTotal);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);

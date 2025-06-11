@@ -29,7 +29,7 @@ namespace SAE2._01_Pilot.Models
 
             set
             {
-                if (value.Length < 5)
+                if (value.Length != 5)
                 {
                     throw new ArgumentOutOfRangeException("Le code postal n'est pas valide.");
                 }

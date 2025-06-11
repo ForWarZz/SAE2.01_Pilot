@@ -50,7 +50,7 @@
                 FontWeight="Medium"
                 Text="Créer un revendeur" />
 
-            <Label Content="R_aison sociale" Target="{Binding inputRaisonSociale}" />
+            <Label Content="R_aison sociale" Target="{Binding ElementName=inputRaisonSociale}" />
             <TextBox
                 x:Name="inputRaisonSociale"
                 Style="{StaticResource TextBoxStyle}"
@@ -59,7 +59,7 @@
             <Label
                 Margin="0,20,0,0"
                 Content="_Rue"
-                Target="{Binding inputRue}" />
+                Target="{Binding ElementName=inputRue}" />
             <TextBox
                 x:Name="inputRue"
                 Style="{StaticResource TextBoxStyle}"
@@ -68,7 +68,7 @@
             <Label
                 Margin="0,20,0,0"
                 Content="_Code postal"
-                Target="{Binding inputCP}" />
+                Target="{Binding ElementName=inputCP}" />
             <TextBox
                 x:Name="inputCP"
                 Style="{StaticResource TextBoxStyle}"
@@ -77,7 +77,7 @@
             <Label
                 Margin="0,20,0,0"
                 Content="_Ville"
-                Target="{Binding inputVille}" />
+                Target="{Binding ElementName=inputVille}" />
             <TextBox
                 x:Name="inputVille"
                 Style="{StaticResource TextBoxStyle}"

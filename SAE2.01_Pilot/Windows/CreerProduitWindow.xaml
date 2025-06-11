@@ -47,7 +47,7 @@
                     FontWeight="Medium"
                     Text="Créer un produit" />
 
-                <Label Content="_Code produit" Target="{Binding inputCodeProduit}" />
+                <Label Content="_Code produit" Target="{Binding ElementName=inputCodeProduit}" />
                 <TextBox
                     x:Name="inputCodeProduit"
                     Style="{StaticResource TextBoxStyle}"
@@ -56,7 +56,7 @@
                 <Label
                     Margin="0,15,0,0"
                     Content="_Nom du produit"
-                    Target="{Binding inputNomProduit}" />
+                    Target="{Binding ElementName=inputNomProduit}" />
                 <TextBox
                     x:Name="inputNomProduit"
                     Style="{StaticResource TextBoxStyle}"
@@ -65,7 +65,7 @@
                 <Label
                     Margin="0,15,0,0"
                     Content="T_ype de produit"
-                    Target="{Binding cbTypeProduit}" />
+                    Target="{Binding ElementName=cbTypeProduit}" />
                 <ComboBox
                     x:Name="cbTypeProduit"
                     DisplayMemberPath="Libelle"
@@ -74,7 +74,7 @@
                 <Label
                     Margin="0,15,0,0"
                     Content="_Type de pointe"
-                    Target="{Binding cbTypePointe}" />
+                    Target="{Binding ElementName=cbTypePointe}" />
                 <ComboBox
                     x:Name="cbTypePointe"
                     DisplayMemberPath="Libelle"
@@ -83,7 +83,7 @@
                 <Label
                     Margin="0,15,0,0"
                     Content="_Prix de vente"
-                    Target="{Binding inputPrixVente}" />
+                    Target="{Binding ElementName=inputPrixVente}" />
                 <TextBox
                     x:Name="inputPrixVente"
                     Style="{StaticResource TextBoxStyle}"
@@ -92,7 +92,7 @@
                 <Label
                     Margin="0,15,0,0"
                     Content="_Quantité en stock"
-                    Target="{Binding inputQuantiteStock}" />
+                    Target="{Binding ElementName=inputQuantiteStock}" />
                 <TextBox
                     x:Name="inputQuantiteStock"
                     Style="{StaticResource TextBoxStyle}"

@@ -23,13 +23,17 @@ namespace SAE2._01_Pilot.Windows
     public partial class CreerCommandeWindow : Window
     {
         private Commande nouvelleCommande;
+        private LigneCommande ligneCommandeCourante;
 
         public CreerCommandeWindow(Commande nouvelleCommande)
         {
             this.nouvelleCommande = nouvelleCommande;
-            DataContext = nouvelleCommande;
+            ligneCommandeCourante = new LigneCommande();
 
             InitializeComponent();
+
+            spFormulaire.DataContext = nouvelleCommande;
+            spFormLigne.DataContext = ligneCommandeCourante;
 
             cbTransport.ItemsSource = Core.Instance.ModeTransports;
             dgLignesCommande.ItemsSource = nouvelleCommande.LigneCommandes;
@@ -37,21 +41,18 @@ namespace SAE2._01_Pilot.Windows
 
         private void btnAjouterLigne_Click(object sender, RoutedEventArgs e)
         {
-            bool quantiteOk = int.TryParse(inputQuantite.Text, out int quantite);
-            if (String.IsNullOrEmpty(inputQuantite.Text) || !quantiteOk)
-            {
-                Core.MessageBoxErreur("Veuillez entrer une quantité valide.");
-                return;
-            }
+            bool ok = Core.ValiderFormulaire(spFormLigne);
 
-            if (btnSelectProduit.DataContext is not Produit produit)
+            if (ligneCommandeCourante.Produit == null)
             {
                 Core.MessageBoxErreur("Veuillez sélectionner un produit.");
                 return;
             }
 
-            LigneCommande nouvelleLigne = new LigneCommande(produit, quantite);
-            nouvelleCommande.LigneCommandes.Add(nouvelleLigne);
+            if (!ok)
+                return;
+
+            nouvelleCommande.LigneCommandes.Add(ligneCommandeCourante);
 
             inputQuantite.Clear();
             btnSelectProduit.Content = "Sélectionner un produit";
@@ -60,23 +61,22 @@ namespace SAE2._01_Pilot.Windows
 
         private void btnCreer_Click(object sender, RoutedEventArgs e)
         {
-            if (nouvelleCommande.LigneCommandes.Count == 0)
-            {
-                Core.MessageBoxErreur("Veuillez ajouter au moins une ligne de commande.");
-                return;
-            }
-
-            if (cbTransport.SelectedItem is not ModeTransport transport)
-            {
-                Core.MessageBoxErreur("Veuillez sélectionner un mode de transport.");
-                return;
-            }
+            bool ok = Core.ValiderFormulaire(spFormulaire);
 
             if (nouvelleCommande.Revendeur == null)
             {
                 Core.MessageBoxErreur("Veuillez sélectionner un revendeur.");
                 return;
             }
+
+            if (nouvelleCommande.LigneCommandes.Count == 0)
+            {
+                Core.MessageBoxErreur("Veuillez ajouter au moins une ligne de commande.");
+                return;
+            }
+
+            if (!ok)
+                return;
 
             nouvelleCommande.EmployeId = Core.Instance.EmployeConnecte.Id;
             nouvelleCommande.Create();
@@ -108,7 +108,7 @@ namespace SAE2._01_Pilot.Windows
 
             Produit? produit = listeProduitsWindow.ucProduits.dgProduits.SelectedItem as Produit;
 
-            btnSelectProduit.DataContext = produit;
+            ligneCommandeCourante.Produit = produit;
             btnSelectProduit.Content = produit.Nom;
         }
 

@@ -31,7 +31,6 @@
                        Text="Connecté au système central" />
         </DockPanel>
 
-        <!-- Formulaire -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel VerticalAlignment="Center" x:Name="spFormulaire" Margin="50,30,50,30">
                 <TextBlock x:Name="txtTitre"
@@ -41,35 +40,28 @@
                            FontWeight="Medium"
                            Text="Créer une commande" />
 
-                <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
-                    <Label Content="_Revendeur" Target="{Binding btnSelectRevendeur}" />
-                    <Button x:Name="btnSelectRevendeur"
+                <Label Content="_Revendeur" Target="{Binding ElementName=btnSelectRevendeur}" />
+                <Button x:Name="btnSelectRevendeur"
                             Content="Sélectionner un revendeur"
-                            Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectRevendeur_Click" />
-                </StackPanel>
+                            Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectRevendeur_Click" Margin="0,0,0,20" />
 
-                <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
-                    <Label Content="_Mode de transport" Target="{Binding cbTransport}" />
-                    <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" SelectedItem="{Binding ModeTransport}" />
-                </StackPanel>
+                <Label Content="_Mode de transport" Target="{Binding ElementName=cbTransport}" />
+                <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" SelectedItem="{Binding ModeTransport, ValidatesOnExceptions=True}" Margin="0,0,0,20" />
+
 
                 <Border BorderBrush="#ccc" BorderThickness="1" Padding="15" Margin="0, 0, 0, 20" CornerRadius="8">
-                    <StackPanel>
+                    <StackPanel x:Name="spFormLigne">
                         <TextBlock FontSize="18" FontWeight="Medium" Text="Ajouter une ligne de commande" Margin="0, 0, 0, 10" />
 
-                        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
-                            <Label Content="_Produit" Target="{Binding btnSelectProduit}" />
-                            <Button x:Name="btnSelectProduit"
+                        <Label Content="_Produit" Target="{Binding ElementName=btnSelectProduit}" />
+                        <Button Margin="0, 0, 0, 10" x:Name="btnSelectProduit"
                                     Content="Sélectionner un produit"
                                     Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectProduit_Click" />
-                        </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Margin="0, 0, 0, 10">
-                            <Label Content="_Quantité souhaitée" Target="{Binding inputQuantite}" />
-                            <TextBox x:Name="inputQuantite"
+                        <Label Content="_Quantité souhaitée" Target="{Binding ElementName=inputQuantite}" />
+                        <TextBox Margin="0, 0, 0, 10" x:Name="inputQuantite"
                                      Style="{StaticResource TextBoxStyle}"
-                                     Text="{Binding Quantite}" />
-                        </StackPanel>
+                                     Text="{Binding Quantite, ValidatesOnExceptions=True}" />
 
                         <Button x:Name="btnAjouterLigne"
                                 Content="Ajouter la ligne"

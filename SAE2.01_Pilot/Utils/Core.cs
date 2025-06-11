@@ -131,23 +131,16 @@ namespace SAE2._01_Pilot.Utils
                     BindingOperations.GetBindingExpression(uie, CheckBox.IsCheckedProperty)?.UpdateSource();
                     BindingOperations.GetBindingExpression(uie, ListBox.SelectedItemsProperty)?.UpdateSource();
 
-                    Console.Write($"JE VALIDE : {uie.GetType().Name} - HasError: {Validation.GetHasError(uie)} - Erreurs: ");
-                    foreach (var error in Validation.GetErrors(uie))
-                    {
-                        Console.Write($"[{error.ErrorContent}] "); // C'est CA qui nous donnera le message exact
-                    }
-                    Console.WriteLine();
-
                     if (Validation.GetHasError(uie))
                         ok = false;
 
-                    //if (uie is DependencyObject nestedContainer)
-                    //{
-                    //    if (!ValiderFormulaire(nestedContainer))
-                    //    {
-                    //        allValid = false;
-                    //    }
-                    //}
+/*                    if (uie is DependencyObject nestedContainer)
+                    {
+                        if (!ValiderFormulaire(nestedContainer))
+                        {
+                            ok = false;
+                        }
+                    }*/
                 }
             }
 

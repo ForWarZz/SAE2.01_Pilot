@@ -341,7 +341,7 @@ namespace SAE2._01_Pilot.Models
                 DELETE FROM CouleurProduit
                 WHERE NumProduit = @NumProduit;";
 
-            using NpgsqlCommand cmdDeleteCouleurs = new NpgsqlCommand(sqlCheckCodeExists, conn, transaction);
+            using NpgsqlCommand cmdDeleteCouleurs = new NpgsqlCommand(sqlDeleteCouleurs, conn, transaction);
 
             cmdDeleteCouleurs.Parameters.AddWithValue("NumProduit", Id);
             cmdDeleteCouleurs.ExecuteNonQuery();
@@ -353,7 +353,7 @@ namespace SAE2._01_Pilot.Models
                     SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
                 ";
 
-            using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlCheckCodeExists, conn, transaction);
+            using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction);
 
             cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
             cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
