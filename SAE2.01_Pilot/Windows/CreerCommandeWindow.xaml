@@ -15,7 +15,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Bandeau bleu -->
         <DockPanel Height="72" Background="#FF005EA5">
             <Image Width="165"
                    Height="44"

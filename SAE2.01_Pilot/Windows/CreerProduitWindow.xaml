@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Créer un produit"
     Width="690"
-    Height="961" mc:Ignorable="d">
+    Height="961"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="74" />
@@ -15,62 +17,109 @@
         </Grid.RowDefinitions>
 
         <DockPanel
-        x:Name="spTop"
-        Height="72"
-        Background="#FF005EA5">
+            x:Name="spTop"
+            Height="72"
+            Background="#FF005EA5">
             <Image
-            Width="165"
-            Height="44"
-            Margin="20,0,0,0"
-            HorizontalAlignment="Left"
-            Source="/Images/pilot.png" />
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
             <TextBlock
-            Margin="0,0,20,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Right"
-            FontFamily="Roboto"
-            FontSize="16"
-            Foreground="White"
-            Text="Connecté au système central" />
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
         </DockPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="spFormulaire" Margin="100,20,100,20">
-                <TextBlock x:Name="txtTitre"
-                HorizontalAlignment="Center"
-                FontSize="28" Margin="0,0,0,25" FontWeight="Medium" Text="Créer un produit" />
+                <TextBlock
+                    x:Name="txtTitre"
+                    Margin="0,0,0,25"
+                    HorizontalAlignment="Center"
+                    FontSize="28"
+                    FontWeight="Medium"
+                    Text="Créer un produit" />
 
                 <Label Content="_Code produit" Target="{Binding inputCodeProduit}" />
-                <TextBox x:Name="inputCodeProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding Code, ValidatesOnExceptions=True}" />
+                <TextBox
+                    x:Name="inputCodeProduit"
+                    Style="{StaticResource TextBoxStyle}"
+                    Text="{Binding Code, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="_Nom du produit" Target="{Binding inputNomProduit}" />
-                <TextBox x:Name="inputNomProduit" Style="{StaticResource TextBoxStyle}" Text="{Binding Nom, ValidatesOnExceptions=True}" />
+                <Label
+                    Margin="0,15,0,0"
+                    Content="_Nom du produit"
+                    Target="{Binding inputNomProduit}" />
+                <TextBox
+                    x:Name="inputNomProduit"
+                    Style="{StaticResource TextBoxStyle}"
+                    Text="{Binding Nom, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="T_ype de produit" Target="{Binding cbTypeProduit}" />
-                <ComboBox x:Name="cbTypeProduit"
-                      DisplayMemberPath="Libelle"
-                      SelectedItem="{Binding Type, ValidatesOnExceptions=True}">
-                </ComboBox>
+                <Label
+                    Margin="0,15,0,0"
+                    Content="T_ype de produit"
+                    Target="{Binding cbTypeProduit}" />
+                <ComboBox
+                    x:Name="cbTypeProduit"
+                    DisplayMemberPath="Libelle"
+                    SelectedItem="{Binding Type, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="_Type de pointe" Target="{Binding cbTypePointe}" />
-                <ComboBox x:Name="cbTypePointe"
-                      DisplayMemberPath="Libelle"
-                      SelectedItem="{Binding TypePointe, ValidatesOnExceptions=True}">
-                </ComboBox>
+                <Label
+                    Margin="0,15,0,0"
+                    Content="_Type de pointe"
+                    Target="{Binding cbTypePointe}" />
+                <ComboBox
+                    x:Name="cbTypePointe"
+                    DisplayMemberPath="Libelle"
+                    SelectedItem="{Binding TypePointe, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="_Prix de vente" Target="{Binding inputPrixVente}" />
-                <TextBox x:Name="inputPrixVente" Style="{StaticResource TextBoxStyle}" Text="{Binding PrixVente, ValidatesOnExceptions=True}" />
+                <Label
+                    Margin="0,15,0,0"
+                    Content="_Prix de vente"
+                    Target="{Binding inputPrixVente}" />
+                <TextBox
+                    x:Name="inputPrixVente"
+                    Style="{StaticResource TextBoxStyle}"
+                    Text="{Binding PrixVente, ValidatesOnExceptions=True}" />
 
-                <Label Margin="0, 15, 0, 0" Content="_Quantité en stock" Target="{Binding inputQuantiteStock}" />
-                <TextBox x:Name="inputQuantiteStock" Style="{StaticResource TextBoxStyle}" Text="{Binding QuantiteStock, ValidatesOnExceptions=True}" />
+                <Label
+                    Margin="0,15,0,0"
+                    Content="_Quantité en stock"
+                    Target="{Binding inputQuantiteStock}" />
+                <TextBox
+                    x:Name="inputQuantiteStock"
+                    Style="{StaticResource TextBoxStyle}"
+                    Text="{Binding QuantiteStock, ValidatesOnExceptions=True}" />
 
-                <CheckBox Margin="0, 15, 0, 0" Content="_Disponible" FontSize="16" VerticalContentAlignment="Center" IsChecked="{Binding Disponible, ValidatesOnExceptions=True}" />
-                <Label Margin="0, 15, 0, 0" Content="C_ouleurs disponibles" />
-                <ListBox x:Name="lbCouleurs" Height="150" Style="{StaticResource ListBoxStyle}" SelectionMode="Multiple"
-                     DisplayMemberPath="Libelle" />
+                <CheckBox
+                    Margin="0,15,0,0"
+                    VerticalContentAlignment="Center"
+                    Content="_Disponible"
+                    FontSize="16"
+                    IsChecked="{Binding Disponible, ValidatesOnExceptions=True}" />
+                <Label Margin="0,15,0,0" Content="C_ouleurs disponibles" />
+                <ListBox
+                    x:Name="lbCouleurs"
+                    Height="150"
+                    DisplayMemberPath="Libelle"
+                    SelectionMode="Multiple"
+                    Style="{StaticResource ListBoxStyle}" />
 
-                <Button IsDefault="True" x:Name="btnCreer" Margin="0,30, 0, 0" HorizontalAlignment="Center" Content="Créer un produit" Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />
+                <Button
+                    x:Name="btnCreer"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Center"
+                    Click="btnCreer_Click"
+                    Content="Créer un produit"
+                    IsDefault="True"
+                    Style="{StaticResource PrimaryButtonStyle}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
