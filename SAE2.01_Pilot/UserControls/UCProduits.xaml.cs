@@ -3,6 +3,7 @@ using SAE2._01_Pilot.Utils;
 using SAE2._01_Pilot.Windows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,10 +56,19 @@ namespace SAE2._01_Pilot.UserControls
             cbTypePointe.ItemsSource = listePointes;
             cbTypePointe.SelectedIndex = 0;
 
-            // Types de produit
+            UpdateTypeProduit(null);
+        }
+
+        private void UpdateTypeProduit(int? categorieId)
+        {
             List<TypeProduit> listeTypes = new List<TypeProduit>(Core.Instance.TypeProduits);
+
+            if (categorieId != -1 && categorieId != null)
+                cbType.ItemsSource = listeTypes.Where(t => t.Id == categorieId);
+            else
+                cbType.ItemsSource = listeTypes;
+
             listeTypes.Insert(0, new TypeProduit(-1, "Tous les types"));
-            cbType.ItemsSource = listeTypes;
             cbType.SelectedIndex = 0;
         }
 
@@ -74,6 +84,25 @@ namespace SAE2._01_Pilot.UserControls
 
         private bool FiltrerProduits(object obj)
         {
+            string recherche = txtRecherche.Text;
+            TypeProduit typeProduit = cbType.SelectedItem as TypeProduit;
+            TypePointe typePointe = cbType.SelectedItem as TypePointe;
+            CouleurProduit couleurProduit = cbCouleur.SelectedItem as CouleurProduit;
+
+            Produit produit = (Produit)obj;
+
+            if (!produit.Nom.ToLower().StartsWith(recherche.ToLower()))
+                return false;
+
+            if (typeProduit != null && typeProduit.Id != -1 && produit.Type != typeProduit)
+                return false;
+
+            if (typePointe != null && typePointe.Id != -1 && produit.TypePointe.Id != typePointe.Id)
+                return false;
+
+            if (couleurProduit != null && couleurProduit.Id != -1 && !produit.Couleurs.Contains(couleurProduit))
+                return false;
+
             return true;
         }
 
@@ -201,6 +230,26 @@ namespace SAE2._01_Pilot.UserControls
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la mise à jour du produit : {ex.Message}");
             }
+        }
+
+        private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            produitView.Refresh();
+        }
+
+        private void cbCategorie_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CategorieProduit categorie = cbCategorie.SelectedItem as CategorieProduit;
+
+            UpdateTypeProduit(categorie.Id);
+            cbType.SelectedIndex = 0;
+
+            produitView.Refresh();
+        }
+
+        private void cbFilterChange(object sender, SelectionChangedEventArgs e)
+        {
+            produitView.Refresh();
         }
     }
 }

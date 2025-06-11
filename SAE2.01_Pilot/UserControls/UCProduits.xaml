@@ -21,9 +21,7 @@
             Padding="20,15"
             BorderBrush="#E0E0E0"
             BorderThickness="0,0,0,1">
-            <StackPanel
-                Grid.Row="0"
-                Orientation="Horizontal">
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
                     <TextBlock
                         Margin="0,0,0,5"
@@ -32,13 +30,13 @@
                         FontWeight="Medium"
                         Text="Rechercher" />
                     <TextBox
+                        x:Name="txtRecherche"
                         Width="300"
-                        Style="{StaticResource RechercherTBStyle}" />
+                        Style="{StaticResource RechercherTBStyle}"
+                        TextChanged="txtRecherche_TextChanged" />
                 </StackPanel>
 
-                <StackPanel
-                    Margin="0,0,30,0"
-                    VerticalAlignment="Center">
+                <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
                     <TextBlock
                         Margin="0,0,0,5"
                         FontFamily="Roboto"
@@ -49,7 +47,8 @@
                         x:Name="cbCategorie"
                         Height="40"
                         DisplayMemberPath="Libelle"
-                        SelectedValuePath="Id" />
+                        SelectedValuePath="Id"
+                        SelectionChanged="cbCategorie_SelectionChanged" />
                 </StackPanel>
 
                 <StackPanel
@@ -66,12 +65,11 @@
                         x:Name="cbType"
                         Height="40"
                         DisplayMemberPath="Libelle"
-                        SelectedValuePath="Id" />
+                        SelectedValuePath="Id"
+                        SelectionChanged="cbFilterChange" />
                 </StackPanel>
 
-                <StackPanel
-                    Margin="0,0,30,0"
-                    VerticalAlignment="Center">
+                <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
                     <TextBlock
                         Margin="0,0,0,5"
                         FontFamily="Roboto"
@@ -82,7 +80,8 @@
                         x:Name="cbTypePointe"
                         Height="40"
                         DisplayMemberPath="Libelle"
-                        SelectedValuePath="Id" />
+                        SelectedValuePath="Id"
+                        SelectionChanged="cbFilterChange" />
                 </StackPanel>
 
                 <StackPanel VerticalAlignment="Center">
@@ -96,7 +95,8 @@
                         x:Name="cbCouleur"
                         Height="40"
                         DisplayMemberPath="Libelle"
-                        SelectedValuePath="Id" />
+                        SelectedValuePath="Id"
+                        SelectionChanged="cbFilterChange" />
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -106,9 +106,7 @@
             Margin="20,15"
             Background="White"
             CornerRadius="4">
-            <DataGrid
-                x:Name="dgProduits"
-                SelectionChanged="dgProduits_SelectionChanged">
+            <DataGrid x:Name="dgProduits" SelectionChanged="dgProduits_SelectionChanged">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -156,36 +154,38 @@
                 <StackPanel
                     Grid.Row="2"
                     Margin="0,0,15,0"
-                    Orientation="Horizontal"
-                    DockPanel.Dock="Left">
+                    DockPanel.Dock="Left"
+                    Orientation="Horizontal">
                     <Button
                         x:Name="butModifierProduit"
                         Width="120"
                         Margin="0,0,15,0"
+                        Click="butModifierProduit_Click"
                         Content="Modifier"
-                        Style="{StaticResource SecondaryButtonStyle}" Click="butModifierProduit_Click" />
+                        Style="{StaticResource SecondaryButtonStyle}" />
                     <Button
                         x:Name="butRendreIndisponibleProduit"
                         Width="120"
                         Margin="0,0,15,0"
+                        Click="butRendreIndisponibleProduit_Click"
                         Content="Indisponible"
-                        Style="{StaticResource SupprButtonStyle}" Click="butRendreIndisponibleProduit_Click" />
+                        Style="{StaticResource SupprButtonStyle}" />
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button
                         x:Name="butVisualiserProduit"
                         Width="120"
                         Margin="0,0,15,0"
+                        Click="butVisualiserProduit_Click"
                         Content="Visualiser"
-                        Style="{StaticResource SecondaryButtonStyle}"
-                        Click="butVisualiserProduit_Click" />
+                        Style="{StaticResource SecondaryButtonStyle}" />
                     <Button
                         x:Name="butAddProduit"
                         Width="200"
+                        Click="butAddProduit_Click"
                         Content="Créer un produit"
-                        Style="{StaticResource PrimaryButtonStyle}"
-                        Click="butAddProduit_Click" />
+                        Style="{StaticResource PrimaryButtonStyle}" />
                 </StackPanel>
 
             </DockPanel>
