@@ -20,17 +20,6 @@ namespace SAE2._01_Pilot
     public partial class MainWindow : Window
     {
         public Employe EmployeConnecte { get; set; }
-        public List<TypePointe> TypePointes { get => typePointes; set => typePointes = value; }
-        public List<TypeProduit> TypeProduits { get => typeProduits; set => typeProduits = value; }
-        public List<CategorieProduit> CategorieProduits { get => categorieProduits; set => categorieProduits = value; }
-        public List<CouleurProduit> CouleurProduits { get => couleurProduits; set => couleurProduits = value; }
-        public List<ModeTransport> ModeTransports { get => modeTransports; set => modeTransports = value; }
-
-        private List<TypePointe> typePointes;
-        private List<TypeProduit> typeProduits;
-        private List<CategorieProduit> categorieProduits;
-        private List<CouleurProduit> couleurProduits;
-        private List<ModeTransport> modeTransports;
 
         public MainWindow()
         {
