@@ -39,6 +39,7 @@ namespace SAE2._01_Pilot.Models
         public Commande()
         {
             DateCreation = DateTime.Now;
+            LigneCommandes = new ObservableCollection<LigneCommande>();
         }
 
         public decimal PrixTotal
@@ -68,74 +69,78 @@ namespace SAE2._01_Pilot.Models
                 WHERE c.NumEmploye = @NumEmploye
             ";
 
-            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@NumEmploye", employeConnecte.Id);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+
+            foreach (DataRow row in dt.Rows)
             {
-                cmd.Parameters.AddWithValue("@NumEmploye", employeConnecte.Id);
+                int commandeId = (int)row["NumCommande"];
 
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+                Console.WriteLine("Commande id " + commandeId);
 
-                foreach (DataRow row in dt.Rows)
+                if (!commandesParId.ContainsKey(commandeId))
                 {
-                    int commandeId = (int)row["NumCommande"];
+                    ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
 
-                    Console.WriteLine("Commande id " + commandeId);
+                    Console.WriteLine("Mode de transdport " + modeTransport.Libelle);
+                    Console.WriteLine("Revendeur id : " + (int)row["NumRevendeur"]);
 
-                    if (!commandesParId.ContainsKey(commandeId))
-                    {
-                        ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
+                    Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
 
-                        Console.WriteLine("Mode de transdport " + modeTransport.Libelle);
-                        Console.WriteLine("Revendeur id : " + (int)row["NumRevendeur"]);
+                    Console.WriteLine("Revendeur : " + revendeur.Adresse.Rue);
 
-                        Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
+                    int employeId = (int)row["NumEmploye"];
 
-                        Console.WriteLine("Revendeur : " + revendeur.Adresse.Rue);
-                        
-                        int employeId = (int)row["NumEmploye"];
+                    Console.WriteLine("Employe " + employeId);
 
-                        Console.WriteLine("Employe " + employeId);
+                    DateTime dateCommande = (DateTime)row["DateCommande"];
+                    DateTime dateLivraison = (DateTime)row["DateLivraison"];
 
-                        DateTime dateCommande = (DateTime)row["DateCommande"];
-                        DateTime dateLivraison = (DateTime)row["DateLivraison"];
+                    Console.WriteLine("date commande " + dateCommande);
+                    Console.WriteLine("date livraison " + dateLivraison);
 
-                        Console.WriteLine("date commande " + dateCommande);
-                        Console.WriteLine("date livraison " + dateLivraison);
-
-                        commandesParId[commandeId] = new Commande(
-                            id: commandeId,
-                            modeTransport: modeTransport,
-                            revendeur: revendeur,
-                            employeId: employeId,
-                            dateCommande: dateCommande,
-                            dateLivraison: dateLivraison
-                        );
-                    }
-
-                    int quantite = (int)row["QuantiteCommande"];
-
-                    Console.WriteLine("Quantite : " + quantite);
-
-                    Produit? produit = produits.FirstOrDefault(p => p.Id == (int)row["NumProduit"]);
-                    LigneCommande ligne = new LigneCommande(produit, quantite);
-
-                    commandesParId[commandeId].LigneCommandes.Add(ligne);
+                    commandesParId[commandeId] = new Commande(
+                        id: commandeId,
+                        modeTransport: modeTransport,
+                        revendeur: revendeur,
+                        employeId: employeId,
+                        dateCommande: dateCommande,
+                        dateLivraison: dateLivraison
+                    );
                 }
+
+                int quantite = (int)row["QuantiteCommande"];
+
+                Console.WriteLine("Quantite : " + quantite);
+
+                Produit? produit = produits.FirstOrDefault(p => p.Id == (int)row["NumProduit"]);
+                LigneCommande ligne = new LigneCommande(produit, quantite);
+
+                commandesParId[commandeId].LigneCommandes.Add(ligne);
             }
 
-            return new ObservableCollection<Commande>(commandesParId.Values.ToList());
+            return new ObservableCollection<Commande>(commandesParId.Values);
         }
 
         public void Create()
         {
             string sqlInsertCmd = @"
-                INSERT INTO Commande (NumTransport, NumRevendeur, EmployeId, DateCommande, DateLivraison, PrixTotal)
-                VALUES (@NumTransport, @NumRevendeur, @EmployeId, @DateCommande, @DateLivraison, @PrixTotal) RETURNING NumCommande";
+                INSERT INTO Commande (NumTransport, NumRevendeur, NumEmploye, DateCommande, DateLivraison, PrixTotal)
+                VALUES (@NumTransport, @NumRevendeur, @NumEmploye, @DateCommande, @DateLivraison, @PrixTotal) RETURNING NumCommande";
 
-            using (NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsertCmd))
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlTransaction transaction = conn.BeginTransaction();
+            using NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsertCmd, conn, transaction);
+
+            try
             {
                 cmdInsert.Parameters.AddWithValue("@NumTransport", ModeTransport.Id);
                 cmdInsert.Parameters.AddWithValue("@NumRevendeur", Revendeur.Id);
-                cmdInsert.Parameters.AddWithValue("@EmployeId", EmployeId);
+                cmdInsert.Parameters.AddWithValue("@NumEmploye", EmployeId);
                 cmdInsert.Parameters.AddWithValue("@DateCommande", DateCreation);
                 cmdInsert.Parameters.AddWithValue("@DateLivraison", DateLivraison);
                 cmdInsert.Parameters.AddWithValue("@PrixTotal", PrixTotal);
@@ -145,8 +150,14 @@ namespace SAE2._01_Pilot.Models
                 foreach (LigneCommande ligne in LigneCommandes)
                 {
                     ligne.IdCommande = Id;
-                    ligne.Create();
+                    ligne.Create(conn, transaction);
                 }
+
+                transaction.Commit();
+            } catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
             }
         }
 
@@ -157,18 +168,42 @@ namespace SAE2._01_Pilot.Models
                 SET DateLivraison = @DateLivraison
                 WHERE NumCommande = @NumCommande";
 
-            using (NpgsqlCommand cmdUpdate = new NpgsqlCommand(sqlUpdateCmd))
-            {
-                cmdUpdate.Parameters.AddWithValue("@DateLivraison", DateLivraison);
-                cmdUpdate.Parameters.AddWithValue("@NumCommande", Id);
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdUpdate = new NpgsqlCommand(sqlUpdateCmd, conn);
 
-                DataAccess.Instance.ExecuteSet(cmdUpdate);
-            }
+            cmdUpdate.Parameters.AddWithValue("@DateLivraison", DateLivraison);
+            cmdUpdate.Parameters.AddWithValue("@NumCommande", Id);
+
+            DataAccess.Instance.ExecuteSet(cmdUpdate);
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            string sqlDeleteCmd = @"
+                DELETE FROM Commande
+                WHERE NumCommande = @NumCommande";
+
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlTransaction transaction = conn.BeginTransaction();
+            using NpgsqlCommand cmdDelete = new NpgsqlCommand(sqlDeleteCmd, conn, transaction);
+
+            try
+            {
+                cmdDelete.Parameters.AddWithValue("@NumCommande", Id);
+                DataAccess.Instance.ExecuteSet(cmdDelete);
+
+                foreach (LigneCommande ligne in LigneCommandes)
+                {
+                    ligne.Delete(conn, transaction);
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
     }
 }

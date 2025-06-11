@@ -1,6 +1,8 @@
-﻿using SAE2._01_Pilot.Database;
+﻿using Npgsql;
+using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,34 +36,20 @@ namespace SAE2._01_Pilot.Models
             List<CategorieProduit> categories = new List<CategorieProduit>();
 
             string sql = "SELECT NumCategorie, LibelleCategorie FROM Categorie";
-            using (var cmd = new Npgsql.NpgsqlCommand(sql))
-            {
-                var dt = DataAccess.Instance.ExecuteSelect(cmd);
-                foreach (System.Data.DataRow row in dt.Rows)
-                {
-                    int id = (int)row["NumCategorie"];
-                    string libelle = row["LibelleCategorie"].ToString();
 
-                    categories.Add(new CategorieProduit(id, libelle));
-                }
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+            foreach (DataRow row in dt.Rows)
+            {
+                int id = (int)row["NumCategorie"];
+                string libelle = row["LibelleCategorie"].ToString();
+
+                categories.Add(new CategorieProduit(id, libelle));
             }
 
             return categories;
-        }
-
-        public void Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
         }
     }
 }

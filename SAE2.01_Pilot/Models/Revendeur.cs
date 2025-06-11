@@ -12,7 +12,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Revendeur : INotifyPropertyChanged
+    public class Revendeur : ICrud<Revendeur>, INotifyPropertyChanged
     {
         private string raisonSociale;
         private Adresse adresse;
@@ -74,25 +74,25 @@ namespace SAE2._01_Pilot.Models
             ObservableCollection<Revendeur> revendeurs = new ObservableCollection<Revendeur>();
             string sql = "SELECT * FROM Revendeur";
 
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdSelect = new NpgsqlCommand(sql, conn);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+            foreach (DataRow dataRow in dt.Rows)
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dataRow in dt.Rows)
-                {
-                    int id = (int)dataRow["NumRevendeur"];
-                    string raisonSociale = dataRow["RaisonSociale"].ToString();
+                int id = (int)dataRow["NumRevendeur"];
+                string raisonSociale = dataRow["RaisonSociale"].ToString();
 
-                    Adresse adresse = new Adresse(
-                        dataRow["AdresseRue"].ToString(),
-                        dataRow["AdresseCP"].ToString(),
-                        dataRow["AdresseVille"].ToString()
-                    );
+                Adresse adresse = new Adresse(
+                    dataRow["AdresseRue"].ToString(),
+                    dataRow["AdresseCP"].ToString(),
+                    dataRow["AdresseVille"].ToString()
+                );
 
-                    revendeurs.Add(new Revendeur(id, raisonSociale, adresse));
-                }
-
-                return revendeurs;
+                revendeurs.Add(new Revendeur(id, raisonSociale, adresse));
             }
+
+            return revendeurs;
         }
 
         public void Create()
@@ -100,39 +100,30 @@ namespace SAE2._01_Pilot.Models
             string sqlCheckExists = @"SELECT COUNT(*) FROM Revendeur WHERE RaisonSociale = @RaisonSociale AND
                                     AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille";
 
-            using (NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists))
-            {
-                cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists, conn);
 
-                Console.WriteLine(sqlCheckExists.ToString());
+            cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
-                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+            int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
 
-                Console.WriteLine("EXECUTERRRRR");
-
-                if (count > 0)
-                    throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
-            }
+            if (count > 0)
+                throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
 
             string sql = "INSERT INTO Revendeur (RaisonSociale, AdresseRue, AdresseCP, AdresseVille) " +
                          "VALUES (@RaisonSociale, @AdresseRue, @AdresseCP, @AdresseVille) RETURNING NumRevendeur";
 
-            Console.WriteLine(sql);
+            using NpgsqlCommand cmdInsert = new NpgsqlCommand(sql, conn);
 
-            using (NpgsqlCommand cmdInsert = new NpgsqlCommand(sql))
-            {
-                cmdInsert.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
-                cmdInsert.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
-                cmdInsert.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
-                cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+            cmdInsert.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+            cmdInsert.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+            cmdInsert.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+            cmdInsert.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
 
-                Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
-
-                Console.WriteLine("Execute cmd insert");
-            }
+            Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
         }
 
         public void Update()
@@ -141,39 +132,41 @@ namespace SAE2._01_Pilot.Models
                                     AdresseRue = @AdresseRue AND AdresseCP = @AdresseCP AND AdresseVille = @AdresseVille AND
                                     NumRevendeur != @NumRevendeur";
 
-            using (NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists))
-            {
-                cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
-                cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
-                cmdCheckExists.Parameters.AddWithValue("@NumRevendeur", Id);
 
-                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdCheckExists = new NpgsqlCommand(sqlCheckExists, conn);
 
-                if (count > 0)
-                    throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
-            }
+            cmdCheckExists.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+            cmdCheckExists.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+            cmdCheckExists.Parameters.AddWithValue("@NumRevendeur", Id);
+
+            int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckExists);
+
+            if (count > 0)
+                throw new InvalidOperationException("Un revendeur avec les mêmes informations existe déjà.");
+            
 
             string sql = "UPDATE Revendeur SET RaisonSociale = @raisonSociale, " +
                          "AdresseRue = @AdresseRue, AdresseCP = @AdresseCP, AdresseVille = @AdresseVille " +
                          "WHERE NumRevendeur = @Id";
 
-            using (NpgsqlCommand cmdUpdate = new NpgsqlCommand(sql))
-            {
-                cmdUpdate.Parameters.AddWithValue("@Id", Id);
-                cmdUpdate.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
-                cmdUpdate.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
-                cmdUpdate.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
-                cmdUpdate.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
+            using NpgsqlCommand cmdUpdate = new NpgsqlCommand(sql, conn);
+
+            cmdUpdate.Parameters.AddWithValue("@Id", Id);
+            cmdUpdate.Parameters.AddWithValue("@RaisonSociale", RaisonSociale);
+            cmdUpdate.Parameters.AddWithValue("@AdresseRue", Adresse.Rue);
+            cmdUpdate.Parameters.AddWithValue("@AdresseCP", Adresse.CodePostal);
+            cmdUpdate.Parameters.AddWithValue("@AdresseVille", Adresse.Ville);
                 
-                DataAccess.Instance.ExecuteSet(cmdUpdate);
-            }
+            DataAccess.Instance.ExecuteSet(cmdUpdate);
+            
         }
 
         public void Delete()
         {
-
+            throw new NotImplementedException("Method not implemented");
         }
     }
 }

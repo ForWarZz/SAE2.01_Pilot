@@ -37,31 +37,16 @@ namespace SAE2._01_Pilot.Models
 
             string sql = "SELECT * FROM TypePointe";
 
-            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+            foreach (DataRow row in dt.Rows)
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
-                foreach (DataRow row in dt.Rows)
-                {
-                    typePointes.Add(new TypePointe((int)row["NumTypePointe"], row["LibelleTypePointe"].ToString()));
-                }
-
-                return typePointes;
+                typePointes.Add(new TypePointe((int)row["NumTypePointe"], row["LibelleTypePointe"].ToString()));
             }
-        }
 
-        public void Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
+            return typePointes;
         }
     }
 }

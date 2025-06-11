@@ -135,7 +135,7 @@
                     Width="200"
                     HorizontalAlignment="Right"
                     Content="Créer une commande"
-                    Style="{StaticResource PrimaryButtonStyle}" />
+                    Style="{StaticResource PrimaryButtonStyle}" Click="butAddCommande_Click" />
             </DockPanel>
         </Border>
     </Grid>

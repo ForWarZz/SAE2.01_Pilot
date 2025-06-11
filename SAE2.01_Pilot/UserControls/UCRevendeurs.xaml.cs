@@ -30,6 +30,17 @@ namespace SAE2._01_Pilot.UserControls
             InitializeComponent();
 
             ChargerRevendeurs();
+            Loaded += UCRevendeurs_Loaded;
+        }
+
+        private void UCRevendeurs_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            if (window is ListeRevendeurWindow)
+            {
+                butAddRevendeur.Click -= butAddRevendeur_Click;
+                dgRevendeur.SelectionChanged -= dgRevendeur_SelectionChanged;
+            }
         }
 
         private void ChargerRevendeurs()

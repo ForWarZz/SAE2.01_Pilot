@@ -1,5 +1,6 @@
 ﻿using SAE2._01_Pilot.Models;
 using SAE2._01_Pilot.Utils;
+using SAE2._01_Pilot.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,11 +78,12 @@ namespace SAE2._01_Pilot.UserControls
         {
             bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
 
+            butSupprCommande.Visibility = Visibility.Hidden;
+            butVisualiserCommande.Visibility = Visibility.Hidden;
+
             if (!estResponsableProd)
             {
                 butAddCommande.Visibility = Visibility.Hidden;
-                butSupprCommande.Visibility = Visibility.Hidden;
-
                 butVisualiserCommande.Style = (Style)FindResource("PrimaryButtonStyle");
             }
         }
@@ -94,10 +96,12 @@ namespace SAE2._01_Pilot.UserControls
             if (selectedItem == null)
             {
                 butSupprCommande.Visibility = Visibility.Hidden;
+                butVisualiserCommande.Visibility = Visibility.Hidden;
                 return;
             }
 
             butSupprCommande.Visibility = estResponsableProd ? Visibility.Visible : Visibility.Hidden;
+            butVisualiserCommande.Visibility = Visibility.Visible;
         }
 
         private void butVisualiserCommande_Click(object sender, RoutedEventArgs e)
@@ -113,6 +117,29 @@ namespace SAE2._01_Pilot.UserControls
         private void cbRevendeur_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             commandesView.Refresh();
+        }
+
+        private void butAddCommande_Click(object sender, RoutedEventArgs e)
+        {
+            Commande commande = new Commande();
+
+            CreerCommandeWindow creerCommandeWindow = new CreerCommandeWindow(commande);
+            bool dialogResult = creerCommandeWindow.ShowDialog() ?? false;
+
+            if (!dialogResult)
+                return;
+
+            try
+            {
+                commande.Create();
+                Core.Instance.Commandes.Add(commande);
+
+                Core.MessageBoxSucces("La commande a été créée avec succès.");
+            }
+            catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la création de la commande : {ex.Message}");
+            }
         }
     }
 }

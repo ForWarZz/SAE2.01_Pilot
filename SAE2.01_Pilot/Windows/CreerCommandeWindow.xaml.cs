@@ -27,11 +27,11 @@ namespace SAE2._01_Pilot.Windows
         public CreerCommandeWindow(Commande nouvelleCommande)
         {
             this.nouvelleCommande = nouvelleCommande;
+            DataContext = nouvelleCommande;
 
             InitializeComponent();
 
             cbTransport.ItemsSource = Core.Instance.ModeTransports;
-
             dgLignesCommande.ItemsSource = nouvelleCommande.LigneCommandes;
         }
 
@@ -51,8 +51,11 @@ namespace SAE2._01_Pilot.Windows
             }
 
             LigneCommande nouvelleLigne = new LigneCommande(produit, quantite);
-
             nouvelleCommande.LigneCommandes.Add(nouvelleLigne);
+
+            inputQuantite.Clear();
+            btnSelectProduit.Content = "Sélectionner un produit";
+            btnSelectProduit.DataContext = null;
         }
 
         private void btnCreer_Click(object sender, RoutedEventArgs e)
@@ -69,16 +72,13 @@ namespace SAE2._01_Pilot.Windows
                 return;
             }
 
-            if (btnSelectRevendeur.DataContext is not Revendeur revendeur)
+            if (nouvelleCommande.Revendeur == null)
             {
                 Core.MessageBoxErreur("Veuillez sélectionner un revendeur.");
                 return;
             }
 
-            nouvelleCommande.ModeTransport = transport;
-            nouvelleCommande.Revendeur = revendeur;
             nouvelleCommande.EmployeId = Core.Instance.EmployeConnecte.Id;
-
             nouvelleCommande.Create();
 
             DialogResult = true;
@@ -92,12 +92,34 @@ namespace SAE2._01_Pilot.Windows
             if (!dialogResult)
                 return;
 
-            // @TODO : Get le revendeur selectionné dans le data grid de l'uc
+            Revendeur? revendeur = listeRevendeurWindow.ucRevendeurs.dgRevendeur.SelectedItem as Revendeur;
+            nouvelleCommande.Revendeur = revendeur;
+
+            btnSelectRevendeur.Content = revendeur.RaisonSociale;
         }
 
         private void btnSelectProduit_Click(object sender, RoutedEventArgs e)
         {
+            ListeProduitWindow listeProduitsWindow = new ListeProduitWindow();
+            bool dialogResult = listeProduitsWindow.ShowDialog() ?? false;
 
+            if (!dialogResult)
+                return;
+
+            Produit? produit = listeProduitsWindow.ucProduits.dgProduits.SelectedItem as Produit;
+
+            btnSelectProduit.DataContext = produit;
+            btnSelectProduit.Content = produit.Nom;
+        }
+
+        private void btnSupprLigne_Click(object sender, RoutedEventArgs e)
+        {
+            Button? button = sender as Button;
+            if (button == null) 
+                return;
+
+            LigneCommande ligneASupprimer = button.DataContext as LigneCommande;
+            nouvelleCommande.LigneCommandes.Remove(ligneASupprimer);
         }
     }
 }

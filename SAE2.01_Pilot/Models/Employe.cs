@@ -36,25 +36,26 @@ namespace SAE2._01_Pilot.Models
                         "JOIN Role r ON r.NumRole = e.NumRole " +
                         "WHERE e.login = @login AND e.password = @password;";
 
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
-            {
-                cmdSelect.Parameters.AddWithValue("login", login);
-                cmdSelect.Parameters.AddWithValue("password", password);
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdSelect = new NpgsqlCommand(sql, conn);
+            
+            cmdSelect.Parameters.AddWithValue("login", login);
+            cmdSelect.Parameters.AddWithValue("password", password);
 
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                if (dt.Rows.Count <= 0)
-                    return null;
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+            if (dt.Rows.Count <= 0)
+                return null;
 
-                DataRow dataRow = dt.Rows[0];
+            DataRow dataRow = dt.Rows[0];
 
-                Role role = new Role((int)dataRow["NumRole"], dataRow["LibelleRole"].ToString());
+            Role role = new Role((int)dataRow["NumRole"], dataRow["LibelleRole"].ToString());
 
-                return new Employe(
-                    (int)dataRow["NumEmploye"], 
-                    dataRow["Prenom"].ToString(), 
-                    dataRow["Nom"].ToString(), 
-                    role);
-            }
+            return new Employe(
+                (int)dataRow["NumEmploye"], 
+                dataRow["Prenom"].ToString(), 
+                dataRow["Nom"].ToString(), 
+                role);
+           
         }
     }
 }

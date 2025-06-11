@@ -40,32 +40,17 @@ namespace SAE2._01_Pilot.Models
 
             string sql = "SELECT * FROM type";
 
-            using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+            foreach (DataRow dr in dt.Rows)
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    CategorieProduit? categorie = categorieProduits.FirstOrDefault(c => c.Id == (int)dr["NumCategorie"]);
-                    typeProduits.Add(new TypeProduit((int)dr["NumType"], dr["LibelleType"].ToString(), categorie));
-                }
-
-                return typeProduits;
+                CategorieProduit? categorie = categorieProduits.FirstOrDefault(c => c.Id == (int)dr["NumCategorie"]);
+                typeProduits.Add(new TypeProduit((int)dr["NumType"], dr["LibelleType"].ToString(), categorie));
             }
-        }
 
-        public void Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
+            return typeProduits;
         }
     }
 }

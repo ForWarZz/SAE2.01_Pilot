@@ -50,7 +50,7 @@
 
                 <StackPanel Orientation="Vertical" Margin="0, 0, 0, 20">
                     <Label Content="_Mode de transport" Target="{Binding cbTransport}" />
-                    <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" />
+                    <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" SelectedItem="{Binding ModeTransport}" />
                 </StackPanel>
 
                 <Border BorderBrush="#ccc" BorderThickness="1" Padding="15" Margin="0, 0, 0, 20" CornerRadius="8">
@@ -82,19 +82,18 @@
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           Height="200"
-                          Margin="0,0,0,20">
+                          Margin="0,0,0,20" 
+                          RowHeight="60">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Code produit" Binding="{Binding Produit.Code}" Width="*" />
                         <DataGridTextColumn Header="Nom produit" Binding="{Binding Produit.Nom}" Width="*" />
-                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="60" />
-                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="120" />
+                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="*" />
+                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="*" />
                         <DataGridTemplateColumn Header="Supprimer" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="❌"
-                                            Padding="5"
-                                            Command="{Binding DataContext.SupprimerLigneCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            CommandParameter="{Binding}" />
+                                    <Button x:Name="btnSupprLigne" Content="❌"
+                                            Padding="5" Click="btnSupprLigne_Click" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

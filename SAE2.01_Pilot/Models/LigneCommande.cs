@@ -9,7 +9,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class LigneCommande : ICrud<LigneCommande>
+    public class LigneCommande : ICrudTransaction<LigneCommande>
     {
         private int quantite;
         private Produit produit;
@@ -50,29 +50,28 @@ namespace SAE2._01_Pilot.Models
             Quantite = quantite;
         }
 
-        public void Create()
+        public void Create(NpgsqlConnection conn, NpgsqlTransaction transaction)
         {
             string sqlInsertCmd = @"
                 INSERT INTO ProduitCommande (NumCommande, NumProduit, QuantiteCommande, Prix)
                 VALUES (@NumCommande, @NumProduit, @QuantiteCommande, @Prix)";
 
-            using (NpgsqlCommand cmd = new NpgsqlCommand(sqlInsertCmd))
-            {
-                cmd.Parameters.AddWithValue("@NumCommande", IdCommande);
-                cmd.Parameters.AddWithValue("@NumProduit", Produit.Id);
-                cmd.Parameters.AddWithValue("@QuantiteCommande", Quantite);
-                cmd.Parameters.AddWithValue("@Prix", Produit.PrixVente);
+            using NpgsqlCommand cmd = new NpgsqlCommand(sqlInsertCmd, conn, transaction);
 
-                DataAccess.Instance.ExecuteInsert(cmd);
-            }
+            cmd.Parameters.AddWithValue("@NumCommande", IdCommande);
+            cmd.Parameters.AddWithValue("@NumProduit", Produit.Id);
+            cmd.Parameters.AddWithValue("@QuantiteCommande", Quantite);
+            cmd.Parameters.AddWithValue("@Prix", Produit.PrixVente);
+
+            DataAccess.Instance.ExecuteInsertSansRetour(cmd);
         }
 
-        public void Update()
+        public void Update(NpgsqlConnection conn, NpgsqlTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete()
+        public void Delete(NpgsqlConnection conn, NpgsqlTransaction transaction)
         {
             throw new NotImplementedException();
         }

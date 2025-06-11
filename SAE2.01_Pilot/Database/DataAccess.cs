@@ -1,19 +1,14 @@
-using System.Collections.Generic;
+using System;
 using System.Data;
-using System.Windows;
-using Microsoft.Extensions.Logging;
 using Npgsql;
-
+using System.Collections.Generic; // Assurez-vous que c'est bien présent
 
 namespace TD3_BindingBDPension.Model
 {
-
-    public  class DataAccess
+    public class DataAccess
     {
         private static readonly DataAccess instance = new DataAccess();
-        /*private readonly string connectionString = "Host=srv-peda-new.iut-acy.local;Port=5433;Username=benardax;Password=E3ES16;Database=SAE201_BM_BA;Options='-c search_path=pilot'";*/
         private readonly string connectionString = "Host=localhost;Port=5432;Username=admin;Password=adminpassword;Database=SAE201;Options='-c search_path=public'";
-        private NpgsqlConnection connection;
 
         public static DataAccess Instance
         {
@@ -23,49 +18,31 @@ namespace TD3_BindingBDPension.Model
             }
         }
 
-        //  Constructeur privé pour empêcher l'instanciation multiple
-        private DataAccess()
+        // Pour récupérer une NOUVELLE connexion ouverte
+        public NpgsqlConnection GetOpenedConnection()
         {
-            
+            NpgsqlConnection conn = null;
             try
             {
-                connection = new NpgsqlConnection(connectionString);
+                conn = new NpgsqlConnection(connectionString);
+                conn.Open();
+                return conn;
             }
             catch (Exception ex)
             {
-                LogError.Log(ex, "Pb de connexion GetConnection \n" + connectionString);
+                LogError.Log(ex, "Pb de connexion GetOpenedConnection \n" + connectionString);
+                // Assurez-vous de fermer la connexion en cas d'erreur lors de l'ouverture
+                conn?.Close();
                 throw;
             }
         }
 
-
-        // pour récupérer la connexion (et l'ouvrir si nécessaire)
-        public NpgsqlConnection GetConnection()
-        {
-            if (connection.State == ConnectionState.Closed || connection.State == ConnectionState.Broken)
-            {
-                try
-                {
-                    connection.Open();
-                }
-                catch (Exception ex)
-                {
-                    LogError.Log(ex, "Pb de connexion GetConnection \n" + connectionString);
-                    throw;                
-                }
-            }
-
-        
-            return connection;
-        }
-
-        //  pour requêtes SELECT et retourne un DataTable ( table de données en mémoire)
+        // Pour requêtes SELECT et retourne un DataTable (table de données en mémoire)
         public DataTable ExecuteSelect(NpgsqlCommand cmd)
         {
             DataTable dataTable = new DataTable();
             try
             {
-                cmd.Connection = GetConnection();
                 using (var adapter = new NpgsqlDataAdapter(cmd))
                 {
                     adapter.Fill(dataTable);
@@ -73,76 +50,77 @@ namespace TD3_BindingBDPension.Model
             }
             catch (Exception ex)
             {
-                LogError.Log(ex, "Erreur SQL");
+                LogError.Log(ex, "Erreur SQL dans ExecuteSelect pour la requête: " + cmd.CommandText);
                 throw;
             }
             return dataTable;
         }
 
-        //   pour requêtes INSERT et renvoie l'ID généré
-
+        // Pour requêtes INSERT et renvoie l'ID généré
         public int ExecuteInsert(NpgsqlCommand cmd)
         {
             int nb = 0;
             try
             {
-                cmd.Connection = GetConnection();
                 nb = (int)cmd.ExecuteScalar();
-
             }
-            catch (Exception ex) { 
-                LogError.Log(ex, "Pb avec une requete insert " + cmd.CommandText);
-                throw; }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb avec une requête insert: " + cmd.CommandText);
+                throw;
+            }
             return nb;
         }
 
+        public int ExecuteInsertSansRetour(NpgsqlCommand cmd)
+        {
+            int nb = 0;
+            try
+            {
+                nb = cmd.ExecuteNonQuery();
+                if (nb == 0)
+                {
+                    throw new InvalidOperationException("Aucune ligne insérée.");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb avec une requête insert: " + cmd.CommandText);
+                throw;
+            }
+            return nb;
+        }
 
-
-
-        //  pour requêtes UPDATE, DELETE
+        // Pour requêtes UPDATE, DELETE
         public int ExecuteSet(NpgsqlCommand cmd)
         {
             int nb = 0;
             try
             {
-                cmd.Connection = GetConnection();
                 nb = cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) {
-                LogError.Log(ex, "Pb avec une requete set " + cmd.CommandText);
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb avec une requête set: " + cmd.CommandText);
                 throw;
             }
             return nb;
-
         }
 
-        // pour requêtes avec une seule valeur retour  (ex : COUNT, SUM) 
+        // Pour requêtes avec une seule valeur retour (ex : COUNT, SUM)
         public object ExecuteSelectUneValeur(NpgsqlCommand cmd)
         {
             object res = null;
             try
             {
-                cmd.Connection = GetConnection();
                 res = cmd.ExecuteScalar();
             }
-            catch (Exception ex) { 
-                LogError.Log(ex, "Pb avec une requete select " + cmd.CommandText);
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb avec une requête select unique valeur: " + cmd.CommandText);
                 throw;
             }
             return res;
-
-        }
-
-        //  Fermer la connexion 
-        public void CloseConnection()
-        {
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
         }
     }
 }
-
-
-

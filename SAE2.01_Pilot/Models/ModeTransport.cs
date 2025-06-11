@@ -32,34 +32,20 @@ namespace SAE2._01_Pilot.Models
 
             string sql = "SELECT * FROM ModeTransport";
 
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand(sql))
-            {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dataRow in dt.Rows)
-                {
-                    int id = (int)dataRow["NumTransport"];
-                    string libelle = (string)dataRow["LibelleTransport"];
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdSelect = new NpgsqlCommand(sql, conn);
 
-                    modesTransport.Add(new ModeTransport(id, libelle));
-                }
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                int id = (int)dataRow["NumTransport"];
+                string libelle = (string)dataRow["LibelleTransport"];
+
+                modesTransport.Add(new ModeTransport(id, libelle));
             }
 
             return modesTransport;
-        }
-
-        public void Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }

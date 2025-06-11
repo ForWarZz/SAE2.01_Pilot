@@ -29,11 +29,22 @@ namespace SAE2._01_Pilot.UserControls
         public UCProduits()
         {
             InitializeComponent();
+            Loaded += UCProduits_Loaded;
 
             ChargerProduits();
             InitComboBoxs();
 
             dgProduits.UnselectAll();
+        }
+
+        private void UCProduits_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            if (window is ListeProduitWindow)
+            {
+                butAddProduit.Click -= butAddProduit_Click;
+                dgProduits.SelectionChanged -= dgProduits_SelectionChanged;
+            }
         }
 
         private void InitComboBoxs()
@@ -227,7 +238,7 @@ namespace SAE2._01_Pilot.UserControls
             try
             {
                 produitSelected.Disponible = false;
-                produitSelected.UpdateBase();
+                produitSelected.Update();
 
                 Core.MessageBoxSucces("Le produit a été rendu indisponible avec succès.");
             }
