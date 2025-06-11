@@ -44,11 +44,23 @@ namespace SAE2._01_Pilot.UserControls
             commandesView = new ListCollectionView(Core.Instance.Commandes);
             commandesView.Filter = FiltrerCommandes;
 
+
             dgCommandes.ItemsSource = commandesView;
         }
 
         private bool FiltrerCommandes(object obj)
         {
+            Commande commande = (Commande)obj;
+
+            string recherche = txtRechercher.Text;
+            Revendeur? revendeur = cbRevendeur.SelectedItem as Revendeur;
+
+            if (!commande.Id.ToString().StartsWith(recherche))
+                return false;
+
+            if (revendeur != null && revendeur.Id != -1 && commande.Revendeur != revendeur)
+                return false;
+
             return true;
         }
 
@@ -91,6 +103,16 @@ namespace SAE2._01_Pilot.UserControls
         private void butVisualiserCommande_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void txtRechercher_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            commandesView.Refresh();
+        }
+
+        private void cbRevendeur_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            commandesView.Refresh();
         }
     }
 }
