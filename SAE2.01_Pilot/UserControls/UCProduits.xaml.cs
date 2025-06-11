@@ -64,11 +64,10 @@ namespace SAE2._01_Pilot.UserControls
             List<TypeProduit> listeTypes = new List<TypeProduit>(Core.Instance.TypeProduits);
 
             if (categorieId != -1 && categorieId != null)
-                cbType.ItemsSource = listeTypes.Where(t => t.Id == categorieId);
-            else
-                cbType.ItemsSource = listeTypes;
+                listeTypes = listeTypes.Where(t => t.Id == categorieId).ToList();
 
             listeTypes.Insert(0, new TypeProduit(-1, "Tous les types"));
+            cbType.ItemsSource = listeTypes;
             cbType.SelectedIndex = 0;
         }
 
@@ -99,6 +98,12 @@ namespace SAE2._01_Pilot.UserControls
 
             if (typePointe != null && typePointe.Id != -1 && produit.TypePointe.Id != typePointe.Id)
                 return false;
+
+            if (typeProduit != null && typeProduit.Id == -1)
+            {
+                if (!cbType.ItemsSource.Cast<TypeProduit>().Contains(produit.Type))
+                    return false;
+            }
 
             if (couleurProduit != null && couleurProduit.Id != -1 && !produit.Couleurs.Contains(couleurProduit))
                 return false;
