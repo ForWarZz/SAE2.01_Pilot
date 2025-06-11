@@ -36,7 +36,7 @@ namespace SAE2._01_Pilot.Models.Tests
             TypePointe typePointe = typePointes.First();
             TypeProduit typeProduit = typeProduits.First();
 
-            Produit produit = new Produit(typePointe, typeProduit, "PR123", "Produit Test", 100, 50, couleurProduits, true);
+            Produit produit = new Produit(typePointe, typeProduit, "PR124", "Produit Test", 100, 50, couleurProduits, true);
             produit.Create();
 
             Assert.IsNotNull(produit.Id);
@@ -72,7 +72,7 @@ namespace SAE2._01_Pilot.Models.Tests
             TypePointe typePointe = typePointes.First();
             TypeProduit typeProduit = typeProduits.First();
 
-            Produit produit = new Produit(typePointe, typeProduit, "PR123", "Produit Test", 100, 50, couleurProduits, true);
+            Produit produit = new Produit(typePointe, typeProduit, "PR125", "Produit Test", 100, 50, couleurProduits, true);
             produit.Create();
 
             try
