@@ -252,6 +252,59 @@ namespace SAE2._01_Pilot.Models
             return new ObservableCollection<Produit>(produitsParId.Values);
         }
 
+        public void Read(List<TypePointe> typePointes, List<TypeProduit> typeProduits, List<CouleurProduit> couleurs)
+        {
+            string sql = @"
+                SELECT 
+                    p.NumProduit,
+                    p.CodeProduit,
+                    p.NomProduit,
+                    p.PrixVente,
+                    p.QuantiteStock,
+                    p.Disponible,
+                    p.NumTypePointe,
+                    p.NumType,
+                    cp.NumCouleur
+                FROM Produit p
+                LEFT JOIN CouleurProduit cp ON cp.NumProduit = p.NumProduit
+                WHERE p.NumProduit = @Id;
+            ";
+
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("Id", Id);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+
+            if (dt.Rows.Count == 0)
+            {
+                throw new InvalidOperationException("Aucun produit trouvé avec l'identifiant spécifié.");
+            }
+
+            Couleurs = new ObservableCollection<CouleurProduit>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Code = row["CodeProduit"].ToString();
+                Nom = row["NomProduit"].ToString();
+                PrixVente = (decimal)row["PrixVente"];
+                QuantiteStock = (int)row["QuantiteStock"];
+                Disponible = (bool)row["Disponible"];
+
+                int idTypePointe = (int)row["NumTypePointe"];
+                int idTypeProduit = (int)row["NumType"];
+
+                TypePointe = typePointes.FirstOrDefault(tp => tp.Id == idTypePointe);
+                Type = typeProduits.FirstOrDefault(tp => tp.Id == idTypeProduit);
+
+                int idCouleur = (int)row["NumCouleur"];
+                CouleurProduit? couleur = couleurs.FirstOrDefault(c => c.Id == idCouleur);
+
+                Couleurs.Add(couleur);
+            }
+        }
+
+
         public void Create()
         {
             string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";

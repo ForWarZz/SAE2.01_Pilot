@@ -46,7 +46,7 @@ namespace SAE2._01_Pilot.Windows
                 return;
             }
 
-            DataAccess.Instance.SetCredentials(identifiant, password);
+            DataAccess.Instance.SetCredentials(identifiant, password, DataAccess.PROD_SCHEMA);
             bool estConnecte = DataAccess.Instance.TesterConnexion();
 
             if (!estConnecte)

@@ -25,4 +25,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SQL\sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

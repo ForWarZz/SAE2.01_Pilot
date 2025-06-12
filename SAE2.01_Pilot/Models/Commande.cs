@@ -211,6 +211,57 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
+        public void Read(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits, Employe employeConnecte)
+        {
+            string sql = @"
+                SELECT 
+                    c.NumCommande,
+                    c.NumTransport,
+                    c.NumRevendeur,
+                    c.NumEmploye,
+                    c.DateCommande,
+                    CASE
+                        WHEN c.DateLivraison = '-infinity' THEN NULL
+                        ELSE c.DateLivraison
+                    END AS DateLivraisonValide,
+                    pc.NumProduit,
+                    pc.QuantiteCommande
+                FROM Commande c
+                JOIN ProduitCommande pc ON pc.NumCommande = c.NumCommande
+                WHERE c.NumCommande = @NumCommande";
+
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@NumCommande", Id);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmd);
+
+            if (dt.Rows.Count == 0)
+            {
+                throw new Exception($"Aucune commande trouvée avec l'ID {Id}");
+            }
+
+            LigneCommandes.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
+                Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
+
+                EmployeId = (int)row["NumEmploye"];
+                DateCreation = (DateTime)row["DateCommande"];
+                DateLivraison = row["DateLivraisonValide"] == DBNull.Value
+                                ? null
+                                : (DateTime)row["DateLivraisonValide"];
+
+                int quantite = (int)row["QuantiteCommande"];
+                Produit produit = produits.First(p => p.Id == (int)row["NumProduit"]);
+
+                LigneCommandes.Add(new LigneCommande(produit, quantite));
+            }
+        }
+
+
         public void Update()
         {
             string sqlUpdateCmd = @"

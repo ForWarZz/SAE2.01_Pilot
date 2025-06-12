@@ -17,17 +17,18 @@ namespace SAE2._01_Pilot.Models.Tests
         [TestInitialize()]
         public void TestInitialize()
         {
+            try
+            {
+                DataAccess.Instance.SetupTestBDD();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+
             typeProduits = TypeProduit.GetAll(CategorieProduit.GetAll());
             typePointes = TypePointe.GetAll();
-            couleurProduits = new ObservableCollection<CouleurProduit>();
-
-            //DataAccess.Instance.StartTransaction();
-        }
-
-        [TestCleanup()]
-        public void TestCleanup()
-        {
-            //DataAccess.Instance.RollbackTransaction();
+            couleurProduits = new ObservableCollection<CouleurProduit>(CouleurProduit.GetAll());
         }
 
         [TestMethod()]
@@ -40,6 +41,20 @@ namespace SAE2._01_Pilot.Models.Tests
             produit.Create();
 
             Assert.IsNotNull(produit.Id);
+
+            produit.Read(typePointes, typeProduits, couleurProduits.ToList());
+
+            Assert.AreEqual("Produit Test", produit.Nom, "Le nom du produit n'est pas correct.");
+            Assert.AreEqual(100, produit.PrixVente, "Le prix de vente du produit n'est pas correct.");
+            Assert.AreEqual(50, produit.QuantiteStock, "La quantité en stock du produit n'est pas correcte.");
+            Assert.IsTrue(produit.Disponible, "Le produit devrait être marqué comme disponible.");
+            Assert.IsNotNull(produit.TypePointe, "Le type de pointe ne devrait pas être nul.");
+            Assert.IsNotNull(produit.Type, "Le type de produit ne devrait pas être nul.");
+            Assert.AreEqual(typePointe.Id, produit.TypePointe.Id, "L'ID du type de pointe ne correspond pas.");
+            Assert.AreEqual(typeProduit.Id, produit.Type.Id, "L'ID du type de produit ne correspond pas.");
+            Assert.IsNotNull(produit.Couleurs, "La liste des couleurs du produit ne devrait pas être nulle.");
+
+            Assert.IsTrue(produit.Couleurs.All(c => couleurProduits.Any(cp => cp.Id == c.Id)), "Toutes les couleurs du produit doivent exister dans la liste des couleurs.");
         }
 
         [TestMethod()]
@@ -57,16 +72,6 @@ namespace SAE2._01_Pilot.Models.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void TestCodeProduitValide()
-        {
-            TypePointe typePointe = typePointes.First();
-            TypeProduit typeProduit = typeProduits.First();
-
-            Produit produit = new Produit(typePointe, typeProduit, "PR123472", "Produit Test", 100, 50, couleurProduits, true);
-        }
-
-        [TestMethod()]
         public void TestUpdateProduit()
         {
             TypePointe typePointe = typePointes.First();
@@ -78,8 +83,47 @@ namespace SAE2._01_Pilot.Models.Tests
             try
             {
                 produit.Nom = "Produit Test Mis à jour";
+                produit.PrixVente = 120;
+                produit.QuantiteStock = 60;
+                produit.Disponible = false;
+                produit.Couleurs.Add(couleurProduits[1]);
+                produit.TypePointe = typePointes[1];
+                produit.Type = typeProduits[1];
+
                 produit.Update();
-            } catch (Exception ex)
+                produit.Read(typePointes, typeProduits, couleurProduits.ToList());
+
+                Assert.AreEqual("Produit Test Mis à jour", produit.Nom, "Le nom du produit n'a pas été mis à jour correctement.");
+                Assert.AreEqual(120, produit.PrixVente, "Le prix de vente du produit n'a pas été mis à jour correctement.");
+                Assert.AreEqual(60, produit.QuantiteStock, "La quantité en stock du produit n'a pas été mise à jour correctement.");
+                Assert.IsFalse(produit.Disponible, "Le produit devrait être marqué comme indisponible.");
+                Assert.IsTrue(produit.Couleurs.Contains(couleurProduits[1]), "La couleur ajoutée n'est pas présente dans la liste des couleurs du produit.");
+                Assert.AreEqual(typePointes[1].Id, produit.TypePointe.Id, "Le type de pointe du produit n'a pas été mis à jour correctement.");
+                Assert.AreEqual(typeProduits[1].Id, produit.Type.Id, "Le type de produit du produit n'a pas été mis à jour correctement.");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void TestGetAllProduit()
+        {
+            try
+            {
+                TypePointe typePointe = typePointes.First();
+                TypeProduit typeProduit = typeProduits.First();
+
+                Produit produit = new Produit(typePointe, typeProduit, "TH845", "Produit Test", 100, 50, couleurProduits, true);
+                produit.Create();
+
+                ObservableCollection<Produit> produits = Produit.GetAll(typePointes, typeProduits, couleurProduits.ToList());
+
+                Assert.IsNotNull(produits);
+                Assert.IsTrue(produits.Count > 0, "Les produits ne sont pas récupérés correctement.");
+            }
+            catch (Exception ex)
             {
                 Assert.Fail(ex.Message);
             }

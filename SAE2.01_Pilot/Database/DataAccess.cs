@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using Npgsql;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TD3_BindingBDPension.Model
 {
@@ -9,6 +10,14 @@ namespace TD3_BindingBDPension.Model
     {
         private static readonly DataAccess instance = new DataAccess();
         private string connectionString;
+
+        public static readonly string PROD_SCHEMA = "prod";
+        private static readonly string TEST_SCHEMA = "test";
+
+        private static readonly string TEST_SQL_PATH = "SQL/sql.sql";
+
+        private static readonly string TEST_LOGIN = "battigm";
+        private static readonly string TEST_PASSWORD = "123";
 
         public static DataAccess Instance
         {
@@ -18,9 +27,9 @@ namespace TD3_BindingBDPension.Model
             }
         }
 
-        public void SetCredentials(string username, string password)
+        public void SetCredentials(string username, string password, string schema)
         {
-            connectionString = $"Host=srv-peda-new.iut-acy.local;Port=5433;Username={username};Password={password};Database=sae_pilot;Options='-c search_path=prod'";
+            connectionString = $"Host=localhost;Port=5432;Username={username};Password={password};Database=sae201;Options='-c search_path={schema}'";
         }
 
         // Pour récupérer une NOUVELLE connexion ouverte
@@ -139,6 +148,24 @@ namespace TD3_BindingBDPension.Model
                 LogError.Log(ex, "Échec de la connexion dans TesterConnexion");
                 return false;
             }
+        }
+
+        public void SetupTestBDD()
+        {
+            string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TEST_SQL_PATH);
+
+            if (!File.Exists(fullPath))
+            {
+                throw new FileNotFoundException(fullPath);
+            }
+
+            string sqlScript = File.ReadAllText(fullPath);
+            SetCredentials(TEST_LOGIN, TEST_PASSWORD, TEST_SCHEMA);
+
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdSetup = new NpgsqlCommand(sqlScript, conn);
+
+            cmdSetup.ExecuteNonQuery();
         }
     }
 }

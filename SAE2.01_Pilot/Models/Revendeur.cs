@@ -95,6 +95,30 @@ namespace SAE2._01_Pilot.Models
             return revendeurs;
         }
 
+        public void Read()
+        {
+            string sql = "SELECT * FROM Revendeur WHERE NumRevendeur = @NumRevendeur";
+
+            using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
+            using NpgsqlCommand cmdSelect = new NpgsqlCommand(sql, conn);
+
+            cmdSelect.Parameters.AddWithValue("@NumRevendeur", Id);
+
+            DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+            if (dt.Rows.Count == 0)
+                throw new InvalidOperationException("Revendeur non trouvé.");
+
+            DataRow dataRow = dt.Rows[0];
+            RaisonSociale = dataRow["RaisonSociale"].ToString();
+            Adresse = new Adresse(
+                dataRow["AdresseRue"].ToString(),
+                dataRow["AdresseCP"].ToString(),
+                dataRow["AdresseVille"].ToString()
+            );
+
+            Id = (int)dataRow["NumRevendeur"];
+        }
+
         public void Create()
         {
             string sqlCheckExists = @"SELECT COUNT(*) FROM Revendeur WHERE RaisonSociale = @RaisonSociale AND
