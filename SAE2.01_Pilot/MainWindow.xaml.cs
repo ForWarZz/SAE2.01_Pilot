@@ -1,6 +1,8 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.UserControls;
 using SAE2._01_Pilot.Utils;
 using SAE2._01_Pilot.Windows;
+using System.DirectoryServices.ActiveDirectory;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -24,31 +26,7 @@ namespace SAE2._01_Pilot
 
         public MainWindow()
         {
-            Connexion connexionWindow = new Connexion();
-            bool? result = connexionWindow.ShowDialog();
-
-            if (result != true)
-            {
-                Application.Current.Shutdown();
-                return;
-            }
-
-            EmployeConnecte = connexionWindow.EmployeResult;
-
-            InitializeComponent();
-
-            new Core(EmployeConnecte).ChargerDonneesStatiques();
-            spTop.DataContext = Core.Instance.EmployeConnecte;
-
-            if (EmployeConnecte.EstResponsableProduction)
-            {
-                ChangerStyleMenu(miProduits);
-                ccMain.Content = new UserControls.UCProduits();
-            } else
-            {
-                ChangerStyleMenu(miCommandes);
-                ccMain.Content = new UserControls.UCCommandes();
-            }
+            Start();
         }
 
         private void Charger()
@@ -87,6 +65,44 @@ namespace SAE2._01_Pilot
         private void ResetMenuItemStyle(MenuItem mi)
         {
             mi.Style = (Style)FindResource("MenuItemStyle");
+        }
+
+        private void Start()
+        {
+            Connexion connexionWindow = new Connexion();
+            bool? result = connexionWindow.ShowDialog();
+
+            if (result != true)
+            {
+                Application.Current.Shutdown();
+                return;
+            }
+
+            EmployeConnecte = connexionWindow.EmployeResult;
+
+            InitializeComponent();
+
+            new Core(EmployeConnecte).ChargerDonneesStatiques();
+            spTop.DataContext = Core.Instance.EmployeConnecte;
+
+            if (EmployeConnecte.EstResponsableProduction)
+            {
+                ChangerStyleMenu(miProduits);
+                ccMain.Content = new UserControls.UCProduits();
+            }
+            else
+            {
+                ChangerStyleMenu(miCommandes);
+                ccMain.Content = new UserControls.UCCommandes();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            Core.Instance = null;
+            Start();
+            Show();
         }
     }
 }

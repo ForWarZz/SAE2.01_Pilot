@@ -11,7 +11,7 @@
     MinWidth="500"
     MinHeight="600"
     ResizeMode="CanMinimize"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid Background="#FFF5F5F5">
