@@ -104,5 +104,15 @@ namespace SAE2._01_Pilot.Models.Tests
             Assert.IsTrue(commandes.Count > 0, "Les commandes ne sont pas récupérées correctement.");
             Assert.IsTrue(commandes.Any(c => c.Id == commande.Id), "La commande créée n'est pas présente dans la liste des commandes.");
         }
+
+        [TestMethod()]
+        public void TestCalculPrixTotalCommande()
+        {
+            Commande commande = new Commande(modeTransports.First(), revendeurs.First(), employe.Id, DateTime.Today, null);
+            commande.LigneCommandes.Add(new LigneCommande(produitTest, 3));
+            commande.Create();
+
+            Assert.AreEqual(3 * produitTest.PrixVente, commande.PrixTotal, "Le prix total de la commande n'est pas calculé correctement.");
+        }
     }
 }

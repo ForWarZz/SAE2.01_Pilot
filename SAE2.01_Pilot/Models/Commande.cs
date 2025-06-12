@@ -94,7 +94,21 @@ namespace SAE2._01_Pilot.Models
 
         public int EmployeId { get => employeId; set => employeId = value; }
 
-        public ObservableCollection<LigneCommande> LigneCommandes { get => ligneCommandes; set => ligneCommandes = value; }
+        public ObservableCollection<LigneCommande> LigneCommandes
+        {
+            get => ligneCommandes;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("La collection de lignes de commande ne peut pas être nulle.");
+                }
+
+                ligneCommandes = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LigneCommandes)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PrixTotal)));
+            }
+        }
 
         public DateTime DateCreation { 
             get => dateCreation;
