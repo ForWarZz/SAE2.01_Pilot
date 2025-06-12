@@ -24,23 +24,22 @@ namespace SAE2._01_Pilot.Models
             Role = role;
         }
 
-        /*        public bool EstCommercial => Role.Libelle == "Commercial";
-                public bool EstResponsableProduction => Role.Libelle == "Responsable de production";*/
+        public bool EstCommercial => Role.Libelle == "Commercial";
+        public bool EstResponsableProduction => Role.Libelle == "Responsable de production";
 
-        public bool EstCommercial => true;
-        public bool EstResponsableProduction => true;
+/*        public bool EstCommercial => true;
+        public bool EstResponsableProduction => true;*/
 
-        public static Employe? FindByCredentials(string login, string password)
+        public static Employe? FindByIdentifiant(string login)
         {
             string sql = "SELECT * FROM Employe e " +
                         "JOIN Role r ON r.NumRole = e.NumRole " +
-                        "WHERE e.login = @login AND e.password = @password;";
+                        "WHERE e.login = @login;";
 
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlCommand cmdSelect = new NpgsqlCommand(sql, conn);
             
             cmdSelect.Parameters.AddWithValue("login", login);
-            cmdSelect.Parameters.AddWithValue("password", password);
 
             DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
             if (dt.Rows.Count <= 0)

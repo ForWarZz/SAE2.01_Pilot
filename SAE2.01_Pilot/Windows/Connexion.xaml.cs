@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Windows
 {
@@ -45,7 +46,17 @@ namespace SAE2._01_Pilot.Windows
                 return;
             }
 
-            Employe? employe = Employe.FindByCredentials(identifiant, password);
+            DataAccess.Instance.SetCredentials(identifiant, password);
+            bool estConnecte = DataAccess.Instance.TesterConnexion();
+
+            if (!estConnecte)
+            {
+                MessageBox.Show("Les identifiants entrés sont incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                inputPassword.Clear();
+                return;
+            }
+
+            Employe? employe = Employe.FindByIdentifiant(identifiant);
             if (employe == null)
             {
                 MessageBox.Show("Les identifiants entrés sont incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);

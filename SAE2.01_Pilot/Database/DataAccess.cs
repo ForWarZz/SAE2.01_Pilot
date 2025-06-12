@@ -8,7 +8,7 @@ namespace TD3_BindingBDPension.Model
     public class DataAccess
     {
         private static readonly DataAccess instance = new DataAccess();
-        private readonly string connectionString = "Host=srv-peda-new.iut-acy.local;Port=5433;Username=benardax;Password=E3ES16;Database=SAE201_BM_BA;Options='-c search_path=pilot'";
+        private string connectionString;
 
         public static DataAccess Instance
         {
@@ -16,6 +16,11 @@ namespace TD3_BindingBDPension.Model
             {
                 return instance;
             }
+        }
+
+        public void SetCredentials(string username, string password)
+        {
+            connectionString = $"Host=srv-peda-new.iut-acy.local;Port=5433;Username={username};Password={password};Database=sae_pilot;Options='-c search_path=prod'";
         }
 
         // Pour récupérer une NOUVELLE connexion ouverte
@@ -120,6 +125,20 @@ namespace TD3_BindingBDPension.Model
                 throw;
             }
             return res;
+        }
+
+        public bool TesterConnexion()
+        {
+            try
+            {
+                using NpgsqlConnection conn = GetOpenedConnection();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Échec de la connexion dans TesterConnexion");
+                return false;
+            }
         }
     }
 }
