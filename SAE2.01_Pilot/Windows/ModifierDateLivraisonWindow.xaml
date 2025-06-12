@@ -50,6 +50,7 @@
                     HorizontalAlignment="Center"
                     FontSize="28"
                     FontWeight="Medium"
+                    FontFamily="Roboto"
                     Text="Modifier date de livraison" />
 
                 <Label Content="_Date de livraison" Target="{Binding ElementName=inputCodeProduit}" />

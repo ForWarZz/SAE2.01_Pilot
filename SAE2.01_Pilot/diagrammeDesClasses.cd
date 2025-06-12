@@ -23,7 +23,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQiAAAAAEAAAABACAAAIACAgCEAgkAABAIAAAQAIAA=</HashCode>
+      <HashCode>AAQiAAAAAEAAAABACAAAIACggCEAgkAABAIAAAQAIAA=</HashCode>
       <FileName>Models\Commande.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -38,7 +38,7 @@
   <Class Name="SAE2._01_Pilot.Models.Employe">
     <Position X="1.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAACABAAAEAAAAAAAACAAAAAAQCAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAABgAAEAAAAAAAACAAAAAAQCAAAAAAAAA=</HashCode>
       <FileName>Models\Employe.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -48,13 +48,12 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQCAACAAgAAAAAAAAAAAAAAAAEAAEgAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAA=</HashCode>
       <FileName>Models\LigneCommande.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SAE2._01_Pilot.Models.ModeTransport">
-    <Position X="4.75" Y="5" Width="1.5" />
+    <Position X="4.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
       <FileName>Models\ModeTransport.cs</FileName>
@@ -66,7 +65,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ABSCAAAAgAAAAAAABAAgIAQAoCEFAEAAA4AAEAAQABA=</HashCode>
+      <HashCode>ABSCAAAAgAAAAAAABAAgIAQgoCEFAEAAA4AAEAAQABA=</HashCode>
       <FileName>Models\Produit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -77,13 +76,13 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQCAAAAEAAAAAAAAAAAAAAAkAEAAEBAAgAAQAAAAAA=</HashCode>
+      <HashCode>AAQCAAAAEAAAAAAAAAAAAAAgkAEAAEBAAgAAQAAAAAA=</HashCode>
       <FileName>Models\Revendeur.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SAE2._01_Pilot.Models.Role">
-    <Position X="4.75" Y="7" Width="1.5" />
+    <Position X="4.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Models\Role.cs</FileName>
@@ -109,7 +108,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>BAAAAgAAAAAAAAgAAAIAIAAAAABAABAAQAgAAAAAAAA=</HashCode>
+      <HashCode>BAAAAhAAAAIAAAgUAAIAoAAAAABABBAAQAgAAIAAAAA=</HashCode>
       <FileName>Database\DataAccess.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -132,20 +131,13 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="SAE2._01_Pilot.Database.ICrud&lt;T&gt;">
-    <Position X="8.25" Y="6" Width="1.5" />
+    <Position X="8.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Database\ICrud.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SAE2._01_Pilot.Database.ICrudTransaction&lt;T&gt;">
-    <Position X="8.25" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Database\ICrudTransaction.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Enum Name="SAE2._01_Pilot.Utils.Action" Collapsed="true">
+  <Enum Name="SAE2._01_Pilot.Utils.Action">
     <Position X="6.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

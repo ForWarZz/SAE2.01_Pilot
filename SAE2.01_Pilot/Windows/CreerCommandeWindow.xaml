@@ -45,6 +45,7 @@
                     HorizontalAlignment="Center"
                     FontSize="32"
                     FontWeight="Medium"
+                    FontFamily="Roboto"
                     Text="Créer une commande" />
 
                 <Label Content="_Revendeur" Target="{Binding ElementName=btnSelectRevendeur}" />

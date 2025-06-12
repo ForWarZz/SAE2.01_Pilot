@@ -7,7 +7,7 @@
     <Application.Resources>
 
         <Style x:Key="MenuItemStyle" TargetType="MenuItem">
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Height" Value="45" />
             <Setter Property="Width" Value="150" />
@@ -34,7 +34,7 @@
         <Style x:Key="MenuItemSelectStyle" TargetType="MenuItem">
             <Setter Property="Background" Value="#FF005EA5" />
             <Setter Property="Foreground" Value="#FFFFFFFF" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Height" Value="45" />
             <Setter Property="Width" Value="150" />
@@ -54,7 +54,7 @@
         </Style>
 
         <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Foreground" Value="#333333" />
         </Style>
@@ -62,7 +62,7 @@
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#FF005EA5" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Padding" Value="15,10" />
@@ -103,7 +103,7 @@
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#F0F0F0" />
             <Setter Property="Foreground" Value="#000" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Padding" Value="15,10" />
@@ -140,7 +140,7 @@
         <Style x:Key="SupprButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#E74C3C" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Padding" Value="15,10" />
@@ -177,7 +177,7 @@
         <Style x:Key="SuccesButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#27ae60" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Padding" Value="15,10" />
@@ -214,7 +214,7 @@
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Padding" Value="10,7" />
             <Setter Property="BorderBrush" Value="Black" />
@@ -227,7 +227,7 @@
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Padding" Value="12,7" />
             <Setter Property="BorderBrush" Value="Black" />
@@ -240,7 +240,7 @@
         <Style x:Key="RechercherTBStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="White" />
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Padding" Value="10,7" />
             <Setter Property="Height" Value="40" />
@@ -280,7 +280,7 @@
         </Style>
 
         <Style TargetType="ComboBox">
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="White" />
@@ -352,6 +352,7 @@
             <Setter Property="Margin" Value="0,1" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -389,7 +390,7 @@
         </Style>
 
         <Style TargetType="DataGrid">
-            <Setter Property="FontFamily" Value="/SAE2.01_Pilot;component/Fonts/#Roboto" />
+            <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Foreground" Value="#333333" />
             <Setter Property="Background" Value="White" />
@@ -514,5 +515,167 @@
             </Setter>
         </Style>
 
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="10,7" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3"
+                        SnapsToDevicePixels="True">
+                            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <DatePickerTextBox x:Name="PART_TextBox" 
+                                         Grid.Column="0" 
+                                         Margin="{TemplateBinding Padding}"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontFamily="{TemplateBinding FontFamily}"
+                                         FontSize="{TemplateBinding FontSize}"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                         Focusable="{TemplateBinding Focusable}"/>
+
+                                <Button x:Name="PART_Button" 
+                                Grid.Column="1" 
+                                Width="30"
+                                Height="30"
+                                Margin="0,0,5,0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Focusable="False">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="buttonBorder" 
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="3">
+                                                <Path x:Name="calendarIcon"
+                                              Width="16" 
+                                              Height="16"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"
+                                              Fill="#666666"
+                                              Stretch="Uniform"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="buttonBorder" Property="Background" Value="#F0F0F0"/>
+                                                    <Setter TargetName="calendarIcon" Property="Fill" Value="#005EA5"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="buttonBorder" Property="Background" Value="#E0E0E0"/>
+                                                    <Setter TargetName="calendarIcon" Property="Fill" Value="#004B8A"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <Popup x:Name="PART_Popup" 
+                               AllowsTransparency="True" 
+                               Placement="Bottom" 
+                               PlacementTarget="{Binding ElementName=PART_TextBox}" 
+                               StaysOpen="False"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#005EA5"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#0077CC"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#EEE"/>
+                                <Setter Property="Foreground" Value="#999"/>
+                                <Setter Property="BorderBrush" Value="#CCC"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Calendar">
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="#E0E0E0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Calendar">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                        Effect="{DynamicResource {x:Static SystemParameters.DropShadowKey}}">
+                            <CalendarItem x:Name="PART_CalendarItem" 
+                                  Background="{TemplateBinding Background}" 
+                                  BorderBrush="{TemplateBinding BorderBrush}" 
+                                  BorderThickness="{TemplateBinding BorderThickness}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CalendarDayButton">
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CalendarDayButton">
+                        <Border x:Name="dayBorder" 
+                        Background="Transparent" 
+                        CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="dayBorder" Property="Background" Value="#E5F2FF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="dayBorder" Property="Background" Value="#005EA5"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsToday" Value="True">
+                                <Setter TargetName="dayBorder" Property="BorderBrush" Value="#005EA5"/>
+                                <Setter TargetName="dayBorder" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                            <Trigger Property="IsInactive" Value="True">
+                                <Setter Property="Foreground" Value="#CCCCCC"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

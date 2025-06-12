@@ -40,7 +40,7 @@
                         Style="{StaticResource RechercherTBStyle}"
                         TextChanged="txtRechercher_TextChanged" />
                 </StackPanel>
-
+                
                 <StackPanel
                     Margin="0,0,30,0"
                     VerticalAlignment="Center"
@@ -51,17 +51,43 @@
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Target="{Binding ElementName=cbDate}" />
-                    <ComboBox
-                        x:Name="cbDate"
-                        Width="200"
-                        Height="40" />
+                        Target="{Binding ElementName=cbTypeDateFiltre}" />
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="cbTypeDateFiltre"
+                            Width="160"
+                            Height="40"
+                            Margin="0,0,5,0"
+                            SelectionChanged="cbTypeDateFiltre_SelectionChanged">
+                            <ComboBoxItem Content="Aucun filtre" Tag="aucun" />
+                            <ComboBoxItem Content="Avant le" Tag="avant" />
+                            <ComboBoxItem Content="Après le" Tag="apres" />
+                            <ComboBoxItem Content="Le jour du" Tag="exacte" />
+                            <ComboBoxItem Content="Entre" Tag="entre" />
+                        </ComboBox>
+                        <DatePicker
+                            x:Name="dpDateFiltre"
+                            Width="140"
+                            Height="40"
+                            Margin="5,0,0,0"
+                            IsEnabled="False"
+                            SelectedDate="{Binding dateDebutFiltre}"
+                            SelectedDateChanged="dpDateFiltre_SelectedDateChanged" />
+                        <DatePicker
+                            x:Name="dpDateFiltreFin"
+                            Width="130"
+                            Height="40"
+                            Margin="5,0,0,0"
+                            Visibility="Collapsed"
+                            SelectedDate="{Binding dateFinFiltre}"
+                            SelectedDateChanged="dpDateFiltreFin_SelectedDateChanged" />
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <Label
                         Margin="0,0,0,5"
-                        Content="Revendeur"
+                        Content="_Revendeur"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"

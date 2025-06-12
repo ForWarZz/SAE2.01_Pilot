@@ -26,11 +26,16 @@ namespace SAE2._01_Pilot.UserControls
     {
         private ListCollectionView commandesView;
 
+        private string typeFiltreDateActuel;
+        private DateTime? dateDebutFiltre;
+        private DateTime? dateFinFiltre;
+
         public UCCommandes()
         {
             InitializeComponent();
-
             ChargerCommandes();
+
+            cbTypeDateFiltre.SelectedIndex = 0;
 
             butSupprCommande.Visibility = Visibility.Hidden;
             butVisualiserCommande.Visibility = Visibility.Hidden; 
@@ -64,7 +69,46 @@ namespace SAE2._01_Pilot.UserControls
             if (revendeur != null && revendeur.Id != -1 && commande.Revendeur != revendeur)
                 return false;
 
+            if (!FiltrerParDate(commande))
+                return false;
+
             return true;
+        }
+
+
+        private bool FiltrerParDate(Commande commande)
+        {
+            if (typeFiltreDateActuel == "aucun" || dateDebutFiltre == null)
+                return true;
+
+            switch (typeFiltreDateActuel)
+            {
+                case "avant":
+                    return commande.DateCreation.Date < dateDebutFiltre.Value.Date;
+
+                case "apres":
+                    return commande.DateCreation.Date > dateDebutFiltre.Value.Date;
+
+                case "exacte":
+                    return commande.DateCreation.Date == dateDebutFiltre.Value.Date;
+
+                case "entre":
+                    if (dateFinFiltre == null)
+                        return commande.DateCreation.Date >= dateDebutFiltre.Value.Date;
+
+                    DateTime dateDebut = dateDebutFiltre.Value.Date;
+                    DateTime dateFin = dateFinFiltre.Value.Date;
+
+                    if (dateDebut > dateFin)
+                    {
+                        (dateFin, dateDebut) = (dateDebut, dateFin);
+                    }
+
+                    return commande.DateCreation.Date >= dateDebut && commande.DateCreation.Date <= dateFin;
+
+                default:
+                    return true;
+            }
         }
 
         private void InitComboBoxs()
@@ -157,6 +201,60 @@ namespace SAE2._01_Pilot.UserControls
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la modification de la commande : {ex.Message}");
             }
+        }
+
+        private void cbTypeDateFiltre_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTypeDateFiltre.SelectedItem is ComboBoxItem selectedItem)
+            {
+                Console.WriteLine($"Type de filtre sélectionné : {selectedItem.Tag}");
+                Console.WriteLine(dpDateFiltreFin);
+                Console.WriteLine(dpDateFiltre);
+                Console.WriteLine(dateDebutFiltre);
+
+                string tag = selectedItem.Tag?.ToString() ?? "aucun";
+                typeFiltreDateActuel = tag;
+
+                // Gestion de l'affichage des DatePicker selon le type de filtre
+                switch (tag)
+                {
+                    case "aucun":
+                        dpDateFiltre.IsEnabled = false;
+                        dpDateFiltreFin.Visibility = Visibility.Collapsed;
+
+                        dateDebutFiltre = null;
+                        dateFinFiltre = null;
+                        break;
+
+                    case "avant":
+                    case "apres":
+                    case "exacte":
+                        dpDateFiltre.IsEnabled = true;
+                        dpDateFiltreFin.Visibility = Visibility.Collapsed;
+
+                        dateFinFiltre = null;
+                        break;
+
+                    case "entre":
+                        dpDateFiltre.IsEnabled = true;
+                        dpDateFiltreFin.Visibility = Visibility.Visible;
+                        break;
+                }
+
+                commandesView.Refresh();
+            }
+        }
+
+        private void dpDateFiltre_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dateDebutFiltre = dpDateFiltre.SelectedDate;
+            commandesView.Refresh();
+        }
+
+        private void dpDateFiltreFin_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dateFinFiltre = dpDateFiltreFin.SelectedDate;
+            commandesView.Refresh();
         }
     }
 }
