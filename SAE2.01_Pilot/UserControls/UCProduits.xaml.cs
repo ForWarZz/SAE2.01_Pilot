@@ -25,10 +25,13 @@ namespace SAE2._01_Pilot.UserControls
     public partial class UCProduits : UserControl
     {
         private ListCollectionView produitView;
+        private bool filtrerDisponible;
 
         public UCProduits()
         {
             InitializeComponent();
+
+            filtrerDisponible = false;
             Loaded += UCProduits_Loaded;
 
             ChargerProduits();
@@ -44,6 +47,8 @@ namespace SAE2._01_Pilot.UserControls
             {
                 butAddProduit.Click -= butAddProduit_Click;
                 dgProduits.SelectionChanged -= dgProduits_SelectionChanged;
+
+                filtrerDisponible = true;
             }
         }
 
@@ -100,6 +105,9 @@ namespace SAE2._01_Pilot.UserControls
             CouleurProduit couleurProduit = cbCouleur.SelectedItem as CouleurProduit;
 
             Produit produit = (Produit)obj;
+
+            if (filtrerDisponible && !produit.Disponible)
+                return false;
 
             if (!produit.Nom.ToLower().StartsWith(recherche.ToLower()))
                 return false;
