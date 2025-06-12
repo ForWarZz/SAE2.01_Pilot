@@ -38,17 +38,20 @@
                 FontSize="16"
                 Foreground="White"
                 Text="Connecté au système central" />
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontFamily="Roboto"
-                FontSize="16"
-                Foreground="White">
-                <Run Text="Connecté en tant que " />
-                <Run Text="{Binding Prenom}" />
-                <Run Text=" - " />
-                <Run Text="{Binding Role.Libelle}" />
-            </TextBlock>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Roboto"
+                    FontSize="16"
+                    Foreground="White">
+                    <Run Text="Connecté en tant que" />
+                    <Run Text="{Binding Prenom}" />
+                    <Run Text="-" />
+                    <Run Text="{Binding Role.Libelle}" />
+                </TextBlock>
+                <Button Content="Déconnexion" HorizontalAlignment="Right" Style="{StaticResource LogoutButtonStyle}" Margin="20,0,0,0" Click="Button_Click"/>
+            </StackPanel>
         </DockPanel>
 
         <StackPanel Grid.Row="1" Background="#FFEAEAEA">

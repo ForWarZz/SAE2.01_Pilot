@@ -26,7 +26,7 @@ namespace SAE2._01_Pilot.Utils
         private ObservableCollection<Commande> commandes;
         private ObservableCollection<Revendeur> revendeurs;
 
-        public static Core Instance { get; private set; }
+        public static Core Instance { get; set; }
 
         public Employe EmployeConnecte { get => employeConnecte; set => employeConnecte = value; }
         public List<ModeTransport> ModeTransports { get => modeTransports; set => modeTransports = value; }

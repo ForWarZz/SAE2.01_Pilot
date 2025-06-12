@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Background="#FFFAFAFA">
+        Background="#FFFAFAFA" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="2" BorderBrush="#FFC1C1C1">
         <Grid>
             <Grid.RowDefinitions>

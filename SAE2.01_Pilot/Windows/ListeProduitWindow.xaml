@@ -9,7 +9,7 @@
     Title="Pilot"
     Width="1194"
     Height="834"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <StackPanel x:Name="spMainWindow">
         <DockPanel
