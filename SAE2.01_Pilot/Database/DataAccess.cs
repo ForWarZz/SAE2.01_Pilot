@@ -8,7 +8,7 @@ namespace TD3_BindingBDPension.Model
     public class DataAccess
     {
         private static readonly DataAccess instance = new DataAccess();
-        private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=benardax;Password=E3ES16;Database=SAE201_BM_BA;Options='-c search_path=pilot'";
+        private readonly string connectionString = "Host=srv-peda-new.iut-acy.local;Port=5433;Username=benardax;Password=E3ES16;Database=SAE201_BM_BA;Options='-c search_path=pilot'";
 
         public static DataAccess Instance
         {
@@ -31,7 +31,6 @@ namespace TD3_BindingBDPension.Model
             catch (Exception ex)
             {
                 LogError.Log(ex, "Pb de connexion GetOpenedConnection \n" + connectionString);
-                // Assurez-vous de fermer la connexion en cas d'erreur lors de l'ouverture
                 conn?.Close();
                 throw;
             }

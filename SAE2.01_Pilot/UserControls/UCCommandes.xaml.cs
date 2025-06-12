@@ -32,7 +32,10 @@ namespace SAE2._01_Pilot.UserControls
 
             ChargerCommandes();
 
-            HandleRoleEmploye();
+            butSupprCommande.Visibility = Visibility.Hidden;
+            butVisualiserCommande.Visibility = Visibility.Hidden;
+            butAddCommande.Visibility = Visibility.Hidden;
+
             InitComboBoxs();
 
             dgCommandes.UnselectAll();
@@ -44,7 +47,6 @@ namespace SAE2._01_Pilot.UserControls
 
             commandesView = new ListCollectionView(Core.Instance.Commandes);
             commandesView.Filter = FiltrerCommandes;
-
 
             dgCommandes.ItemsSource = commandesView;
         }
@@ -74,39 +76,31 @@ namespace SAE2._01_Pilot.UserControls
             cbRevendeur.SelectedIndex = 0;
         }
 
-        private void HandleRoleEmploye()
-        {
-            bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
-
-            butSupprCommande.Visibility = Visibility.Hidden;
-            butVisualiserCommande.Visibility = Visibility.Hidden;
-
-            if (!estResponsableProd)
-            {
-                butAddCommande.Visibility = Visibility.Hidden;
-                butVisualiserCommande.Style = (Style)FindResource("PrimaryButtonStyle");
-            }
-        }
-
         private void dgCommandes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            bool estResponsableProd = Core.Instance.EmployeConnecte.EstResponsableProduction;
             object selectedItem = dgCommandes.SelectedItem;
 
             if (selectedItem == null)
             {
                 butSupprCommande.Visibility = Visibility.Hidden;
                 butVisualiserCommande.Visibility = Visibility.Hidden;
+                butModifierDateLivraison.Visibility = Visibility.Hidden;
                 return;
             }
 
-            butSupprCommande.Visibility = estResponsableProd ? Visibility.Visible : Visibility.Hidden;
+            butSupprCommande.Visibility = Visibility.Visible;
             butVisualiserCommande.Visibility = Visibility.Visible;
+            butModifierDateLivraison.Visibility = Visibility.Visible;
         }
 
         private void butVisualiserCommande_Click(object sender, RoutedEventArgs e)
         {
+            Commande commandeSelected = dgCommandes.SelectedItem as Commande;
+            if (commandeSelected == null)
+                return;
 
+            MainWindow mainWindow = ((MainWindow)App.Current.MainWindow);
+            mainWindow.ccMain.Content = new UCVisualiserCommande(commandeSelected, this);
         }
 
         private void txtRechercher_TextChanged(object sender, TextChangedEventArgs e)
@@ -139,6 +133,29 @@ namespace SAE2._01_Pilot.UserControls
             catch (Exception ex)
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la création de la commande : {ex.Message}");
+            }
+        }
+
+        private void butModifierDateLivraison_Click(object sender, RoutedEventArgs e)
+        {
+            Commande commande = dgCommandes.SelectedItem as Commande;
+            Commande commandeModifie = new Commande(commande.Id, commande.ModeTransport, commande.Revendeur, commande.EmployeId, commande.DateCreation, commande.DateLivraison);
+
+            ModifierDateLivraisonWindow modifierWindow = new ModifierDateLivraisonWindow(commandeModifie);
+            bool dialogResult = modifierWindow.ShowDialog() ?? false;
+
+            if (!dialogResult) 
+                return;
+
+            try
+            {
+                commande.DateLivraison = commandeModifie.DateLivraison;
+                commande.Update();
+
+                Core.MessageBoxSucces("La date de livraison à bien été appliquée.");
+            } catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la modification de la commande : {ex.Message}");
             }
         }
     }

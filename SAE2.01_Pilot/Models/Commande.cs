@@ -3,6 +3,7 @@ using SAE2._01_Pilot.Database;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class Commande : ICrud<Commande>
+    public class Commande : ICrud<Commande>, INotifyPropertyChanged
     {
         public int Id { get; set; }
 
@@ -23,6 +24,8 @@ namespace SAE2._01_Pilot.Models
         private Revendeur revendeur;
 
         private int employeId;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
         {
@@ -60,6 +63,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 modeTransport = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ModeTransport)));
             }
         }
 
@@ -74,6 +78,7 @@ namespace SAE2._01_Pilot.Models
                 }
 
                 revendeur = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Revendeur)));
             }
         }
 
@@ -81,7 +86,14 @@ namespace SAE2._01_Pilot.Models
 
         public ObservableCollection<LigneCommande> LigneCommandes { get => ligneCommandes; set => ligneCommandes = value; }
 
-        public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
+        public DateTime DateCreation { 
+            get => dateCreation;
+            set 
+            {
+                dateCreation = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateCreation)));
+            }
+        }
 
         public DateTime? DateLivraison { 
             get => dateLivraison;
@@ -89,11 +101,11 @@ namespace SAE2._01_Pilot.Models
             {
                 if (value < DateCreation)
                 {
-                    Console.WriteLine("Date de livraison invalide : " + value + " < " + DateCreation);
                     throw new ArgumentOutOfRangeException("La date de livraison ne peut pas être antérieure à la date de commande.");
                 }
 
                 dateLivraison = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateLivraison)));
             } 
         }
 
@@ -131,30 +143,17 @@ namespace SAE2._01_Pilot.Models
             {
                 int commandeId = (int)row["NumCommande"];
 
-                Console.WriteLine("Commande id " + commandeId);
-
                 if (!commandesParId.ContainsKey(commandeId))
                 {
                     ModeTransport? modeTransport = modeTransports.FirstOrDefault(m => m.Id == (int)row["NumTransport"]);
-
-                    Console.WriteLine("Mode de transdport " + modeTransport.Libelle);
-                    Console.WriteLine("Revendeur id : " + (int)row["NumRevendeur"]);
-
                     Revendeur? revendeur = revendeurs.FirstOrDefault(r => r.Id == (int)row["NumRevendeur"]);
 
-                    Console.WriteLine("Revendeur : " + revendeur.Adresse.Rue);
-
                     int employeId = (int)row["NumEmploye"];
-
-                    Console.WriteLine("Employe " + employeId);
 
                     DateTime dateCommande = (DateTime)row["DateCommande"];
                     DateTime? dateLivraison = row["DateLivraisonValide"] == DBNull.Value
                                                           ? null
                                                           : (DateTime)row["DateLivraisonValide"];
-
-                    Console.WriteLine("date commande " + dateCommande);
-                    Console.WriteLine("date livraison " + dateLivraison);
 
                     commandesParId[commandeId] = new Commande(
                         id: commandeId,
@@ -168,8 +167,6 @@ namespace SAE2._01_Pilot.Models
 
                 int quantite = (int)row["QuantiteCommande"];
 
-                Console.WriteLine("Quantite : " + quantite);
-
                 Produit? produit = produits.FirstOrDefault(p => p.Id == (int)row["NumProduit"]);
                 LigneCommande ligne = new LigneCommande(produit, quantite);
 
@@ -182,8 +179,8 @@ namespace SAE2._01_Pilot.Models
         public void Create()
         {
             string sqlInsertCmd = @"
-                INSERT INTO Commande (NumTransport, NumRevendeur, NumEmploye, DateCommande, DateLivraison, PrixTotal)
-                VALUES (@NumTransport, @NumRevendeur, @NumEmploye, @DateCommande, @DateLivraison, @PrixTotal) RETURNING NumCommande";
+                INSERT INTO Commande (NumTransport, NumRevendeur, NumEmploye, DateCommande, PrixTotal)
+                VALUES (@NumTransport, @NumRevendeur, @NumEmploye, @DateCommande, @PrixTotal) RETURNING NumCommande";
 
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlTransaction transaction = conn.BeginTransaction();

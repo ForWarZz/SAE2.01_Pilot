@@ -1,0 +1,69 @@
+﻿<Window
+    x:Class="SAE2._01_Pilot.Windows.ModifierDateLivraisonWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:SAE2._01_Pilot.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Modifier date livraison"
+    Width="690"
+    Height="339"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converters:NullableDateToStringConverter x:Key="DateConverter" />
+    </Window.Resources>
+
+    <Grid x:Name="spMainWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="74" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel
+            x:Name="spTop"
+            Height="72"
+            Background="#FF005EA5">
+            <Image
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
+            <TextBlock
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
+        </DockPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="spFormulaire" Margin="100,20,100,20">
+                <TextBlock
+                    x:Name="txtTitre"
+                    Margin="0,0,0,25"
+                    HorizontalAlignment="Center"
+                    FontSize="28"
+                    FontWeight="Medium"
+                    Text="Modifier date de livraison" />
+
+                <Label Content="_Date de livraison" Target="{Binding ElementName=inputCodeProduit}" />
+                <DatePicker x:Name="dpLivraison" SelectedDate="{Binding DateLivraison, Converter={StaticResource DateConverter}, ValidatesOnExceptions=True}" />
+
+                <Button
+                    x:Name="btnModifier"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Center"
+                    Click="btnModifier_Click"
+                    Content="Modifier la date de livraison"
+                    IsDefault="True"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

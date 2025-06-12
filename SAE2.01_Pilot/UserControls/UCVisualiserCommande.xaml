@@ -1,0 +1,147 @@
+﻿<UserControl
+    x:Class="SAE2._01_Pilot.UserControls.UCVisualiserCommande"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE2._01_Pilot.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="685"
+    d:DesignWidth="1194"
+    mc:Ignorable="d">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  En-tête  -->
+        <DockPanel
+            Grid.Row="0"
+            Margin="0,10,0,30"
+            HorizontalAlignment="Center">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontFamily="Roboto"
+                FontSize="30"
+                FontWeight="SemiBold"
+                Text="Numéro commande : " />
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                FontFamily="Roboto"
+                FontSize="30"
+                FontWeight="Bold"
+                Text="{Binding Id}" />
+        </DockPanel>
+
+        <!--  Contenu principal  -->
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20,0" VerticalAlignment="Top">
+                <TextBlock
+                    Margin="0,0,0,20"
+                    FontFamily="Roboto"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="Informations générales" />
+
+                <Grid Margin="0,0,0,40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel
+                        Grid.Column="0"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+                        <TextBlock
+                            Margin="0,0,0,15"
+                            FontFamily="Roboto"
+                            FontWeight="Medium">
+                            Nom du revendeur :
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,0,0,15"
+                            FontFamily="Roboto"
+                            FontWeight="Medium">
+                            Mode de transport :
+                        </TextBlock>
+                        <TextBlock FontFamily="Roboto" FontWeight="Medium">Prix total de la commande :</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+                        <TextBlock
+                            Margin="0,0,0,10"
+                            FontFamily="Roboto"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="{Binding Revendeur.RaisonSociale}" />
+                        <TextBlock
+                            Margin="0,0,0,10"
+                            FontFamily="Roboto"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="{Binding ModeTransport.Libelle}" />
+                        <TextBlock
+                            FontFamily="Roboto"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="{Binding PrixTotal, StringFormat={}{0:F2} €}" />
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock
+                    Margin="0,0,0,15"
+                    FontFamily="Roboto"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="Lignes de commande" />
+
+                <DataGrid
+                    x:Name="dgLignesCommande"
+                    Margin="0,0,0,30"
+                    ItemsSource="{Binding LigneCommandes}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="1.5*"
+                            Binding="{Binding Produit.Code}"
+                            Header="Code produit" />
+                        <DataGridTextColumn
+                            Width="3*"
+                            Binding="{Binding Produit.Nom}"
+                            Header="Nom produit" />
+                        <DataGridTextColumn
+                            Width="1.5*"
+                            Binding="{Binding Produit.PrixVente, StringFormat={}{0:F2} €}"
+                            Header="Prix unitaire" />
+                        <DataGridTextColumn
+                            Width="1*"
+                            Binding="{Binding Quantite}"
+                            Header="Quantité" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <DockPanel
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Right">
+            <Button
+                x:Name="butRetour"
+                Width="100"
+                Height="35"
+                Click="butRetour_Click"
+                Content="Retour"
+                Style="{StaticResource PrimaryButtonStyle}" />
+        </DockPanel>
+    </Grid>
+</UserControl>
