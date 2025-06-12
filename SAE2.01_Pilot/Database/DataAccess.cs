@@ -16,7 +16,7 @@ namespace TD3_BindingBDPension.Model
 
         private static readonly string TEST_SQL_PATH = "SQL/sql.sql";
 
-        private static readonly string TEST_LOGIN = "battigm";
+        public static readonly string TEST_LOGIN = "battigm";
         private static readonly string TEST_PASSWORD = "123";
 
         public static DataAccess Instance

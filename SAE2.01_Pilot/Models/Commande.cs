@@ -38,6 +38,16 @@ namespace SAE2._01_Pilot.Models
             DateLivraison = dateLivraison;
         }
 
+        public Commande(ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
+        {
+            ModeTransport = modeTransport;
+            Revendeur = revendeur;
+            EmployeId = employeId;
+            LigneCommandes = new ObservableCollection<LigneCommande>();
+            DateCreation = dateCommande;
+            DateLivraison = dateLivraison;
+        }
+
         public Commande()
         {
             DateCreation = DateTime.Now;
@@ -184,31 +194,48 @@ namespace SAE2._01_Pilot.Models
 
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlTransaction transaction = conn.BeginTransaction();
-            using NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsertCmd, conn, transaction);
 
             try
             {
+                using NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsertCmd, conn, transaction);
+
                 cmdInsert.Parameters.AddWithValue("@NumTransport", ModeTransport.Id);
                 cmdInsert.Parameters.AddWithValue("@NumRevendeur", Revendeur.Id);
                 cmdInsert.Parameters.AddWithValue("@NumEmploye", EmployeId);
                 cmdInsert.Parameters.AddWithValue("@DateCommande", DateCreation);
-               /* cmdInsert.Parameters.AddWithValue("@DateLivraison", DateLivraison);*/
                 cmdInsert.Parameters.AddWithValue("@PrixTotal", PrixTotal);
 
                 Id = DataAccess.Instance.ExecuteInsert(cmdInsert);
 
-                foreach (LigneCommande ligne in LigneCommandes)
+                List<string> valueRows = new List<string>();
+                NpgsqlCommand cmdInsertLignes = new NpgsqlCommand("", conn, transaction);
+
+                for (int i = 0; i < LigneCommandes.Count; i++)
                 {
-                    ligne.IdCommande = Id;
-                    ligne.Create(conn, transaction);
+                    LigneCommande ligne = LigneCommandes[i];
+
+                    valueRows.Add($"(@NumCommande{i}, @NumProduit{i}, @QuantiteCommande{i}, @Prix{i})");
+
+                    cmdInsertLignes.Parameters.AddWithValue($"@NumCommande{i}", Id);
+                    cmdInsertLignes.Parameters.AddWithValue($"@NumProduit{i}", ligne.Produit.Id);
+                    cmdInsertLignes.Parameters.AddWithValue($"@QuantiteCommande{i}", ligne.Quantite);
+                    cmdInsertLignes.Parameters.AddWithValue($"@Prix{i}", ligne.Produit.PrixVente);
                 }
 
+                cmdInsertLignes.CommandText = $@"
+                        INSERT INTO ProduitCommande (NumCommande, NumProduit, QuantiteCommande, Prix)
+                        VALUES {string.Join(", ", valueRows)}";
+
+                DataAccess.Instance.ExecuteSet(cmdInsertLignes);
+
                 transaction.Commit();
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 transaction.Rollback();
                 throw;
             }
+
         }
 
         public void Read(List<ModeTransport> modeTransports, ObservableCollection<Revendeur> revendeurs, ObservableCollection<Produit> produits, Employe employeConnecte)
@@ -280,23 +307,28 @@ namespace SAE2._01_Pilot.Models
 
         public void Delete()
         {
-            string sqlDeleteCmd = @"
-                DELETE FROM Commande
-                WHERE NumCommande = @NumCommande";
-
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlTransaction transaction = conn.BeginTransaction();
-            using NpgsqlCommand cmdDelete = new NpgsqlCommand(sqlDeleteCmd, conn, transaction);
 
             try
             {
+                string sqlDeleteLignes = @"
+                    DELETE FROM ProduitCommande
+                    WHERE NumCommande = @NumCommande";
+
+                using NpgsqlCommand cmdDeleteLignes = new NpgsqlCommand(sqlDeleteLignes, conn, transaction);
+
+                cmdDeleteLignes.Parameters.AddWithValue("@NumCommande", Id);
+                DataAccess.Instance.ExecuteSet(cmdDeleteLignes);
+
+                string sqlDeleteCmd = @"
+                    DELETE FROM Commande
+                    WHERE NumCommande = @NumCommande";
+
+                using NpgsqlCommand cmdDelete = new NpgsqlCommand(sqlDeleteCmd, conn, transaction);
+
                 cmdDelete.Parameters.AddWithValue("@NumCommande", Id);
                 DataAccess.Instance.ExecuteSet(cmdDelete);
-
-                foreach (LigneCommande ligne in LigneCommandes)
-                {
-                    ligne.Delete(conn, transaction);
-                }
 
                 transaction.Commit();
             }

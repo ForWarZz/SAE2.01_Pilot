@@ -9,13 +9,10 @@ using TD3_BindingBDPension.Model;
 
 namespace SAE2._01_Pilot.Models
 {
-    public class LigneCommande : ICrudTransaction<LigneCommande>
+    public class LigneCommande
     {
         private int quantite;
         private Produit produit;
-
-        public int IdCommande { get; set; }
-
 
         public Produit Produit {
             get => produit;
@@ -53,32 +50,6 @@ namespace SAE2._01_Pilot.Models
         public LigneCommande()
         {
             
-        }
-
-        public void Create(NpgsqlConnection conn, NpgsqlTransaction transaction)
-        {
-            string sqlInsertCmd = @"
-                INSERT INTO ProduitCommande (NumCommande, NumProduit, QuantiteCommande, Prix)
-                VALUES (@NumCommande, @NumProduit, @QuantiteCommande, @Prix)";
-
-            using NpgsqlCommand cmd = new NpgsqlCommand(sqlInsertCmd, conn, transaction);
-
-            cmd.Parameters.AddWithValue("@NumCommande", IdCommande);
-            cmd.Parameters.AddWithValue("@NumProduit", Produit.Id);
-            cmd.Parameters.AddWithValue("@QuantiteCommande", Quantite);
-            cmd.Parameters.AddWithValue("@Prix", Produit.PrixVente);
-
-            DataAccess.Instance.ExecuteInsertSansRetour(cmd);
-        }
-
-        public void Update(NpgsqlConnection conn, NpgsqlTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(NpgsqlConnection conn, NpgsqlTransaction transaction)
-        {
-            throw new NotImplementedException();
         }
     }
 }

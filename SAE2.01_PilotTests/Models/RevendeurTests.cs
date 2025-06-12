@@ -13,14 +13,7 @@ namespace SAE2._01_Pilot.Models.Tests
         [TestInitialize()]
         public void TestInitialize()
         {
-            try
-            {
-                DataAccess.Instance.SetupTestBDD();
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+            DataAccess.Instance.SetupTestBDD();
         }
 
         [TestMethod()]
@@ -61,45 +54,32 @@ namespace SAE2._01_Pilot.Models.Tests
 
             revendeur.Create();
 
-            try
-            {
-                revendeur.RaisonSociale = "Nouveau Revendeur Test";
-                revendeur.Adresse.Rue = "456 Rue Modifiée";
-                revendeur.Adresse.CodePostal = "75001";
-                revendeur.Adresse.Ville = "Lyon";
+            revendeur.RaisonSociale = "Nouveau Revendeur Test";
+            revendeur.Adresse.Rue = "456 Rue Modifiée";
+            revendeur.Adresse.CodePostal = "75001";
+            revendeur.Adresse.Ville = "Lyon";
 
-                revendeur.Update();
-                revendeur.Read();
+            revendeur.Update();
+            revendeur.Read();
 
-                Assert.AreEqual("Nouveau Revendeur Test", revendeur.RaisonSociale, "La raison sociale n'a pas été mise à jour");
-                Assert.AreEqual("456 Rue Modifiée", revendeur.Adresse.Rue, "L'adresse rue n'a pas été mise à jour");
-                Assert.AreEqual("75001", revendeur.Adresse.CodePostal, "L'adresse code postal n'a pas été mise à jour");
-                Assert.AreEqual("Lyon", revendeur.Adresse.Ville, "L'adresse ville n'a pas été mise à jour");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+            Assert.AreEqual("Nouveau Revendeur Test", revendeur.RaisonSociale, "La raison sociale n'a pas été mise à jour");
+            Assert.AreEqual("456 Rue Modifiée", revendeur.Adresse.Rue, "L'adresse rue n'a pas été mise à jour");
+            Assert.AreEqual("75001", revendeur.Adresse.CodePostal, "L'adresse code postal n'a pas été mise à jour");
+            Assert.AreEqual("Lyon", revendeur.Adresse.Ville, "L'adresse ville n'a pas été mise à jour");
         }
 
         [TestMethod()]
         public void TestGetAllRevendeurs()
         {
-            try
-            {
-                Adresse adresse = new Adresse("125 Rue Exemple", "78000", "Paris");
-                Revendeur revendeur = new Revendeur("Revendeur Test GETALL", adresse);
+            Adresse adresse = new Adresse("125 Rue Exemple", "78000", "Paris");
+            Revendeur revendeur = new Revendeur("Revendeur Test GETALL", adresse);
 
-                revendeur.Create();
+            revendeur.Create();
 
-                ObservableCollection<Revendeur> revendeurs = Revendeur.GetAll();
+            ObservableCollection<Revendeur> revendeurs = Revendeur.GetAll();
 
-                Assert.IsNotNull(revendeurs);
-                Assert.IsTrue(revendeurs.Count > 0, "Les revendeurs sont pas récupérés correctement.");
-            } catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+            Assert.IsNotNull(revendeurs);
+            Assert.IsTrue(revendeurs.Count > 0, "Les revendeurs sont pas récupérés correctement.");
         }
     }
 }
