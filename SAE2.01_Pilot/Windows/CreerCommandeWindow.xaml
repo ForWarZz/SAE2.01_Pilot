@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Créer une commande"
     Width="690"
-    Height="988"
+    Height="825"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
         <Grid.RowDefinitions>
@@ -16,86 +17,135 @@
         </Grid.RowDefinitions>
 
         <DockPanel Height="72" Background="#FF005EA5">
-            <Image Width="165"
-                   Height="44"
-                   Margin="20,0,0,0"
-                   HorizontalAlignment="Left"
-                   Source="/Images/pilot.png" />
-            <TextBlock Margin="0,0,20,0"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       DockPanel.Dock="Right"
-                       FontFamily="Roboto"
-                       FontSize="16"
-                       Foreground="White"
-                       Text="Connecté au système central" />
+            <Image
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
+            <TextBlock
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
         </DockPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel VerticalAlignment="Center" x:Name="spFormulaire" Margin="50,30,50,30">
-                <TextBlock x:Name="txtTitre"
-                           HorizontalAlignment="Center"
-                           FontSize="32"
-                           Margin="0,0,0,30"
-                           FontWeight="Medium"
-                           Text="Créer une commande" />
+            <StackPanel
+                x:Name="spFormulaire"
+                Margin="50,30,50,30"
+                VerticalAlignment="Center">
+                <TextBlock
+                    x:Name="txtTitre"
+                    Margin="0,0,0,30"
+                    HorizontalAlignment="Center"
+                    FontSize="32"
+                    FontWeight="Medium"
+                    Text="Créer une commande" />
 
                 <Label Content="_Revendeur" Target="{Binding ElementName=btnSelectRevendeur}" />
-                <Button x:Name="btnSelectRevendeur"
-                            Content="Sélectionner un revendeur"
-                            Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectRevendeur_Click" Margin="0,0,0,20" />
+                <Button
+                    x:Name="btnSelectRevendeur"
+                    Margin="0,0,0,20"
+                    Click="btnSelectRevendeur_Click"
+                    Content="Sélectionner un revendeur"
+                    Style="{StaticResource SecondaryButtonStyle}" />
 
                 <Label Content="_Mode de transport" Target="{Binding ElementName=cbTransport}" />
-                <ComboBox x:Name="cbTransport" Height="40" DisplayMemberPath="Libelle" SelectedValuePath="Id" SelectedItem="{Binding ModeTransport, ValidatesOnExceptions=True}" Margin="0,0,0,20" />
+                <ComboBox
+                    x:Name="cbTransport"
+                    Height="40"
+                    Margin="0,0,0,20"
+                    DisplayMemberPath="Libelle"
+                    SelectedItem="{Binding ModeTransport, ValidatesOnExceptions=True}"
+                    SelectedValuePath="Id" />
 
 
-                <Border BorderBrush="#ccc" BorderThickness="1" Padding="15" Margin="0, 0, 0, 20" CornerRadius="8">
+                <Border
+                    Margin="0,0,0,20"
+                    Padding="15"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    CornerRadius="8">
                     <StackPanel x:Name="spFormLigne">
-                        <TextBlock FontSize="18" FontWeight="Medium" Text="Ajouter une ligne de commande" Margin="0, 0, 0, 10" />
+                        <TextBlock
+                            Margin="0,0,0,10"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Text="Ajouter une ligne de commande" />
 
                         <Label Content="_Produit" Target="{Binding ElementName=btnSelectProduit}" />
-                        <Button Margin="0, 0, 0, 10" x:Name="btnSelectProduit"
-                                    Content="Sélectionner un produit"
-                                    Style="{StaticResource SecondaryButtonStyle}" Click="btnSelectProduit_Click" />
+                        <Button
+                            x:Name="btnSelectProduit"
+                            Margin="0,0,0,10"
+                            Click="btnSelectProduit_Click"
+                            Content="Sélectionner un produit"
+                            Style="{StaticResource SecondaryButtonStyle}" />
 
                         <Label Content="_Quantité souhaitée" Target="{Binding ElementName=inputQuantite}" />
-                        <TextBox Margin="0, 0, 0, 10" x:Name="inputQuantite"
-                                     Style="{StaticResource TextBoxStyle}"
-                                     Text="{Binding Quantite, ValidatesOnExceptions=True}" />
+                        <TextBox
+                            x:Name="inputQuantite"
+                            Margin="0,0,0,10"
+                            Style="{StaticResource TextBoxStyle}"
+                            Text="{Binding Quantite, ValidatesOnExceptions=True}" />
 
-                        <Button x:Name="btnAjouterLigne"
-                                Content="Ajouter la ligne"
-                                HorizontalAlignment="Right"
-                                Style="{StaticResource PrimaryButtonStyle}" Click="btnAjouterLigne_Click" />
+                        <Button
+                            x:Name="btnAjouterLigne"
+                            HorizontalAlignment="Right"
+                            Click="btnAjouterLigne_Click"
+                            Content="Ajouter la ligne"
+                            Style="{StaticResource PrimaryButtonStyle}" />
                     </StackPanel>
                 </Border>
 
-                <DataGrid x:Name="dgLignesCommande"
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          Height="200"
-                          Margin="0,0,0,20" 
-                          RowHeight="60">
+                <DataGrid
+                    x:Name="dgLignesCommande"
+                    Height="200"
+                    Margin="0,0,0,20"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    RowHeight="60">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Code produit" Binding="{Binding Produit.Code}" Width="*" />
-                        <DataGridTextColumn Header="Nom produit" Binding="{Binding Produit.Nom}" Width="*" />
-                        <DataGridTextColumn Header="Prix" Binding="{Binding Produit.PrixVente}" Width="*" />
-                        <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite}" Width="*" />
-                        <DataGridTemplateColumn Header="Supprimer" Width="*">
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Produit.Code}"
+                            Header="Code produit" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Produit.Nom}"
+                            Header="Nom produit" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Produit.PrixVente}"
+                            Header="Prix" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Quantite}"
+                            Header="Quantité" />
+                        <DataGridTemplateColumn Width="*" Header="Supprimer">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="btnSupprLigne" Content="❌"
-                                            Padding="5" Click="btnSupprLigne_Click" />
+                                    <Button
+                                        x:Name="btnSupprLigne"
+                                        Padding="5"
+                                        Click="btnSupprLigne_Click"
+                                        Content="❌" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button x:Name="btnCreer"
-                        HorizontalAlignment="Center"
-                        Content="Créer la commande"
-                        Style="{StaticResource PrimaryButtonStyle}" Click="btnCreer_Click" />
+                <Button
+                    x:Name="btnCreer"
+                    HorizontalAlignment="Center"
+                    Click="btnCreer_Click"
+                    Content="Créer la commande"
+                    Style="{StaticResource PrimaryButtonStyle}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

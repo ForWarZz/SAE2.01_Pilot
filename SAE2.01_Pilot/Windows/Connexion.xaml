@@ -10,41 +10,90 @@
     Height="700"
     MinWidth="500"
     MinHeight="600"
-    WindowStartupLocation="CenterScreen"
     ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
 
     <Grid Background="#FFF5F5F5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Height="72" Background="#FF005EA5">
-            <Image Width="165" Height="44" Margin="20,0,0,0" HorizontalAlignment="Left" Source="/Images/pilot.png" />
-            <TextBlock Margin="0,0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Roboto" FontSize="16" Foreground="White" Text="Connecté au système central" />
+        <DockPanel
+            Grid.Row="0"
+            Height="72"
+            Background="#FF005EA5">
+            <Image
+                Width="165"
+                Height="44"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                Source="/Images/pilot.png" />
+            <TextBlock
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontFamily="Roboto"
+                FontSize="16"
+                Foreground="White"
+                Text="Connecté au système central" />
         </DockPanel>
 
         <Grid Grid.Row="1">
-            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="524">
-                <Border Background="White" CornerRadius="10" BorderBrush="#E0E0E0" BorderThickness="1">
+            <Border
+                Width="524"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Border
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="10">
                     <StackPanel>
-                        <Border Background="#FF005EA5" CornerRadius="10,10,0,0" Height="70">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Roboto" FontSize="20" Foreground="White" Text="Connexion au système central" />
+                        <Border
+                            Height="70"
+                            Background="#FF005EA5"
+                            CornerRadius="10,10,0,0">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Roboto"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Connexion au système central" />
                         </Border>
 
                         <StackPanel Margin="40,30,40,30">
                             <StackPanel Margin="0,0,0,25">
-                                <Label Content="Identifiant"/>
-                                <TextBox x:Name="inputLogin" Height="45" Margin="0,5,0,0" Text="smartin" Style="{StaticResource TextBoxStyle}"/>
+                                <Label Content="Identifiant" />
+                                <TextBox
+                                    x:Name="inputLogin"
+                                    Height="45"
+                                    Margin="0,5,0,0"
+                                    Style="{StaticResource TextBoxStyle}"
+                                    Text="smartin" />
                             </StackPanel>
 
                             <StackPanel Margin="0,0,0,40">
-                                <Label Content="Mot de passe"/>
-                                <PasswordBox x:Name="inputPassword" Height="45" Margin="0,5,0,0" Password="martin2025" Style="{StaticResource PasswordBoxStyle}"/>
+                                <Label Content="Mot de passe" />
+                                <PasswordBox
+                                    x:Name="inputPassword"
+                                    Height="45"
+                                    Margin="0,5,0,0"
+                                    Password="martin2025"
+                                    Style="{StaticResource PasswordBoxStyle}" />
                             </StackPanel>
 
-                            <Button x:Name="btnLogin" Height="50" HorizontalAlignment="Stretch" Content="Se connecter" FontSize="18" IsDefault="True" Style="{StaticResource PrimaryButtonStyle}" Click="btnLogin_Click"/>
+                            <Button
+                                x:Name="btnLogin"
+                                Height="50"
+                                HorizontalAlignment="Stretch"
+                                Click="btnLogin_Click"
+                                Content="Se connecter"
+                                FontSize="18"
+                                IsDefault="True"
+                                Style="{StaticResource PrimaryButtonStyle}" />
                         </StackPanel>
                     </StackPanel>
                 </Border>

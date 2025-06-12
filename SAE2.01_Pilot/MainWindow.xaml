@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:SAE2._01_Pilot.UserControls"
-    Title="Pilot"
+    Title="Pilot Corporation"
     Width="1194"
     Height="834"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid>
@@ -40,7 +41,6 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                DockPanel.Dock="Right"
                 FontFamily="Roboto"
                 FontSize="16"
                 Foreground="White">
@@ -71,8 +71,6 @@
             </Menu>
         </StackPanel>
 
-        <ContentControl x:Name="ccMain" Grid.Row="2">
-            <uc:UCCommandes />
-        </ContentControl>
+        <ContentControl x:Name="ccMain" Grid.Row="2" />
     </Grid>
 </Window>
