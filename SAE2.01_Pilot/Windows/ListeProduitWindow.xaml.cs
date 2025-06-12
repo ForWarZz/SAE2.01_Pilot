@@ -25,8 +25,6 @@ namespace SAE2._01_Pilot.Windows
         {
             InitializeComponent();
 
-            ucProduits
-
             ucProduits.dgProduits.MouseDoubleClick += dgProduit_MouseDoubleClick;
             ucProduits.dgProduits.SelectionChanged += dgProduit_SelectionChanged;
             ucProduits.butAddProduit.Click += butAddProduit;
