@@ -1,0 +1,50 @@
+﻿<Window x:Class="SAE2._01_Pilot.Windows.PopUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAE2._01_Pilot.Windows"
+        mc:Ignorable="d"
+        Title="PopUp" Height="200" Width="400"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Background="#FFFAFAFA">
+    <Border BorderThickness="2" BorderBrush="#FFC1C1C1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Background="#FF005EA5" HorizontalAlignment="Center" Width="396">
+                <Label x:Name="Titre"
+                Content="pololo"
+                VerticalAlignment="Center"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="14"/>
+                <Button Content="✕"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Click="CloseButton_Click"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Foreground="White"
+                FontWeight="Bold"
+                Cursor="Hand"/>
+                
+            </DockPanel>
+            <DockPanel Grid.Row="1">
+
+            </DockPanel>
+            <DockPanel Grid.Row="2">
+
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>

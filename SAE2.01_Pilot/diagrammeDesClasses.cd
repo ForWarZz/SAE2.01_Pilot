@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SAE2._01_Pilot.Models.Adresse">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAgQAAAAEAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\Adresse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.CategorieProduit">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\CategorieProduit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.Commande" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQiAAAAAEAAAABACAAAIACAgCEAgkAABAIAAAQAIAA=</HashCode>
+      <FileName>Models\Commande.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.CouleurProduit">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\CouleurProduit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.Employe">
+    <Position X="1.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAACABAAAEAAAAAAAACAAAAAAQCAAAAAAAAA=</HashCode>
+      <FileName>Models\Employe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.LigneCommande" BaseTypeListCollapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCAACAAgAAAAAAAAAAAAAAAAEAAEgAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\LigneCommande.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.ModeTransport">
+    <Position X="4.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\ModeTransport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.Produit" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABSCAAAAgAAAAAAABAAgIAQAoCEFAEAAA4AAEAAQABA=</HashCode>
+      <FileName>Models\Produit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.Revendeur" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAEAAAAAAAAAAAAAAAkAEAAEBAAgAAQAAAAAA=</HashCode>
+      <FileName>Models\Revendeur.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.Role">
+    <Position X="4.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.TypePointe">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\TypePointe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Models.TypeProduit">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAkAAAAAAAAAAAAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Models\TypeProduit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TD3_BindingBDPension.Model.DataAccess">
+    <Position X="8.25" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAgAAAAAAAAgAAAIAIAAAAABAABAAQAgAAAAAAAA=</HashCode>
+      <FileName>Database\DataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE2._01_Pilot.Converters.NullableDateToStringConverter">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\NullableDateToStringConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SAE2._01_Pilot.Utils.Core">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MACAAAIAQAAAIAIEECgABhAAAACACAAARAkgBAQAoAQ=</HashCode>
+      <FileName>Utils\Core.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SAE2._01_Pilot.Database.ICrud&lt;T&gt;">
+    <Position X="8.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\ICrud.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SAE2._01_Pilot.Database.ICrudTransaction&lt;T&gt;">
+    <Position X="8.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\ICrudTransaction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SAE2._01_Pilot.Utils.Action" Collapsed="true">
+    <Position X="6.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\Action.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
