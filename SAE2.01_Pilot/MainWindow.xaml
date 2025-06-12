@@ -41,7 +41,6 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                DockPanel.Dock="Right"
                 FontFamily="Roboto"
                 FontSize="16"
                 Foreground="White">
@@ -72,8 +71,6 @@
             </Menu>
         </StackPanel>
 
-        <ContentControl x:Name="ccMain" Grid.Row="2">
-            <uc:UCCommandes />
-        </ContentControl>
+        <ContentControl x:Name="ccMain" Grid.Row="2" />
     </Grid>
 </Window>

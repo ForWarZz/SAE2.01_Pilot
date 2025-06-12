@@ -1,6 +1,7 @@
 ﻿using SAE2._01_Pilot.Models;
 using SAE2._01_Pilot.Utils;
 using SAE2._01_Pilot.Windows;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,20 +24,10 @@ namespace SAE2._01_Pilot
 
         public MainWindow()
         {
-            CheckLogin();
-            InitializeComponent();
-
-            spTop.DataContext = Core.Instance.EmployeConnecte;
-        }
-
-        private void CheckLogin()
-        {
-            Hide();
-
             Connexion connexionWindow = new Connexion();
-            connexionWindow.ShowDialog();
+            bool? result = connexionWindow.ShowDialog();
 
-            if (connexionWindow.DialogResult == false)
+            if (result != true)
             {
                 Application.Current.Shutdown();
                 return;
@@ -44,8 +35,20 @@ namespace SAE2._01_Pilot
 
             EmployeConnecte = connexionWindow.EmployeResult;
 
-            Charger();
-            Show();
+            InitializeComponent();
+
+            new Core(EmployeConnecte).ChargerDonneesStatiques();
+            spTop.DataContext = Core.Instance.EmployeConnecte;
+
+            if (EmployeConnecte.EstResponsableProduction)
+            {
+                ChangerStyleMenu(miProduits);
+                ccMain.Content = new UserControls.UCProduits();
+            } else
+            {
+                ChangerStyleMenu(miCommandes);
+                ccMain.Content = new UserControls.UCCommandes();
+            }
         }
 
         private void Charger()
