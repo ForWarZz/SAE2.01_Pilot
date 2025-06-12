@@ -118,13 +118,19 @@ namespace SAE2._01_Pilot.Models
             get => couleurs;
             set
             {
-                if (value == null || value.Count == 0)
+                if (value == null)
                 {
                     throw new ArgumentException("La liste des couleurs ne peut pas être vide.");
                 }
 
+                foreach (CouleurProduit c in value)
+                {
+                    Console.WriteLine("LISTE COULEUR SET : " + c.Libelle);
+                }
+
                 couleurs = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Couleurs)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CouleursString)));
             }
         }
 
@@ -151,7 +157,7 @@ namespace SAE2._01_Pilot.Models
 
         public Produit()
         {
-            couleurs = new ObservableCollection<CouleurProduit>();
+            Couleurs = new ObservableCollection<CouleurProduit>();
         }
 
         public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible)
@@ -164,7 +170,7 @@ namespace SAE2._01_Pilot.Models
             Nom = nomProduit;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
-            couleurs = new ObservableCollection<CouleurProduit>();
+            Couleurs = new ObservableCollection<CouleurProduit>();
             Disponible = disponible;
         }
 
@@ -189,7 +195,7 @@ namespace SAE2._01_Pilot.Models
             Nom = nom;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
-            this.couleurs = couleurs;
+            Couleurs = couleurs;
             Disponible = disponible;
         }
 
@@ -307,73 +313,85 @@ namespace SAE2._01_Pilot.Models
 
         public void Create()
         {
-            string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
-
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
-            using NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists, conn);
+            using NpgsqlTransaction transaction = conn.BeginTransaction();
 
-            cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
-            int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
-
-            if (count > 0)
+            try
             {
-                throw new InvalidOperationException("Un produit avec ce code existe déjà.");
-            }
+                string sqlCheckExists = "SELECT COUNT(*) FROM Produit p WHERE p.CodeProduit = @CodeProduit";
 
-            Console.WriteLine("Aucun produit avec ce code n'existe, insertion en base de données...");
+                using NpgsqlCommand cmdCheck = new NpgsqlCommand(sqlCheckExists, conn, transaction);
 
-            string sqlInsertProduit = @"
+                cmdCheck.Parameters.AddWithValue("CodeProduit", Code);
+                int count = (int)(Int64)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheck);
+
+                if (count > 0)
+                {
+                    throw new InvalidOperationException("Un produit avec ce code existe déjà.");
+                }
+
+                string sqlInsertProduit = @"
                             INSERT INTO Produit (CodeProduit, NomProduit, PrixVente, QuantiteStock, Disponible, NumTypePointe, NumType)
                             VALUES (@CodeProduit, @NomProduit, @PrixVente, @QuantiteStock, @Disponible, @NumTypePointe, @NumType)
                             RETURNING NumProduit;";
 
-            using NpgsqlConnection conn2 = DataAccess.Instance.GetOpenedConnection();
-            using NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit, conn2);
+                using NpgsqlCommand cmdInsertProduit = new NpgsqlCommand(sqlInsertProduit, conn, transaction);
 
-            cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
-            cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
-            cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
-            cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
-            cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
-            cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
-            cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
+                cmdInsertProduit.Parameters.AddWithValue("CodeProduit", Code);
+                cmdInsertProduit.Parameters.AddWithValue("NomProduit", Nom);
+                cmdInsertProduit.Parameters.AddWithValue("PrixVente", PrixVente);
+                cmdInsertProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
+                cmdInsertProduit.Parameters.AddWithValue("Disponible", Disponible);
+                cmdInsertProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
+                cmdInsertProduit.Parameters.AddWithValue("NumType", Type.Id);
 
-            Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
+                Id = DataAccess.Instance.ExecuteInsert(cmdInsertProduit);
 
-            List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
+                List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
 
-            string sqlInsertCouleurs = @"
+                string sqlInsertCouleurs = @"
                                 INSERT INTO CouleurProduit (NumProduit, NumCouleur)
                                 SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
                             ";
 
-            using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn2);
+                using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction);
 
-            cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
-            cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
+                cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
 
-            cmdInsertCouleurs.ExecuteNonQuery();
+                cmdInsertCouleurs.ExecuteNonQuery();
+
+                transaction.Commit();
+            } catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Update()
         {
-            string sqlCheckCodeExists = "SELECT COUNT(*) FROM Produit WHERE CodeProduit = @CodeProduit AND NumProduit != @Id";
-
             using NpgsqlConnection conn = DataAccess.Instance.GetOpenedConnection();
             using NpgsqlTransaction transaction = conn.BeginTransaction();
-            using NpgsqlCommand cmdCheckCode = new NpgsqlCommand(sqlCheckCodeExists, conn, transaction);
 
-            cmdCheckCode.Parameters.AddWithValue("CodeProduit", Code);
-            cmdCheckCode.Parameters.AddWithValue("Id", Id);
-
-            int count = (int)(long)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckCode);
-
-            if (count > 0)
+            try
             {
-                throw new InvalidOperationException("Un autre produit utilise déjà ce code. Veuillez choisir un code unique.");
-            }
+                string sqlCheckCodeExists = "SELECT COUNT(*) FROM Produit WHERE CodeProduit = @CodeProduit AND NumProduit != @Id";
 
-            string sqlUpdateProduit = @"
+
+                using NpgsqlCommand cmdCheckCode = new NpgsqlCommand(sqlCheckCodeExists, conn, transaction);
+
+                cmdCheckCode.Parameters.AddWithValue("CodeProduit", Code);
+                cmdCheckCode.Parameters.AddWithValue("Id", Id);
+
+                int count = (int)(long)DataAccess.Instance.ExecuteSelectUneValeur(cmdCheckCode);
+
+                if (count > 0)
+                {
+                    throw new InvalidOperationException("Un autre produit utilise déjà ce code. Veuillez choisir un code unique.");
+                }
+
+                string sqlUpdateProduit = @"
                         UPDATE Produit
                         SET
                             CodeProduit = @CodeProduit,
@@ -385,41 +403,48 @@ namespace SAE2._01_Pilot.Models
                             NumType = @NumType
                         WHERE NumProduit = @NumProduit";
 
-            using NpgsqlCommand cmdUpdateProduit = new NpgsqlCommand(sqlUpdateProduit, conn, transaction);
+                using NpgsqlCommand cmdUpdateProduit = new NpgsqlCommand(sqlUpdateProduit, conn, transaction);
 
-            cmdUpdateProduit.Parameters.AddWithValue("CodeProduit", Code);
-            cmdUpdateProduit.Parameters.AddWithValue("NomProduit", Nom);
-            cmdUpdateProduit.Parameters.AddWithValue("PrixVente", PrixVente);
-            cmdUpdateProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
-            cmdUpdateProduit.Parameters.AddWithValue("Disponible", Disponible);
-            cmdUpdateProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
-            cmdUpdateProduit.Parameters.AddWithValue("NumType", Type.Id);
-            cmdUpdateProduit.Parameters.AddWithValue("NumProduit", Id);
+                cmdUpdateProduit.Parameters.AddWithValue("CodeProduit", Code);
+                cmdUpdateProduit.Parameters.AddWithValue("NomProduit", Nom);
+                cmdUpdateProduit.Parameters.AddWithValue("PrixVente", PrixVente);
+                cmdUpdateProduit.Parameters.AddWithValue("QuantiteStock", QuantiteStock);
+                cmdUpdateProduit.Parameters.AddWithValue("Disponible", Disponible);
+                cmdUpdateProduit.Parameters.AddWithValue("NumTypePointe", TypePointe.Id);
+                cmdUpdateProduit.Parameters.AddWithValue("NumType", Type.Id);
+                cmdUpdateProduit.Parameters.AddWithValue("NumProduit", Id);
 
-            DataAccess.Instance.ExecuteSet(cmdUpdateProduit);
+                DataAccess.Instance.ExecuteSet(cmdUpdateProduit);
 
-            string sqlDeleteCouleurs = @"
+                string sqlDeleteCouleurs = @"
                 DELETE FROM CouleurProduit
                 WHERE NumProduit = @NumProduit;";
 
-            using NpgsqlCommand cmdDeleteCouleurs = new NpgsqlCommand(sqlDeleteCouleurs, conn, transaction);
+                using NpgsqlCommand cmdDeleteCouleurs = new NpgsqlCommand(sqlDeleteCouleurs, conn, transaction);
 
-            cmdDeleteCouleurs.Parameters.AddWithValue("NumProduit", Id);
-            cmdDeleteCouleurs.ExecuteNonQuery();
+                cmdDeleteCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                cmdDeleteCouleurs.ExecuteNonQuery();
 
-            List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
+                List<int> couleurIds = Couleurs.Select(c => c.Id).ToList();
 
-            string sqlInsertCouleurs = @"
+                string sqlInsertCouleurs = @"
                     INSERT INTO CouleurProduit (NumProduit, NumCouleur)
                     SELECT @NumProduit, unnest(@NumCouleurIds::int[]);
                 ";
 
-            using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction);
+                using NpgsqlCommand cmdInsertCouleurs = new NpgsqlCommand(sqlInsertCouleurs, conn, transaction);
 
-            cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
-            cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
+                cmdInsertCouleurs.Parameters.AddWithValue("NumProduit", Id);
+                cmdInsertCouleurs.Parameters.AddWithValue("NumCouleurIds", NpgsqlTypes.NpgsqlDbType.Array | NpgsqlTypes.NpgsqlDbType.Integer, couleurIds);
 
-            cmdInsertCouleurs.ExecuteNonQuery();
+                cmdInsertCouleurs.ExecuteNonQuery();
+
+                transaction.Commit();
+            } catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Delete()

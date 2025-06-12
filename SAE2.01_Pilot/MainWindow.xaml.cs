@@ -90,8 +90,8 @@ namespace SAE2._01_Pilot
                 ChangerStyleMenu(miProduits);
                 ccMain.Content = new UserControls.UCProduits();
 
-                miCommandes.Visibility = Visibility.Hidden;
-                miRevendeurs.Visibility = Visibility.Visible;
+                miCommandes.Visibility = Visibility.Collapsed;
+                miRevendeurs.Visibility = Visibility.Collapsed;
             }
             else
             {

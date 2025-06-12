@@ -29,6 +29,11 @@ namespace SAE2._01_Pilot.Models.Tests
             typeProduits = TypeProduit.GetAll(CategorieProduit.GetAll());
             typePointes = TypePointe.GetAll();
             couleurProduits = new ObservableCollection<CouleurProduit>(CouleurProduit.GetAll());
+
+            if (typeProduits.Count == 0 || typePointes.Count == 0 || couleurProduits.Count == 0)
+            {
+                Assert.Fail("Les données de test ne sont pas correctement initialisées. Assurez-vous que les types de produits, types de pointes et couleurs sont présents dans la base de données.");
+            }
         }
 
         [TestMethod()]
@@ -77,7 +82,7 @@ namespace SAE2._01_Pilot.Models.Tests
             TypePointe typePointe = typePointes.First();
             TypeProduit typeProduit = typeProduits.First();
 
-            Produit produit = new Produit(typePointe, typeProduit, "PR125", "Produit Test", 100, 50, couleurProduits, true);
+            Produit produit = new Produit(typePointe, typeProduit, "PR125", "Produit Test", 100, 50, new ObservableCollection<CouleurProduit>([couleurProduits[0]]), true);
             produit.Create();
 
             try

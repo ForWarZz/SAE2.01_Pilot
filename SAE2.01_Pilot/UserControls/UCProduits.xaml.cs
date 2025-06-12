@@ -213,7 +213,7 @@ namespace SAE2._01_Pilot.UserControls
             if (produitSelected == null)
                 return;
 
-            Produit produitModifie = new Produit(produitSelected.Id, produitSelected.TypePointe, produitSelected.Type, produitSelected.Code, produitSelected.Nom, produitSelected.PrixVente, produitSelected.QuantiteStock, produitSelected.Disponible);
+            Produit produitModifie = new Produit(produitSelected.Id, produitSelected.TypePointe, produitSelected.Type, produitSelected.Code, produitSelected.Nom, produitSelected.PrixVente, produitSelected.QuantiteStock, produitSelected.Couleurs, produitSelected.Disponible);
             CreerProduitWindow creerProduitWindow = new CreerProduitWindow(produitModifie, Utils.Action.Modifier);
 
             bool dialogResult = creerProduitWindow.ShowDialog() ?? false;
