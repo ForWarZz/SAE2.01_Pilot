@@ -23,16 +23,18 @@
             BorderThickness="0,0,0,1">
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Rechercher"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Rechercher" />
+                        Target="{Binding ElementName=txtRecherche}" />
                     <TextBox
                         x:Name="txtRecherche"
                         Width="300"
-                        Style="{StaticResource RechercherTBStyle}" TextChanged="txtRecherche_TextChanged" />
+                        Style="{StaticResource RechercherTBStyle}"
+                        TextChanged="txtRecherche_TextChanged" />
                 </StackPanel>
             </StackPanel>
         </Border>

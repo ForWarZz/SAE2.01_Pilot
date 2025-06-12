@@ -23,12 +23,13 @@
             BorderThickness="0,0,0,1">
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Rechercher"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Rechercher" />
+                        Target="{Binding ElementName=txtRecherche}" />
                     <TextBox
                         x:Name="txtRecherche"
                         Width="300"
@@ -37,12 +38,13 @@
                 </StackPanel>
 
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Catégorie"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Catégorie" />
+                        Target="{Binding ElementName=cbCategorie}" />
                     <ComboBox
                         x:Name="cbCategorie"
                         Height="40"
@@ -55,12 +57,13 @@
                     x:Name="spTypeProduitFiltre"
                     Margin="0,0,30,0"
                     VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Type"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Type" />
+                        Target="{Binding ElementName=cbType}" />
                     <ComboBox
                         x:Name="cbType"
                         Height="40"
@@ -70,12 +73,13 @@
                 </StackPanel>
 
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Pointe"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Pointe" />
+                        Target="{Binding ElementName=cbTypePointe}" />
                     <ComboBox
                         x:Name="cbTypePointe"
                         Height="40"
@@ -85,12 +89,13 @@
                 </StackPanel>
 
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="C_ouleur"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Couleur" />
+                        Target="{Binding ElementName=cbCouleur}" />
                     <ComboBox
                         x:Name="cbCouleur"
                         Height="40"

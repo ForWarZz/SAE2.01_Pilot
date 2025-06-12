@@ -128,7 +128,14 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public bool Disponible { get; set; }
+        public bool Disponible { 
+            get => disponible;
+            set
+            {
+                disponible = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Disponible)));
+            }
+        }
 
         private string code;
         private string nom;
@@ -136,6 +143,7 @@ namespace SAE2._01_Pilot.Models
         private TypeProduit type;
         private decimal prixVente;
         private int quantiteStock;
+        private bool disponible;
 
         private ObservableCollection<CouleurProduit> couleurs;
 
@@ -362,21 +370,6 @@ namespace SAE2._01_Pilot.Models
         }
 
         public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Create(NpgsqlConnection conn, NpgsqlTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(NpgsqlConnection conn, NpgsqlTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(NpgsqlConnection conn, NpgsqlTransaction transaction)
         {
             throw new NotImplementedException();
         }

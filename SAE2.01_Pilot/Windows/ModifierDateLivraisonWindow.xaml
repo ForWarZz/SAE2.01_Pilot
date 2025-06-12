@@ -9,7 +9,7 @@
     Title="Modifier date livraison"
     Width="690"
     Height="339"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:NullableDateToStringConverter x:Key="DateConverter" />

@@ -34,7 +34,7 @@ namespace SAE2._01_Pilot.UserControls
 
             butSupprCommande.Visibility = Visibility.Hidden;
             butVisualiserCommande.Visibility = Visibility.Hidden;
-            butAddCommande.Visibility = Visibility.Hidden;
+            butAddCommande.Visibility = Visibility.Visible;
 
             InitComboBoxs();
 

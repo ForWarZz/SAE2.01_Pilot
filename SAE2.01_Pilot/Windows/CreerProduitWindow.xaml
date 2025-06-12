@@ -8,7 +8,7 @@
     Title="Créer un produit"
     Width="690"
     Height="787"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
         <Grid.RowDefinitions>

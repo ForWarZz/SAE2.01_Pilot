@@ -153,7 +153,23 @@ namespace SAE2._01_Pilot.UserControls
             if (estResponsable)
             {
                 butModifierProduit.Visibility = Visibility.Visible;
-                butRendreIndisponibleProduit.Visibility = produitSelected.Disponible ? Visibility.Visible : Visibility.Hidden;
+                butRendreIndisponibleProduit.Visibility = Visibility.Visible;
+
+                UpdateBtnIndisponible(produitSelected.Disponible);
+            }
+        }
+
+        private void UpdateBtnIndisponible(bool nouvelleDisponibilite)
+        {
+            if (!nouvelleDisponibilite)
+            {
+                butRendreIndisponibleProduit.Content = "Disponible";
+                butRendreIndisponibleProduit.Style = (Style)Application.Current.FindResource("SuccesButtonStyle");
+            }
+            else
+            {
+                butRendreIndisponibleProduit.Content = "Indisponible";
+                butRendreIndisponibleProduit.Style = (Style)Application.Current.FindResource("SupprButtonStyle");
             }
         }
 
@@ -227,26 +243,36 @@ namespace SAE2._01_Pilot.UserControls
 
         private void butRendreIndisponibleProduit_Click(object sender, RoutedEventArgs e)
         {
-            Produit? produitSelected = dgProduits.SelectedItem as Produit;
-
-            if (produitSelected == null)
+            if (dgProduits.SelectedItem is not Produit produitSelected)
                 return;
 
-            if (!Core.MessageBoxConfirmation("Êtes-vous sûr de vouloir rendre ce produit indisponible ?"))
+            bool nouvelleDisponibilite = !produitSelected.Disponible;
+            string messageConfirmation = nouvelleDisponibilite
+                ? "Êtes-vous sûr de vouloir rendre ce produit disponible ?"
+                : "Êtes-vous sûr de vouloir rendre ce produit indisponible ?";
+
+            string messageSucces = nouvelleDisponibilite
+                ? "Le produit a été rendu disponible avec succès."
+                : "Le produit a été rendu indisponible avec succès.";
+
+            if (!Core.MessageBoxConfirmation(messageConfirmation))
                 return;
 
             try
             {
-                produitSelected.Disponible = false;
+                produitSelected.Disponible = nouvelleDisponibilite;
                 produitSelected.Update();
 
-                Core.MessageBoxSucces("Le produit a été rendu indisponible avec succès.");
+                UpdateBtnIndisponible(nouvelleDisponibilite);
+
+                Core.MessageBoxSucces(messageSucces);
             }
             catch (Exception ex)
             {
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la mise à jour du produit : {ex.Message}");
             }
         }
+
 
         private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -8,7 +8,7 @@
     Title="Créer un revendeur"
     Width="690"
     Height="835"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
         <Grid.RowDefinitions>

@@ -27,12 +27,13 @@
             BorderThickness="0,0,0,1">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Rechercher"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Rechercher" />
+                        Target="{Binding ElementName=txtRechercher}" />
                     <TextBox
                         x:Name="txtRechercher"
                         Width="300"
@@ -44,12 +45,13 @@
                     Margin="0,0,30,0"
                     VerticalAlignment="Center"
                     Orientation="Vertical">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="_Date"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Date" />
+                        Target="{Binding ElementName=cbDate}" />
                     <ComboBox
                         x:Name="cbDate"
                         Width="200"
@@ -57,12 +59,13 @@
                 </StackPanel>
 
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                    <TextBlock
+                    <Label
                         Margin="0,0,0,5"
+                        Content="Revendeur"
                         FontFamily="Roboto"
                         FontSize="16"
                         FontWeight="Medium"
-                        Text="Revendeur" />
+                        Target="{Binding ElementName=cbRevendeur}" />
                     <ComboBox
                         x:Name="cbRevendeur"
                         Width="200"

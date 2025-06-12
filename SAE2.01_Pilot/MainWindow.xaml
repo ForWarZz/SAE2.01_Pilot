@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="clr-namespace:SAE2._01_Pilot.UserControls"
-    Title="Pilot"
+    Title="Pilot Corporation"
     Width="1194"
     Height="834"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid>
