@@ -16,7 +16,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  En-tête  -->
         <DockPanel
             Grid.Row="0"
             Margin="0,10,0,30"
@@ -36,7 +35,6 @@
                 Text="{Binding Id}" />
         </DockPanel>
 
-        <!--  Contenu principal  -->
         <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
@@ -55,44 +53,43 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel
-                        Grid.Column="0"
-                        VerticalAlignment="Top"
-                        Orientation="Vertical">
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
                         <TextBlock
                             Margin="0,0,0,15"
                             FontFamily="Roboto"
-                            FontWeight="Medium">
-                            Nom du revendeur :
-                        </TextBlock>
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Text="Nom du revendeur :" />
                         <TextBlock
                             Margin="0,0,0,15"
                             FontFamily="Roboto"
-                            FontWeight="Medium">
-                            Mode de transport :
-                        </TextBlock>
-                        <TextBlock FontFamily="Roboto" FontWeight="Medium">Prix total de la commande :</TextBlock>
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Text="Mode de transport :" />
+
+                        <TextBlock
+                            FontFamily="Roboto"
+                            FontSize="16"
+                            FontWeight="Medium"
+                            Text="Prix total de la commande :" />
                     </StackPanel>
 
-                    <StackPanel
-                        Grid.Column="1"
-                        VerticalAlignment="Top"
-                        Orientation="Vertical">
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
                         <TextBlock
-                            Margin="0,0,0,10"
+                            Margin="0,0,0,15"
                             FontFamily="Roboto"
-                            FontSize="14"
+                            FontSize="16"
                             FontWeight="Normal"
                             Text="{Binding Revendeur.RaisonSociale}" />
                         <TextBlock
-                            Margin="0,0,0,10"
+                            Margin="0,0,0,15"
                             FontFamily="Roboto"
-                            FontSize="14"
+                            FontSize="16"
                             FontWeight="Normal"
                             Text="{Binding ModeTransport.Libelle}" />
                         <TextBlock
                             FontFamily="Roboto"
-                            FontSize="14"
+                            FontSize="16"
                             FontWeight="Normal"
                             Text="{Binding PrixTotal, StringFormat={}{0:F2} €}" />
                     </StackPanel>
@@ -138,7 +135,6 @@
             <Button
                 x:Name="butRetour"
                 Width="100"
-                Height="35"
                 Click="butRetour_Click"
                 Content="Retour"
                 Style="{StaticResource PrimaryButtonStyle}" />
