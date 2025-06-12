@@ -96,7 +96,7 @@ namespace SAE2._01_Pilot.UserControls
         {
             string recherche = txtRecherche.Text;
             TypeProduit typeProduit = cbType.SelectedItem as TypeProduit;
-            TypePointe typePointe = cbType.SelectedItem as TypePointe;
+            TypePointe typePointe = cbTypePointe.SelectedItem as TypePointe;
             CouleurProduit couleurProduit = cbCouleur.SelectedItem as CouleurProduit;
 
             Produit produit = (Produit)obj;
