@@ -52,7 +52,8 @@ namespace SAE2._01_Pilot.Windows
             if (!ok)
                 return;
 
-            nouvelleCommande.LigneCommandes.Add(ligneCommandeCourante);
+            LigneCommande ligneCommande = new LigneCommande(ligneCommandeCourante.Produit, ligneCommandeCourante.Quantite);
+            nouvelleCommande.LigneCommandes.Add(ligneCommande);
 
             inputQuantite.Clear();
             btnSelectProduit.Content = "Sélectionner un produit";
