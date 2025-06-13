@@ -42,14 +42,17 @@
                     <Label Content="Code produit : " FontSize="22" />
                     <TextBlock
                         x:Name="labCodeProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
-                        Text="{Binding Code}" VerticalAlignment="Center" />
+                        FontSize="22"
+                        Text="{Binding Code}" />
                 </StackPanel>
                 <StackPanel x:Name="spNomProduit" Orientation="Horizontal">
                     <Label Content="Nom : " FontSize="22" />
                     <TextBlock
                         x:Name="labNomProduit"
                         FontFamily="Roboto"
+                        VerticalAlignment="Center"
                         FontSize="22"
                         Text="{Binding Nom}" />
                 </StackPanel>
@@ -57,47 +60,55 @@
                     <Label Content="Couleurs : " FontSize="22" />
                     <TextBlock
                         x:Name="labCouleurProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
-                        Text="{Binding CouleursString}" VerticalAlignment="Center" />
+                        FontSize="22"
+                        Text="{Binding CouleursString}" />
                 </StackPanel>
                 <StackPanel x:Name="spCategorieProduit" Orientation="Horizontal">
                     <Label Content="Catégorie : " FontSize="22" />
                     <TextBlock
                         x:Name="labCategorieProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
-                        Text="{Binding Type.Categorie.Libelle}" VerticalAlignment="Center" />
+                        FontSize="22"
+                        Text="{Binding Type.Categorie.Libelle}" />
                 </StackPanel>
                 <StackPanel x:Name="spTypeProduit" Orientation="Horizontal">
                     <Label Content="Type : " FontSize="22" />
                     <TextBlock
                         x:Name="labTypeProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
                         FontSize="22"
-                        Text="{Binding Type.Libelle}" VerticalAlignment="Center" />
+                        Text="{Binding Type.Libelle}" />
                 </StackPanel>
                 <StackPanel x:Name="spTypePointeProduit" Orientation="Horizontal">
                     <Label Content="Type pointe : " FontSize="22" />
                     <TextBlock
                         x:Name="labTypePointeProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
                         FontSize="22"
-                        Text="{Binding TypePointe.Libelle}" VerticalAlignment="Center" />
+                        Text="{Binding TypePointe.Libelle}" />
                 </StackPanel>
                 <StackPanel x:Name="spPrixProduit" Orientation="Horizontal">
                     <Label Content="Prix : " FontSize="22" />
                     <TextBlock
                         x:Name="labPrixProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
                         FontSize="22"
-                        Text="{Binding PrixVente, StringFormat={}{0:F2} €}" VerticalAlignment="Center" />
+                        Text="{Binding PrixVente, StringFormat={}{0:F2} €}" />
                 </StackPanel>
                 <StackPanel x:Name="spQuantiteProduit" Orientation="Horizontal">
                     <Label Content="Quantité en stock : " FontSize="22" />
                     <TextBlock
                         x:Name="labQuantiteProduit"
+                        VerticalAlignment="Center"
                         FontFamily="Roboto"
                         FontSize="22"
-                        Text="{Binding QuantiteStock}" VerticalAlignment="Center" />
+                        Text="{Binding QuantiteStock}" />
                 </StackPanel>
             </StackPanel>
         </Border>
