@@ -73,7 +73,6 @@
                         x:Name="labTypeProduit"
                         FontFamily="Roboto"
                         FontSize="22"
-                        FontFamily="Roboto"
                         Text="{Binding Type.Libelle}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel x:Name="spTypePointeProduit" Orientation="Horizontal">
@@ -82,7 +81,6 @@
                         x:Name="labTypePointeProduit"
                         FontFamily="Roboto"
                         FontSize="22"
-                        FontFamily="Roboto"
                         Text="{Binding TypePointe.Libelle}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel x:Name="spPrixProduit" Orientation="Horizontal">
@@ -91,7 +89,6 @@
                         x:Name="labPrixProduit"
                         FontFamily="Roboto"
                         FontSize="22"
-                        FontFamily="Roboto"
                         Text="{Binding PrixVente, StringFormat={}{0:F2} €}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel x:Name="spQuantiteProduit" Orientation="Horizontal">
@@ -100,7 +97,6 @@
                         x:Name="labQuantiteProduit"
                         FontFamily="Roboto"
                         FontSize="22"
-                        FontFamily="Roboto"
                         Text="{Binding QuantiteStock}" VerticalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
