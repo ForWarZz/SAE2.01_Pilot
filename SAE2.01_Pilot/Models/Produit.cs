@@ -160,43 +160,28 @@ namespace SAE2._01_Pilot.Models
             Couleurs = new ObservableCollection<CouleurProduit>();
         }
 
-        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible)
+        public Produit(TypePointe typePointe, TypeProduit type, string code, string nom, decimal prixVente, int quantiteStock, ObservableCollection<CouleurProduit> couleurs, bool disponible) : this()
         {
-            Id = id;
-
             TypePointe = typePointe;
-            Type = typeProduit;
-            Code = codeProduit;
-            Nom = nomProduit;
+            Type = type;
+            Code = code;
+            Nom = nom;
             PrixVente = prixVente;
             QuantiteStock = quantiteStock;
-            Couleurs = new ObservableCollection<CouleurProduit>();
+            Couleurs = couleurs ?? new ObservableCollection<CouleurProduit>();
             Disponible = disponible;
         }
 
         public Produit(int id, TypePointe typePointe, TypeProduit type, string code, string nom, decimal prixVente, int quantiteStock, ObservableCollection<CouleurProduit> couleurs, bool disponible)
+            : this(typePointe, type, code, nom, prixVente, quantiteStock, couleurs, disponible)
         {
             Id = id;
-            TypePointe = typePointe;
-            Type = type;
-            Code = code;
-            Nom = nom;
-            PrixVente = prixVente;
-            QuantiteStock = quantiteStock;
-            Couleurs = couleurs;
-            Disponible = disponible;
         }
 
-        public Produit(TypePointe typePointe, TypeProduit type, string code, string nom, decimal prixVente, int quantiteStock, ObservableCollection<CouleurProduit> couleurs, bool disponible)
+        public Produit(int id, TypePointe typePointe, TypeProduit typeProduit, string codeProduit, string nomProduit, decimal prixVente, int quantiteStock, bool disponible)
+            : this(typePointe, typeProduit, codeProduit, nomProduit, prixVente, quantiteStock, null, disponible)
         {
-            TypePointe = typePointe;
-            Type = type;
-            Code = code;
-            Nom = nom;
-            PrixVente = prixVente;
-            QuantiteStock = quantiteStock;
-            Couleurs = couleurs;
-            Disponible = disponible;
+            Id = id;
         }
 
         public string CouleursString => string.Join(", ", Couleurs.Select(c => c.Libelle));

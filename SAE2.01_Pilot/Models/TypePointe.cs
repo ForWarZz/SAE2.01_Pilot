@@ -21,16 +21,6 @@ namespace SAE2._01_Pilot.Models
             Libelle = libelle;
         }
 
-        public TypePointe(int id)
-        {
-            Id = id;
-        }
-
-        public override string ToString()
-        {
-            return Libelle;
-        }
-
         public static List<TypePointe> GetAll()
         {
             List<TypePointe> typePointes = new List<TypePointe>();

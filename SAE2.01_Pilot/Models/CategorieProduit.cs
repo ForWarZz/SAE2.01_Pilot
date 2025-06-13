@@ -15,9 +15,8 @@ namespace SAE2._01_Pilot.Models
         public int Id { get; set; }
         public string Libelle { get; set; }
 
-        public CategorieProduit(int id, string libelle)
+        public CategorieProduit(int id, string libelle) : this(id)
         {
-            Id = id;
             Libelle = libelle;
         }
 

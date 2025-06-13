@@ -16,22 +16,15 @@ namespace SAE2._01_Pilot.Models
         public string Libelle { get; set; }
         public CategorieProduit Categorie { get; set; }
 
-        public TypeProduit(int id, string libelle, CategorieProduit categorie)
-        {
-            Id = id;
-            Libelle = libelle;
-            Categorie = categorie;
-        }
-
         public TypeProduit(int id, string libelle)
         {
             Id = id;
             Libelle = libelle;
         }
 
-        public override string ToString()
+        public TypeProduit(int id, string libelle, CategorieProduit categorie) : this(id, libelle)
         {
-            return Libelle;
+            Categorie = categorie;
         }
 
         public static List<TypeProduit> GetAll(List<CategorieProduit> categorieProduits)

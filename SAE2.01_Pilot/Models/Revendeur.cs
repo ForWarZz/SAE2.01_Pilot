@@ -46,27 +46,29 @@ namespace SAE2._01_Pilot.Models
             }
         }
 
-        public Revendeur(string raisonSociale, Adresse adresse)
-        {
-            RaisonSociale = raisonSociale;
-            Adresse = adresse;
-        }
-
-        public Revendeur(int id, string raisonSociale, Adresse adresse) :
-            this(raisonSociale, adresse)
-        {
-            Id = id;
-        }
-
-        public Revendeur(int id, string raisonSociale)
-        {
-            Id = id;
-            RaisonSociale = raisonSociale;
-        }
-
         public Revendeur()
         {
             Adresse = new Adresse();
+        }
+
+        public Revendeur(string raisonSociale) : this()
+        {
+            RaisonSociale = raisonSociale;
+        }
+
+        public Revendeur(string raisonSociale, Adresse adresse) : this(raisonSociale)
+        {
+            Adresse = adresse;
+        }
+
+        public Revendeur(int id, string raisonSociale, Adresse adresse) : this(raisonSociale, adresse)
+        {
+            Id = id;
+        }
+
+        public Revendeur(int id, string raisonSociale) : this(raisonSociale)
+        {
+            Id = id;
         }
 
         public static ObservableCollection<Revendeur> GetAll()
