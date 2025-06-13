@@ -97,6 +97,9 @@ namespace SAE2._01_Pilot
             {
                 ChangerStyleMenu(miCommandes);
                 ccMain.Content = new UserControls.UCCommandes();
+
+                miCommandes.Visibility = Visibility.Visible;
+                miRevendeurs.Visibility = Visibility.Visible;
             }
         }
 
