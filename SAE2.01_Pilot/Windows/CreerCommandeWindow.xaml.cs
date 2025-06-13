@@ -80,8 +80,6 @@ namespace SAE2._01_Pilot.Windows
                 return;
 
             nouvelleCommande.EmployeId = Core.Instance.EmployeConnecte.Id;
-            nouvelleCommande.Create();
-
             DialogResult = true;
         }
 
