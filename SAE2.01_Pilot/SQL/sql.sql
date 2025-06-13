@@ -7,7 +7,7 @@
 -- 1. Drop the *test schema* completely. This removes all tables inside it.
 -- This is the most reliable way to ensure a clean slate.
 DROP SCHEMA IF EXISTS test CASCADE;
-CREATE SCHEMA test;
+CREATE SCHEMA test AUTHORIZATION benardax;
 SET search_path TO test;
 
 -- ==============================================================

@@ -8,7 +8,8 @@ namespace TD3_BindingBDPension.Model
 {
     public class DataAccess
     {
-        private static readonly DataAccess instance = new DataAccess();
+        private static readonly DataAccess instance = new DataAccess(); 
+
         private string connectionString;
 
         public static readonly string PROD_SCHEMA = "prod";
@@ -16,8 +17,8 @@ namespace TD3_BindingBDPension.Model
 
         private static readonly string TEST_SQL_PATH = "SQL/sql.sql";
 
-        public static readonly string TEST_LOGIN = "battigm";
-        private static readonly string TEST_PASSWORD = "123";
+        public static readonly string TEST_LOGIN = "benardax";
+        private static readonly string TEST_PASSWORD = "E3ES16";
 
         public static DataAccess Instance
         {
@@ -29,7 +30,7 @@ namespace TD3_BindingBDPension.Model
 
         public void SetCredentials(string username, string password, string schema)
         {
-            connectionString = $"Host=localhost;Port=5432;Username={username};Password={password};Database=sae201;Options='-c search_path={schema}'";
+            connectionString = $"Host=srv-peda-new.iut-acy.local;Port=5433;Username={username};Password={password};Database=sae_pilot;Options='-c search_path={schema}'";
         }
 
         // Pour récupérer une NOUVELLE connexion ouverte
