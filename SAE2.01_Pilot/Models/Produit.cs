@@ -123,11 +123,6 @@ namespace SAE2._01_Pilot.Models
                     throw new ArgumentException("La liste des couleurs ne peut pas être vide.");
                 }
 
-                foreach (CouleurProduit c in value)
-                {
-                    Console.WriteLine("LISTE COULEUR SET : " + c.Libelle);
-                }
-
                 couleurs = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Couleurs)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CouleursString)));

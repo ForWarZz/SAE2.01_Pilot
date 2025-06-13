@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Pilot.Models;
+using SAE2._01_Pilot.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -92,10 +93,6 @@ namespace SAE2._01_Pilot.Utils
                 RefreshProduits();
 
                 Commandes = Commande.GetFromEmploye(ModeTransports, Revendeurs, Produits, EmployeConnecte);
-                foreach (Commande cmd in Commandes)
-                {
-                    Console.WriteLine(cmd);
-                }
             }
             catch (Exception ex)
             {
@@ -105,17 +102,23 @@ namespace SAE2._01_Pilot.Utils
 
         public static void MessageBoxErreur(string message)
         {
-            MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            /*MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);*/
+            PopUp popUp = new PopUp(PopUp.TypePopUp.Succes, "Erreur", message);
+            popUp.ShowDialog();
         }
 
         public static void MessageBoxSucces(string message)
         {
-            MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+  /*          MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);*/
+            PopUp popUp = new PopUp(PopUp.TypePopUp.Succes, "Succès", message);
+            popUp.ShowDialog();
         }
 
         public static bool MessageBoxConfirmation(string message)
         {
-            return MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+            /*return MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;*/
+            PopUp popUp = new PopUp(PopUp.TypePopUp.Confirmation, "Confirmation", message);
+            return (popUp.ShowDialog() ?? false) == true;
         }
 
         public static bool ValiderFormulaire(DependencyObject container)

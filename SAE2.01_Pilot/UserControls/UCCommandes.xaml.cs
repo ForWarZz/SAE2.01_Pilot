@@ -207,11 +207,6 @@ namespace SAE2._01_Pilot.UserControls
         {
             if (cbTypeDateFiltre.SelectedItem is ComboBoxItem selectedItem)
             {
-                Console.WriteLine($"Type de filtre sélectionné : {selectedItem.Tag}");
-                Console.WriteLine(dpDateFiltreFin);
-                Console.WriteLine(dpDateFiltre);
-                Console.WriteLine(dateDebutFiltre);
-
                 string tag = selectedItem.Tag?.ToString() ?? "aucun";
                 typeFiltreDateActuel = tag;
 

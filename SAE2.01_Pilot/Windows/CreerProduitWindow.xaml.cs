@@ -40,12 +40,6 @@ namespace SAE2._01_Pilot.Windows
 
             if (action == Action.Modifier)
             {
-                Console.WriteLine("Modification d'un produit");
-                Console.WriteLine($"Produit sélectionné : {nouveauProduit.Code} ({nouveauProduit.Id})");
-                Console.WriteLine($"Type de produit : {nouveauProduit.Type.Libelle}");
-                Console.WriteLine($"Type de pointe : {nouveauProduit.TypePointe.Libelle}");
-                Console.WriteLine($"Couleur : {nouveauProduit.Couleurs.Count}");
-
                 foreach (CouleurProduit couleur in nouveauProduit.Couleurs)
                 {
                     Console.WriteLine($"Couleur sélectionnée : {couleur.Libelle}");
