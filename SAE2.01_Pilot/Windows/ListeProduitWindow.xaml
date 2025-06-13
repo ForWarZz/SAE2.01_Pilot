@@ -11,9 +11,16 @@
     Height="834"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <StackPanel x:Name="spMainWindow">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
         <DockPanel
             x:Name="spTop"
+            Grid.Row="0"
             Height="72"
             Background="#FF005EA5">
             <Image
@@ -32,6 +39,6 @@
                 Foreground="White"
                 Text="Connecté au système central" />
         </DockPanel>
-        <uc:UCProduits x:Name="ucProduits" />
-    </StackPanel>
+        <uc:UCProduits x:Name="ucProduits" Grid.Row="1" />
+    </Grid>
 </Window>
