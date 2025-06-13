@@ -9,6 +9,7 @@
     Title="Modifier date livraison"
     Width="690"
     Height="339"
+    Icon="pack://application:,,,/Images/pilot.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -48,9 +49,9 @@
                     x:Name="txtTitre"
                     Margin="0,0,0,25"
                     HorizontalAlignment="Center"
+                    FontFamily="Roboto"
                     FontSize="28"
                     FontWeight="Medium"
-                    FontFamily="Roboto"
                     Text="Modifier date de livraison" />
 
                 <Label Content="_Date de livraison" Target="{Binding ElementName=inputCodeProduit}" />

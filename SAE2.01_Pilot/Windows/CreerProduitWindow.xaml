@@ -8,6 +8,7 @@
     Title="Créer un produit"
     Width="690"
     Height="787"
+    Icon="pack://application:,,,/Images/pilot.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
@@ -43,9 +44,9 @@
                     x:Name="txtTitre"
                     Margin="0,0,0,25"
                     HorizontalAlignment="Center"
+                    FontFamily="Roboto"
                     FontSize="28"
                     FontWeight="Medium"
-                    FontFamily="Roboto"
                     Text="Créer un produit" />
 
                 <Label Content="_Code produit" Target="{Binding ElementName=inputCodeProduit}" />

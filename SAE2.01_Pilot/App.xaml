@@ -5,7 +5,6 @@
     xmlns:local="clr-namespace:SAE2._01_Pilot"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-
         <Style x:Key="MenuItemStyle" TargetType="MenuItem">
             <Setter Property="FontFamily" Value="Roboto" />
             <Setter Property="FontSize" Value="16" />

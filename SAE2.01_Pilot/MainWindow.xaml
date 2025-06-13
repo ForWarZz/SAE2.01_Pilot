@@ -9,6 +9,7 @@
     Title="Pilot Corporation"
     Width="1194"
     Height="834"
+    Icon="pack://application:,,,/Images/pilot.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -38,7 +39,10 @@
                 FontSize="16"
                 Foreground="White"
                 Text="Connecté au système central" />
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -50,7 +54,12 @@
                     <Run Text="-" />
                     <Run Text="{Binding Role.Libelle}" />
                 </TextBlock>
-                <Button Content="Déconnexion" HorizontalAlignment="Right" Style="{StaticResource LogoutButtonStyle}" Margin="20,0,0,0" Click="Button_Click"/>
+                <Button
+                    Margin="20,0,0,0"
+                    HorizontalAlignment="Right"
+                    Click="Button_Click"
+                    Content="Déconnexion"
+                    Style="{StaticResource LogoutButtonStyle}" />
             </StackPanel>
         </DockPanel>
 

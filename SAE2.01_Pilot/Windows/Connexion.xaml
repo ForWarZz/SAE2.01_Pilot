@@ -10,6 +10,7 @@
     Height="700"
     MinWidth="500"
     MinHeight="600"
+    Icon="pack://application:,,,/Images/pilot.ico"
     ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

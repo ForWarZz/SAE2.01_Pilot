@@ -8,6 +8,7 @@
     Title="Créer une commande"
     Width="690"
     Height="825"
+    Icon="pack://application:,,,/Images/pilot.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">

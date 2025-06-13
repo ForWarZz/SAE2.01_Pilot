@@ -10,6 +10,7 @@
     Height="200"
     AllowsTransparency="True"
     Background="White"
+    Icon="pack://application:,,,/Images/pilot.ico"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -56,14 +57,28 @@
                     Foreground="White" />
             </Grid>
 
-            <DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="378">
-                <Image x:Name="ImgagePopUp" Width="64" HorizontalAlignment="Left" />
-                <TextBlock x:Name="tbMessage" VerticalAlignment="Center" FontFamily="Roboto" FontSize="14" Margin="10,0,0,0" TextWrapping="Wrap" />
+            <DockPanel
+                Grid.Row="1"
+                Width="378"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Image
+                    x:Name="ImgagePopUp"
+                    Width="64"
+                    HorizontalAlignment="Left" />
+                <TextBlock
+                    x:Name="tbMessage"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="Roboto"
+                    FontSize="14"
+                    TextWrapping="Wrap" />
             </DockPanel>
             <StackPanel
                 Grid.Row="2"
+                Margin="0,0,15,10"
                 HorizontalAlignment="Right"
-                Orientation="Horizontal" Margin="0,0,15,10">
+                Orientation="Horizontal">
                 <Button
                     x:Name="butSecondaire"
                     Width="90"
@@ -71,17 +86,19 @@
                     Margin="0,0,10,0"
                     Padding="0,0,0,0"
                     HorizontalAlignment="Right"
+                    Click="butSecondaire_Click"
                     Content="Non"
                     FontSize="14"
-                    Style="{StaticResource SecondaryButtonStyle}" Click="butSecondaire_Click" />
+                    Style="{StaticResource SecondaryButtonStyle}" />
                 <Button
                     x:Name="butPrincipale"
                     Width="90"
                     Height="30"
                     Padding="0,0,0,0"
+                    Click="butPrincipale_Click"
                     Content="Oui"
                     FontSize="14"
-                    Style="{StaticResource PrimaryButtonStyle}" Click="butPrincipale_Click" />
+                    Style="{StaticResource PrimaryButtonStyle}" />
             </StackPanel>
         </Grid>
     </Border>

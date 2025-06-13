@@ -8,6 +8,7 @@
     Title="Créer un revendeur"
     Width="690"
     Height="835"
+    Icon="pack://application:,,,/Images/pilot.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid x:Name="spMainWindow">
@@ -46,9 +47,9 @@
                 Margin="0,0,0,50"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                FontFamily="Roboto"
                 FontSize="32"
                 FontWeight="Medium"
-                FontFamily="Roboto"
                 Text="Créer un revendeur" />
 
             <Label Content="R_aison sociale" Target="{Binding ElementName=inputRaisonSociale}" />
