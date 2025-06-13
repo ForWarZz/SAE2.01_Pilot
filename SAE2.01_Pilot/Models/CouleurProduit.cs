@@ -22,11 +22,6 @@ namespace SAE2._01_Pilot.Models
             Libelle = libelle;
         }
 
-        public override string ToString()
-        {
-            return Libelle;
-        }
-
         public static List<CouleurProduit> GetAll()
         {
             List<CouleurProduit> couleurProduits = new List<CouleurProduit>();

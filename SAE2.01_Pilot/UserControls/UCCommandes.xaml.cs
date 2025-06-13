@@ -256,5 +256,26 @@ namespace SAE2._01_Pilot.UserControls
             dateFinFiltre = dpDateFiltreFin.SelectedDate;
             commandesView.Refresh();
         }
+
+        private void butSupprCommande_Click(object sender, RoutedEventArgs e)
+        {
+            Commande? commande = dgCommandes.SelectedItem as Commande;
+            if (commande == null)
+                return;
+
+            if (!Core.MessageBoxConfirmation("Voulez-vous vraiment supprimer cette commande ?"))
+                return;
+
+            try
+            {
+                commande.Delete();
+                Core.Instance.Commandes.Remove(commande);
+
+                Core.MessageBoxSucces("La commande à bien été supprimée.");
+            } catch (Exception ex)
+            {
+                Core.MessageBoxErreur($"Une erreur est survenue lors de la suppression de la commande : {ex.Message}");
+            }
+        }
     }
 }

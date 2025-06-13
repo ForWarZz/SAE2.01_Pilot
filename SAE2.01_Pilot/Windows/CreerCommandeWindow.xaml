@@ -37,15 +37,15 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel
                 x:Name="spFormulaire"
-                Margin="50,30,50,30"
+                Margin="30,30,30,30"
                 VerticalAlignment="Center">
                 <TextBlock
                     x:Name="txtTitre"
                     Margin="0,0,0,30"
                     HorizontalAlignment="Center"
+                    FontFamily="Roboto"
                     FontSize="32"
                     FontWeight="Medium"
-                    FontFamily="Roboto"
                     Text="Créer une commande" />
 
                 <Label Content="_Revendeur" Target="{Binding ElementName=btnSelectRevendeur}" />
@@ -107,8 +107,7 @@
                     x:Name="dgLignesCommande"
                     Height="200"
                     Margin="0,0,0,20"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False"
+                    IsReadOnly="False"
                     RowHeight="60">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -118,16 +117,20 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Produit.Nom}"
-                            Header="Nom produit" />
+                            Header="Nom produit"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding Produit.PrixVente}"
+                            Binding="{Binding Produit.PrixVente, ValidatesOnDataErrors=True}"
                             Header="Prix" />
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding Quantite}"
+                            Binding="{Binding Quantite, ValidatesOnDataErrors=True}"
                             Header="Quantité" />
-                        <DataGridTemplateColumn Width="*" Header="Supprimer">
+                        <DataGridTemplateColumn
+                            Width="*"
+                            Header="Supprimer"
+                            IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button

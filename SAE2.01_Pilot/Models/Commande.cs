@@ -27,31 +27,26 @@ namespace SAE2._01_Pilot.Models
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
-        {
-            Id = id;
-            ModeTransport = modeTransport;
-            Revendeur = revendeur;
-            EmployeId = employeId;
-            LigneCommandes = new ObservableCollection<LigneCommande>();
-            DateCreation = dateCommande;
-            DateLivraison = dateLivraison;
-        }
-
-        public Commande(ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
-        {
-            ModeTransport = modeTransport;
-            Revendeur = revendeur;
-            EmployeId = employeId;
-            LigneCommandes = new ObservableCollection<LigneCommande>();
-            DateCreation = dateCommande;
-            DateLivraison = dateLivraison;
-        }
-
         public Commande()
         {
             DateCreation = DateTime.Now;
             LigneCommandes = new ObservableCollection<LigneCommande>();
+        }
+
+        public Commande(ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
+            : this()
+        {
+            ModeTransport = modeTransport;
+            Revendeur = revendeur;
+            EmployeId = employeId;
+            DateCreation = dateCommande;
+            DateLivraison = dateLivraison;
+        }
+
+        public Commande(int id, ModeTransport modeTransport, Revendeur revendeur, int employeId, DateTime dateCommande, DateTime? dateLivraison)
+            : this(modeTransport, revendeur, employeId, dateCommande, dateLivraison)
+        {
+            Id = id;
         }
 
         public decimal PrixTotal

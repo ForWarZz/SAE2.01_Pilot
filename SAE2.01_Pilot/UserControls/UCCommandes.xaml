@@ -167,7 +167,7 @@
                         Width="150"
                         Margin="0,0,15,0"
                         Content="Supprimer"
-                        Style="{StaticResource SupprButtonStyle}" />
+                        Style="{StaticResource SupprButtonStyle}" Click="butSupprCommande_Click" />
                 </StackPanel>
 
                 <Button
