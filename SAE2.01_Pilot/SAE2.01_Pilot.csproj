@@ -11,7 +11,9 @@
 
   <ItemGroup>
     <None Remove="Fonts\Roboto.ttf" />
+    <None Remove="Images\erreur.png" />
     <None Remove="Images\pilot.png" />
+    <None Remove="Images\valider.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +22,13 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Roboto.ttf" />
+    <Resource Include="Images\erreur.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\pilot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\valider.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

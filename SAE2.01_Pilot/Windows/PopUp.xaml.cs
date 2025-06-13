@@ -19,9 +19,43 @@ namespace SAE2._01_Pilot.Windows
     /// </summary>
     public partial class PopUp : Window
     {
-        public PopUp()
+
+        public enum TypePopUp
+        {
+            Confirmation,
+            Succes,
+            Erreur
+        }
+        private TypePopUp type;
+        private string messagePopUp;
+        private string titrePopUp;
+
+        public TypePopUp Type { get => type; set => type = value; }
+        public string MessagePopUp { get => messagePopUp; set => messagePopUp = value; }
+        public string TitlePopUp { get => titrePopUp; set => titrePopUp = value; }
+
+        public PopUp(TypePopUp type, string titre, string message)
         {
             InitializeComponent();
+            labTitre.Content = titre;
+            tbMessage.Text = message;
+
+            if (type == TypePopUp.Confirmation)
+                ImgagePopUp.Source = new BitmapImage(new Uri("pack://application:,,,/Images/valider.png"));
+
+            else if (type == TypePopUp.Succes)
+            {
+                ImgagePopUp.Source = new BitmapImage(new Uri("pack://application:,,,/Images/valider.png"));
+                butSecondaire.Visibility = Visibility.Collapsed;
+                butPrincipale.Content = "OK";
+            }
+            else
+            {
+                ImgagePopUp.Source = new BitmapImage(new Uri("pack://application:,,,/Images/erreur.png"));
+                butSecondaire.Visibility = Visibility.Collapsed;
+                butPrincipale.Content = "OK";
+            }
+
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -32,6 +66,16 @@ namespace SAE2._01_Pilot.Windows
         {
             if (e.ButtonState == MouseButtonState.Pressed)
                 DragMove();
+        }
+
+        private void butPrincipale_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void butSecondaire_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }
