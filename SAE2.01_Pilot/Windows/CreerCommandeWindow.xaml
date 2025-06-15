@@ -114,6 +114,7 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Produit.Code}"
+                            IsReadOnly="True"
                             Header="Code produit" />
                         <DataGridTextColumn
                             Width="*"
@@ -123,7 +124,8 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Produit.PrixVente, ValidatesOnDataErrors=True}"
-                            Header="Prix" />
+                            Header="Prix"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Quantite, ValidatesOnDataErrors=True}"
