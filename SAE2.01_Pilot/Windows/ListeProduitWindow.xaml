@@ -13,7 +13,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -40,6 +40,5 @@
                 Foreground="White"
                 Text="Connecté au système central" />
         </DockPanel>
-        <uc:UCProduits x:Name="ucProduits" Grid.Row="1" />
     </Grid>
 </Window>

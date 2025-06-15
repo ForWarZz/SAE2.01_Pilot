@@ -431,5 +431,11 @@ namespace SAE2._01_Pilot.Models
         {
             throw new NotImplementedException();
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Produit produit &&
+                   Id == produit.Id;
+        }
     }
 }

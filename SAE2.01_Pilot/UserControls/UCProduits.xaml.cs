@@ -25,13 +25,17 @@ namespace SAE2._01_Pilot.UserControls
     public partial class UCProduits : UserControl
     {
         private ListCollectionView produitView;
-        private bool filtrerDisponible;
 
-        public UCProduits()
+        private bool filtrerDisponible;
+        private List<Produit>? filtreProduitNonSelect;
+
+        public UCProduits(List<Produit>? filtreProduitNonSelect)
         {
             InitializeComponent();
 
             filtrerDisponible = false;
+            this.filtreProduitNonSelect = filtreProduitNonSelect;
+
             Loaded += UCProduits_Loaded;
 
             ChargerProduits();
@@ -91,7 +95,13 @@ namespace SAE2._01_Pilot.UserControls
         {
             Core.Instance.RefreshProduits();
 
-            produitView = new ListCollectionView(Core.Instance.Produits);
+            produitView = new ListCollectionView(
+                (filtreProduitNonSelect != null
+                    ? Core.Instance.Produits.Where(p => !filtreProduitNonSelect.Contains(p))
+                    : Core.Instance.Produits
+                ).ToList()
+            );
+
             produitView.Filter = FiltrerProduits;
 
             dgProduits.ItemsSource = produitView;

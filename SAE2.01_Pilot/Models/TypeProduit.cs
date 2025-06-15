@@ -45,5 +45,11 @@ namespace SAE2._01_Pilot.Models
 
             return typeProduits;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TypeProduit produit &&
+                   Id == produit.Id;
+        }
     }
 }

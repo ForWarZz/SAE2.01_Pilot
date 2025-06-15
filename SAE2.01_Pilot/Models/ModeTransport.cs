@@ -46,5 +46,11 @@ namespace SAE2._01_Pilot.Models
 
             return modesTransport;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ModeTransport transport &&
+                   Id == transport.Id;
+        }
     }
 }

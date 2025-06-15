@@ -347,5 +347,11 @@ namespace SAE2._01_Pilot.Models
                 throw;
             }
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Commande commande &&
+                   Id == commande.Id;
+        }
     }
 }

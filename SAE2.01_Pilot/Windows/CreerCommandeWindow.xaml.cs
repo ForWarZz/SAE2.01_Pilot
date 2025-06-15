@@ -99,13 +99,13 @@ namespace SAE2._01_Pilot.Windows
 
         private void btnSelectProduit_Click(object sender, RoutedEventArgs e)
         {
-            ListeProduitWindow listeProduitsWindow = new ListeProduitWindow();
+            ListeProduitWindow listeProduitsWindow = new ListeProduitWindow(nouvelleCommande.LigneCommandes);
             bool dialogResult = listeProduitsWindow.ShowDialog() ?? false;
 
             if (!dialogResult)
                 return;
 
-            Produit? produit = listeProduitsWindow.ucProduits.dgProduits.SelectedItem as Produit;
+            Produit? produit = listeProduitsWindow.UCProduit.dgProduits.SelectedItem as Produit;
 
             ligneCommandeCourante.Produit = produit;
             btnSelectProduit.Content = produit.Nom;

@@ -43,5 +43,11 @@ namespace SAE2._01_Pilot.Models
             return couleurProduits;
 
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CouleurProduit produit &&
+                   Id == produit.Id;
+        }
     }
 }

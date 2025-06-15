@@ -2,6 +2,7 @@
 using SAE2._01_Pilot.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +22,25 @@ namespace SAE2._01_Pilot.Windows
     /// </summary>
     public partial class ListeProduitWindow : Window
     {
-        public ListeProduitWindow()
+        public UCProduits UCProduit { get; private set; }
+
+        public ListeProduitWindow(ObservableCollection<LigneCommande> ligneCommandesActuelles)
         {
             InitializeComponent();
 
-            ucProduits.dgProduits.MouseDoubleClick += dgProduit_MouseDoubleClick;
-            ucProduits.dgProduits.SelectionChanged += dgProduit_SelectionChanged;
-            ucProduits.butAddProduit.Click += butAddProduit;
+            UCProduit = new UCProduits(ligneCommandesActuelles
+                .Select(lc => lc.Produit)
+                .ToList());
 
-            ucProduits.butAddProduit.Visibility = Visibility.Hidden;
-            ucProduits.butAddProduit.Content = "Valider";
+            Grid.SetRow(UCProduit, 1);
+            grid.Children.Add(UCProduit);
+
+            UCProduit.dgProduits.MouseDoubleClick += dgProduit_MouseDoubleClick;
+            UCProduit.dgProduits.SelectionChanged += dgProduit_SelectionChanged;
+            UCProduit.butAddProduit.Click += butAddProduit;
+
+            UCProduit.butAddProduit.Visibility = Visibility.Hidden;
+            UCProduit.butAddProduit.Content = "Valider";
         }
 
         private void dgProduit_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -40,10 +50,10 @@ namespace SAE2._01_Pilot.Windows
 
         private void dgProduit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ucProduits.dgProduits.SelectedItem is not Produit)
+            if (UCProduit.dgProduits.SelectedItem is not Produit)
                 return;
 
-            ucProduits.butAddProduit.Visibility = Visibility.Visible;
+            UCProduit.butAddProduit.Visibility = Visibility.Visible;
         }
 
         private void butAddProduit(object sender, RoutedEventArgs e)

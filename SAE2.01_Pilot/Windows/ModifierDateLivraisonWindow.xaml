@@ -54,8 +54,8 @@
                     FontWeight="Medium"
                     Text="Modifier date de livraison" />
 
-                <Label Content="_Date de livraison" Target="{Binding ElementName=inputCodeProduit}" />
-                <DatePicker x:Name="dpLivraison" SelectedDate="{Binding DateLivraison, Converter={StaticResource DateConverter}, ValidatesOnExceptions=True}" />
+                <Label Content="_Date de livraison" Target="{Binding ElementName=inputCodeProduit}" HorizontalAlignment="Center" />
+                <DatePicker x:Name="dpLivraison" SelectedDate="{Binding DateLivraison, Converter={StaticResource DateConverter}, ValidatesOnExceptions=True}" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                 <Button
                     x:Name="btnModifier"

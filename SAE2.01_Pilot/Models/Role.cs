@@ -16,5 +16,11 @@ namespace SAE2._01_Pilot.Models
             Id = id;
             Libelle = libelle;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Role role &&
+                   Id == role.Id;
+        }
     }
 }

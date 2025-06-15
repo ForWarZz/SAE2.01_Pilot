@@ -194,5 +194,11 @@ namespace SAE2._01_Pilot.Models
         {
             throw new NotImplementedException("Method not implemented");
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Revendeur revendeur &&
+                   Id == revendeur.Id;
+        }
     }
 }

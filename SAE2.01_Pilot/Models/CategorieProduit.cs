@@ -50,5 +50,11 @@ namespace SAE2._01_Pilot.Models
 
             return categories;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CategorieProduit categorie &&
+                   Id == categorie.Id;
+        }
     }
 }

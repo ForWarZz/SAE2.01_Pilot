@@ -47,7 +47,7 @@ namespace SAE2._01_Pilot
         private void miProduits_Click(object sender, RoutedEventArgs e)
         {
             ChangerStyleMenu(sender);
-            ccMain.Content = new UserControls.UCProduits();
+            ccMain.Content = new UserControls.UCProduits(null);
         }
 
         private void ChangerStyleMenu(object sender)
@@ -88,7 +88,7 @@ namespace SAE2._01_Pilot
             if (EmployeConnecte.EstResponsableProduction)
             {
                 ChangerStyleMenu(miProduits);
-                ccMain.Content = new UserControls.UCProduits();
+                ccMain.Content = new UserControls.UCProduits(null);
 
                 miCommandes.Visibility = Visibility.Collapsed;
                 miRevendeurs.Visibility = Visibility.Collapsed;

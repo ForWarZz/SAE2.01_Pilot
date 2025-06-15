@@ -38,5 +38,11 @@ namespace SAE2._01_Pilot.Models
 
             return typePointes;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TypePointe pointe &&
+                   Id == pointe.Id;
+        }
     }
 }
