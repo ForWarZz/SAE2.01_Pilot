@@ -103,7 +103,7 @@ namespace SAE2._01_Pilot.Utils
         public static void MessageBoxErreur(string message)
         {
             /*MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);*/
-            PopUp popUp = new PopUp(PopUp.TypePopUp.Succes, "Erreur", message);
+            PopUp popUp = new PopUp(PopUp.TypePopUp.Erreur, "Erreur", message);
             popUp.ShowDialog();
         }
 
