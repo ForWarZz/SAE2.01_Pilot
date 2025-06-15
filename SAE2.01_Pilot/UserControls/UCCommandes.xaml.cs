@@ -199,6 +199,7 @@ namespace SAE2._01_Pilot.UserControls
                 Core.MessageBoxSucces("La date de livraison à bien été appliquée.");
             } catch (Exception ex)
             {
+                ChargerCommandes();
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la modification de la commande : {ex.Message}");
             }
         }

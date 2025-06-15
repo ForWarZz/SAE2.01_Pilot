@@ -245,6 +245,7 @@ namespace SAE2._01_Pilot.UserControls
                 Core.MessageBoxSucces("Le produit a été modifié avec succès.");
             } catch (Exception ex)
             {
+                ChargerProduits();
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la modification du produit : {ex.Message}");
             }
         }

@@ -112,6 +112,7 @@ namespace SAE2._01_Pilot.UserControls
             }
             catch (Exception ex)
             {
+                ChargerRevendeurs();
                 Core.MessageBoxErreur($"Une erreur est survenue lors de la modification du revendeur : {ex.Message}");
             }
         }
